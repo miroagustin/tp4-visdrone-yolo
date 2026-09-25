@@ -1,6 +1,7 @@
 """HTML autónomo del recorrido PRESENTACIÓN; su fuente es el notebook."""
 import copy
 import html
+import re
 from pathlib import Path
 
 import mistune
@@ -11,6 +12,11 @@ from jupyter_client.kernelspec import KernelSpecManager
 
 def export(root: Path, run=None, output=None):
     root = Path(root).resolve()
+    from .notebook_view import context
+    snapshot = context(root, run, final_only=True)
+    run = snapshot["run"]
+    model = Path(snapshot["info"]["settings"]["model"]).stem if snapshot["info"] else "YOLO"
+    profile = f"{model} · VisDrone"
     source = nbformat.read(root / "notebooks" / "01_visdrone_yolo.ipynb", as_version=4)
     selected = copy.deepcopy(source)
     selected.cells = [c for c in selected.cells if "presentation" in c.metadata.get("tags", [])]
@@ -27,7 +33,9 @@ def export(root: Path, run=None, output=None):
     sections = []
     for cell in selected.cells:
         if cell.cell_type == "markdown":
-            sections.append(markdown(cell.source))
+            content = cell.source.replace(" · PRESENTACIÓN", "")
+            content = re.sub(r"^(#{1,3}) \d+\. ", r"\1 ", content, flags=re.MULTILINE)
+            sections.append(markdown(content))
         else:
             for item in cell.outputs:
                 data = item.get("data", {})
@@ -43,10 +51,10 @@ def export(root: Path, run=None, output=None):
                     rendered = f'<pre>{html.escape(data.get("text/plain", ""))}</pre>'
                 sections[-1] += rendered
     total = len(sections)
-    slides = "".join(f'<section id="s{i}">{body}<footer>{i} / {total}</footer></section>' for i, body in enumerate(sections, 1))
+    slides = "".join(f'<section id="s{i}">{body}<footer>TP4 · {html.escape(profile)} · {i} / {total}</footer></section>' for i, body in enumerate(sections, 1))
     page = """<!doctype html><html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TP4 · VisDrone y YOLO11n · Presentación académica</title>
+<title>TP4 · VisDrone y YOLO · Presentación académica</title>
 <style>
 *{box-sizing:border-box}html{scroll-snap-type:y proximity}body{margin:0;background:#101c2d;color:#edf2f8;font-family:Arial,sans-serif}
 section{min-height:100vh;position:relative;padding:3.5vh 6vw 5vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;gap:.15rem}

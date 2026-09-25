@@ -15,6 +15,8 @@ def main():
     train.add_argument("--batch", type=int)
     train.add_argument("--imgsz", type=int)
     train.add_argument("--resume", type=Path)
+    train.add_argument("--yolo26", action=argparse.BooleanOptionalAction, default=None,
+                       help="Usar YOLO26n; --no-yolo26 selecciona YOLO11n. Sin flag: config.yaml.")
     test = sub.add_parser("test")
     test.add_argument("run", type=Path)
     analyze = sub.add_parser("analyze")
@@ -32,7 +34,7 @@ def main():
         print(json.dumps({k: {"images": v["images"], "rows": v["rows"]} for k, v in result.items()}, indent=2))
     elif args.command == "train":
         from .experiment import train as run_train
-        print(run_train(root, args.profile, batch=args.batch, imgsz=args.imgsz, resume=args.resume))
+        print(run_train(root, args.profile, batch=args.batch, imgsz=args.imgsz, use_yolo26=args.yolo26, resume=args.resume))
     elif args.command == "test":
         from .experiment import evaluate_test
         print(json.dumps(evaluate_test(args.run.resolve(), root / "data" / "visdrone.yaml"), indent=2))

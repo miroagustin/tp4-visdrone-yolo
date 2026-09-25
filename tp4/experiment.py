@@ -21,13 +21,18 @@ def load_config(root: Path | None = None) -> dict:
     return yaml.safe_load((root / "config.yaml").read_text(encoding="utf-8"))
 
 
-def resolve(root: Path, profile: str, *, batch: int | None = None, imgsz: int | None = None) -> dict:
+def resolve(root: Path, profile: str, *, batch: int | None = None, imgsz: int | None = None, use_yolo26: bool | None = None) -> dict:
     config = load_config(root)
     if profile not in ("smoke", "full", "presentation"):
         raise ValueError(profile)
     data_dir = (root / config["data_dir"]).resolve()
     runs_dir = (root / config["runs_dir"]).resolve()
     result = {**config, **config["profiles"][profile], "profile": profile, "data_dir": str(data_dir), "runs_dir": str(runs_dir)}
+    selected = config.get("use_yolo26", True) if use_yolo26 is None else use_yolo26
+    if not isinstance(selected, bool):
+        raise ValueError("use_yolo26 debe ser true o false")
+    result["use_yolo26"] = selected
+    result["model"] = "yolo26n.pt" if selected else "yolo11n.pt"
     if batch is not None:
         result["batch"] = batch
     if imgsz is not None:
@@ -38,6 +43,22 @@ def resolve(root: Path, profile: str, *, batch: int | None = None, imgsz: int | 
     elif profile == "full":
         result["data_yaml"] = str(data_dir / "visdrone.yaml")
     return result
+
+
+def training_settings(root: Path, profile: str, *, batch=None, imgsz=None, use_yolo26=None, resume=None):
+    """En reanudación, conservar el protocolo del run, no el nuevo predeterminado."""
+    if resume is None:
+        return resolve(root, profile, batch=batch, imgsz=imgsz, use_yolo26=use_yolo26), None
+    if any(value is not None for value in (batch, imgsz, use_yolo26)):
+        raise ValueError("--resume conserva la configuración original; no combinar con --batch, --imgsz ni flags de modelo.")
+    checkpoint = Path(resume).resolve()
+    if not checkpoint.is_file():
+        raise FileNotFoundError(checkpoint)
+    run = checkpoint.parents[2]
+    settings = json.loads((run / "run.json").read_text(encoding="utf-8"))["settings"]
+    if settings["profile"] != profile:
+        raise ValueError(f"El checkpoint pertenece al perfil {settings['profile']}, no a {profile}")
+    return settings, run
 
 
 def device_or_raise(requested="auto") -> str:
@@ -90,17 +111,15 @@ def metrics_dict(results) -> dict:
     return {"precision": float(box.mp), "recall": float(box.mr), "map50": float(box.map50), "map50_95": float(box.map), "per_class": per_class, "evaluator": "Ultralytics; no es el evaluador oficial de VisDrone"}
 
 
-def train(root: Path, profile="smoke", *, batch=None, imgsz=None, resume: Path | None = None) -> Path:
+def train(root: Path, profile="smoke", *, batch=None, imgsz=None, use_yolo26=None, resume: Path | None = None) -> Path:
+    root = root.resolve()
+    settings, resumed_run = training_settings(root, profile, batch=batch, imgsz=imgsz, use_yolo26=use_yolo26, resume=resume)
     import ultralytics.utils as ultralytics_utils
     from ultralytics import YOLO
-    root = root.resolve()
     ultralytics_utils.WEIGHTS_DIR = root / "weights"
     ultralytics_utils.WEIGHTS_DIR.mkdir(exist_ok=True)
-    settings = resolve(root, profile, batch=batch, imgsz=imgsz)
     device = device_or_raise(settings["device"])
-    path = start_run(root, profile, settings) if resume is None else resume.resolve().parents[2]
-    if resume is not None and not resume.is_file():
-        raise FileNotFoundError(resume)
+    path = resumed_run if resumed_run is not None else start_run(root, profile, settings)
     model = YOLO(str(resume) if resume else settings["model"])
     began = time.perf_counter()
     try:

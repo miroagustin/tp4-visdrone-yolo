@@ -154,34 +154,6 @@ def image_data(path: Path) -> str:
 
 
 def presentation(root: Path, run: Path | None = None, output: Path | None = None) -> Path:
-    from .experiment import latest_run
-    root = root.resolve()
-    run = run or latest_run(root, "full") or latest_run(root, "smoke")
-    info = json.loads((run / "run.json").read_text(encoding="utf-8")) if run else None
-    profile = info["settings"]["profile"].upper() if info else "SIN RESULTADOS"
-    metrics = info.get("metrics", {}) if info else {}
-    cards = "".join(f"<div class='metric'><b>{html.escape(k)}</b><strong>{v:.3f}</strong></div>" for k, v in (("Precision", metrics.get("precision", 0)), ("Recall", metrics.get("recall", 0)), ("mAP@0.5", metrics.get("map50", 0)), ("mAP@0.5:0.95", metrics.get("map50_95", 0)))) if metrics else "<p>Sin entrenamiento evaluado. Ejecutá smoke o full para completar esta sección.</p>"
-    plots = []
-    if run:
-        for name, path in (("Evolución del entrenamiento", run / "train" / "results.png"), ("Matriz de confusión", run / "validation" / "confusion_matrix.png"), ("Anotaciones reales", run / "validation" / "val_batch0_labels.jpg"), ("Predicciones", run / "validation" / "val_batch0_pred.jpg"), ("Falsos positivos y negativos", run / "error_gallery.jpg")):
-            if path.exists():
-                plots.append((name, image_data(path)))
-    audit = root / "data" / "audit.png"
-    if audit.exists():
-        plots.insert(0, ("Distribución del dataset", image_data(audit)))
-    visual_slides = "".join(f"<section><h2>{html.escape(title)}</h2><img src='{src}' alt='{html.escape(title)}'></section>" for title, src in plots)
-    warning = "<p class='warning'>PRUEBA SMOKE: estos números comprueban el pipeline; no representan el experimento final.</p>" if profile == "SMOKE" else ""
-    page = f"""<!doctype html><html lang='es'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>TP4 · YOLO en VisDrone</title><style>
-    body{{margin:0;background:#0d1727;color:#eef3fa;font-family:Arial,sans-serif}}section{{box-sizing:border-box;min-height:100vh;padding:6vh 8vw;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid #355}}h1{{font-size:5vw;margin:0 0 1rem}}h2{{font-size:3.5vw;color:#76d4e9}}p,li{{font-size:1.8vw;line-height:1.4;max-width:75ch}}.tag{{color:#ffcf73}}.warning{{background:#683a16;padding:1rem}}.metrics{{display:flex;gap:2vw}}.metric{{background:#19304a;padding:2vw;display:grid;gap:1rem;font-size:1.5vw}}.metric strong{{font-size:3vw}}img{{max-width:100%;max-height:66vh;object-fit:contain}}footer{{position:fixed;bottom:1rem;right:2rem;color:#abc}}
-    </style></head><body>
-    <section><p class='tag'>Trabajo práctico 4 · visión artificial</p><h1>Detección de personas y vehículos desde drones</h1><p>VisDrone2019-DET + YOLO11n · Integrantes: [editar]</p><p>Recorrido de 8–10 minutos. Bajá con ↓ o PageDown.</p></section>
-    <section><h2>La pregunta</h2><p>¿Cuánto puede aprender un detector pequeño, preentrenado, sobre objetos densos y diminutos vistos desde arriba?</p><p>En robótica, detectar objetos es un paso de la percepción: ubica candidatos para seguimiento, navegación y análisis de escenas.</p></section>
-    <section><h2>Datos y protocolo</h2><p>Diez clases: pedestrian, people, bicycle, car, van, truck, tricycle, awning-tricycle, bus y motor.</p><p>Particiones oficiales: 6471 train, 548 val y 1610 test-dev. Test-dev se reserva para evaluación final.</p><p>Las regiones ignoradas se excluyen; esto no reproduce por sí solo el evaluador oficial.</p></section>
-    <section><h2>Experimento · {profile}</h2>{warning}<p>Transfer learning con YOLO11n. Semilla 42. Se evalúa con Ultralytics sobre la partición indicada en el artefacto.</p><div class='metrics'>{cards}</div></section>
-    {visual_slides}
-    <section><h2>Lectura crítica</h2><p>Precision: proporción de detecciones correctas. Recall: proporción de objetos encontrados. mAP resume precisión a distintos umbrales; mAP@0.5:0.95 exige localización más precisa.</p><p>Revisar falsos positivos, falsos negativos, oclusión y objetos pequeños antes de concluir.</p></section>
-    <section><h2>Conclusión y límites</h2><p>{'Resultados preliminares de una prueba técnica: ejecutar full antes de extraer conclusiones académicas.' if profile != 'FULL' else 'Interpretar las métricas junto con la matriz y los errores visuales; reportar test-dev por separado.'}</p><p>Las métricas de Ultralytics no son el resultado oficial de VisDrone. No se comparan directamente clases COCO sin adaptación.</p></section>
-    <footer>TP4 · {profile}</footer><script>document.onkeydown=e=>{{if(['ArrowDown','PageDown','ArrowRight',' '].includes(e.key)){{e.preventDefault();window.scrollBy(0,innerHeight)}}if(['ArrowUp','PageUp','ArrowLeft'].includes(e.key)){{e.preventDefault();window.scrollBy(0,-innerHeight)}}}};</script></body></html>"""
-    output = output or root / "presentacion.html"
-    output.write_text(page, encoding="utf-8")
-    return output
+    """Exporta el recorrido del notebook desde un kernel limpio, sin entrenar."""
+    from .notebook_export import export
+    return export(root, run, output)

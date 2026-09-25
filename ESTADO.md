@@ -33,4 +33,14 @@ La caja inválida es `9999985_00000_d_0000020.txt:12`: ancho 4 y alto 0. Quedó 
 
 ## Pendiente para la entrega académica
 
-El entrenamiento full de 50 épocas y la evaluación final de test-dev **no se iniciaron**, como se pidió para esta preparación. Tampoco se ejecutó en Colab. Antes de entregar, completar integrantes, lanzar full, analizar métricas y errores de ese run, evaluar test-dev una sola vez y reemplazar las conclusiones condicionales por conclusiones sustentadas. Si se hace la comparación opcional 640/960, registrar explícitamente el batch de cada run.
+Durante la preparación inicial no se iniciaron full ni la evaluación final de test-dev. Posteriormente, el usuario informó que ya está entrenando el modelo. La revisión editorial del notebook no inicia cómputo de entrenamiento ni modifica sus datos, checkpoints o configuración. Colab sigue sin ejecución verificada. Antes de entregar, completar integrantes, finalizar full, analizar sus métricas y errores y evaluar test-dev después de fijar el modelo. Si se hace la comparación opcional 640/960, registrar explícitamente el batch de cada run.
+
+## Revisión académica del notebook
+
+Actualización editorial: el notebook se convirtió en un informe académico de entrega. Las instrucciones, guion, controles y notas de trabajo se trasladaron al README. La selección de resultados ahora acepta sólo full terminado; si falta evidencia final, las secciones conservan espacios vacíos, sin usar métricas smoke. Esta versión se ejecutó completa y se regeneró su HTML sin iniciar entrenamiento. Se comprobó que el texto visible no contiene notas de tareas futuras, comandos operativos ni cifras de smoke. Las comprobaciones descritas a continuación corresponden a la revisión anterior.
+
+Se aplicaron los criterios de la skill `jupyter-notebook`: apertura sin estado oculto, celdas enfocadas, objetivo y audiencia, ejercicio guiado, salidas compactas y conclusiones vinculadas a evidencia. Se incorporó el criterio de mensaje, evidencia y alcance de [MIT Communication Lab](https://mitcommlab.mit.edu/nse/commkit/structuring-a-slide-presentation/).
+
+El notebook incluye un guion de nueve minutos, índice con enlaces, tablas de protocolo y métricas en porcentajes, pies de figura y separación entre validación, muestra de errores y test-dev. La exposición carga sólo runs terminados. Los controles de entrenamiento, preparación y diagnóstico están desactivados por defecto y no dependen de variables de entorno antiguas.
+
+Se ejecutó el notebook completo desde un kernel nuevo en modo lectura de artefactos. El exportador ejecutó por separado únicamente las celdas PRESENTACIÓN y produjo 12 diapositivas con dos figuras embebidas; curvas, matriz y lotes completos permanecen en el notebook como respaldo. Se comprobó en Edge con red bloqueada: imágenes cargadas, sin desbordes verticales a 1440×900. Se revisaron visualmente tablas, ejemplos y conclusiones. Las capturas de esta revisión están en `data/notebook_review/`.

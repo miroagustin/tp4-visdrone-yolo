@@ -1,4 +1,4 @@
-# TP4 · YOLO11n en VisDrone2019-DET
+# TP4 · YOLO en VisDrone2019-DET
 
 Proyecto académico para detectar diez tipos de personas y vehículos en imágenes aéreas. El [notebook](notebooks/01_visdrone_yolo.ipynb) explica el proceso completo. `presentacion.html` es un recorrido autónomo de 8–10 minutos con artefactos guardados. **Un resultado smoke sólo verifica el pipeline; no demuestra calidad final.**
 
@@ -39,13 +39,40 @@ El perfil full usa 50 épocas, resolución 640, batch 4, seed 42 y workers 0. Aj
 .venv/Scripts/python.exe -m tp4.cli test runs/full/ID
 ```
 
+### Selección del modelo
+
+`use_yolo26: true` en `config.yaml` selecciona **YOLO26n preentrenado en COCO** para nuevos entrenamientos. Con `false` se usa YOLO11n, también preentrenado en COCO. Se puede sobrescribir esa elección para un run sin editar el archivo:
+
+```powershell
+.venv/Scripts/python.exe -m tp4.cli train full --yolo26
+.venv/Scripts/python.exe -m tp4.cli train full --no-yolo26
+```
+
+Sin flag se utiliza el valor de `config.yaml`. El flag resuelto y el nombre del modelo quedan registrados en `run.json`. Cambiar la configuración no altera un proceso que ya cargó el modelo. Al reanudar con `--resume`, se conserva el checkpoint y la configuración original del run, incluso si era YOLO11 y el nuevo predeterminado es YOLO26. Por eso `--resume` no se combina con flags de modelo, batch o resolución. El informe identifica el modelo de la ejecución evaluada, independientemente del predeterminado actual.
+
 Las métricas de Ultralytics son Precision, Recall, mAP@0.5 y mAP@0.5:0.95, con desglose por clase. **No son métricas del evaluador oficial VisDrone.** Las regiones con score 0 se excluyen de las etiquetas, pero el evaluador oficial puede tratarlas de otro modo. `pedestrian` significa persona de pie o caminando; `people` incluye otras posturas. Las categorías originales 1–10 se convierten a índices YOLO 0–9; las demás se excluyen. No se comparan las etiquetas COCO preentrenadas como si fueran las mismas clases.
 
 ## Notebook y presentación
 
-Abrí `notebooks/01_visdrone_yolo.ipynb` con el kernel **TP4 VisDrone YOLO**. Por defecto corre de arriba abajo en perfil presentación y muestra artefactos existentes sin descargar ni entrenar. Variables opcionales antes de abrir Jupyter: `TP4_PREPARE=1` descarga/prepara; `TP4_PROFILE=smoke` y `TP4_TRAIN=1` entrenan el smoke; `TP4_PROFILE=full` y `TP4_TRAIN=1` ejecutan el entrenamiento largo. `TP4_LATENCY=1` mide latencia (5 warm-up y 20 inferencias, batch 1). Ejecutá `python -m tp4.cli present` después de cada run para actualizar el HTML; abre `presentacion.html` en cualquier navegador incluso sin datos ni conexión.
+`notebooks/01_visdrone_yolo.ipynb` es la única fuente del informe académico: introducción, objetivos, datos, método, resultados, discusión y referencias. Se edita directamente en Jupyter, VS Code o Colab y se guarda en Git. Se ejecuta de arriba abajo para leer artefactos. La función que ilustra entrenamiento y evaluación no se invoca al ejecutarlo.
+
+El informe selecciona sólo ejecuciones **full terminadas**, sin recurrir a métricas smoke. Si falta una métrica, figura o conclusión, conserva un espacio vacío. `RUN_ID` fija un full terminado; con `None` selecciona el último. La configuración de un full registrado puede describir el método mientras se entrena, pero sus métricas parciales no se incorporan al informe. Las antiguas variables `TP4_TRAIN`, `TP4_PREPARE` y `TP4_LATENCY` no activan cómputo en el notebook.
+
+Después de finalizar full, ejecutar `python -m tp4.cli analyze RUTA_RUN` para producir galería y latencia, y luego todas las celdas del notebook con el kernel **TP4 VisDrone YOLO** para guardar la versión de entrega. La evaluación de test-dev se realiza por separado con `python -m tp4.cli test RUTA_RUN`.
+
+`python -m tp4.cli present` lee el notebook guardado, ejecuta sólo las celdas con metadatos `presentation` en un kernel limpio y exporta sus salidas con figuras embebidas; `present --run RUTA_RUN` fija la ejecución. El HTML abre sin datos ni conexión. El exportador no modifica el notebook. Para generar el HTML se necesitan los módulos del proyecto y los artefactos que se quieran mostrar.
+
+El flujo de edición es **notebook → presentación HTML**. No hay un script que regenere o sobrescriba las celdas. Editá textos, código y orden directamente en el `.ipynb`; guardalo antes de exportar. `tp4/notebook_view.py` reúne las funciones que muestran tablas y figuras, y `tp4/notebook_export.py` transforma el recorrido breve en HTML. No dupliques el contenido académico en esos módulos ni edites el HTML generado.
+
+Conservá los metadatos de las celdas: `tags: ["presentation"]` incluye una celda en el HTML; `tags: ["detail"]` la reserva al notebook. Al agregar una celda en Colab, copiá una del mismo tipo y conservá sus metadatos, o asigná la etiqueta desde un editor que permita editar tags. Las celdas sin `presentation` no se exportan. Las celdas de instalación o entrenamiento no deben llevar esa etiqueta, porque el exportador ejecuta las celdas seleccionadas.
+
+Guion orientativo de nueve minutos: problema y objetivos (1:00), datos (1:30), metodología (1:00), resultados (2:00), errores y latencia (2:00), conclusiones (1:00), referencias y cierre (0:30). Las curvas, matriz y lotes completos sirven como respaldo para preguntas.
 
 ## Google Colab
+
+Para colaborar en el informe, abrí `notebooks/01_visdrone_yolo.ipynb` desde GitHub en Colab, editá las celdas y guardá la copia en GitHub en la misma ruta, preferentemente en una rama propia. Coordiná cambios por secciones para reducir conflictos. El notebook ya contiene salidas guardadas que pueden leerse sin ejecutar ni descargar el dataset. Las instrucciones de instalación y operación permanecen en este README.
+
+El documento abierto en Colab y el archivo de un clon en `/content` son copias independientes. Para exportar los cambios, guardá primero el notebook en GitHub y actualizá el clon de esa rama, o descargá el `.ipynb` y reemplazá `notebooks/01_visdrone_yolo.ipynb` en el clon. Luego ejecutá `python -m tp4.cli present` desde `tp4-yolo`. También podés generar el HTML localmente después de recibir los commits de tus compañeros. La edición en Colab no requiere entrenamiento; para volver a ejecutar las celdas que leen resultados, deben estar disponibles los módulos y artefactos correspondientes.
 
 Activá GPU si está disponible (no se garantiza cuota gratuita). Una vez que estos archivos estén publicados en el repositorio, en celdas de Colab:
 
@@ -67,4 +94,4 @@ Si el PyTorch preinstalado funciona, no lo reinstales. Si `torch.cuda.is_availab
 
 ## Archivos y reproducibilidad
 
-`config.yaml` fija parámetros y `visdrone.template.yaml` documenta el dataset. `tp4/data.py` prepara y audita; `tp4/experiment.py` guarda runs y métricas; `tp4/report.py` crea figuras y HTML. `scripts/build_notebook.py` regenera el notebook. `tests/` cubre conversión, errores y reutilización. `data/visdrone.yaml` se genera con rutas absolutas al preparar los datos. Los resultados viven en `runs/{smoke,full}/ID`, separados por fecha UTC. Consultá `ESTADO.md` para ver qué se ejecutó realmente en esta máquina.
+`config.yaml` fija parámetros y `visdrone.template.yaml` documenta el dataset. `tp4/data.py` prepara y audita; `tp4/experiment.py` guarda runs y métricas; `tp4/report.py` crea figuras; `tp4/notebook_view.py` muestra los artefactos y `tp4/notebook_export.py` genera HTML desde el notebook. `tests/` cubre conversión, errores y reutilización. `data/visdrone.yaml` se genera con rutas absolutas al preparar los datos. Los resultados viven en `runs/{smoke,full}/ID`, separados por fecha UTC. Consultá `ESTADO.md` para ver qué se ejecutó realmente en esta máquina.
