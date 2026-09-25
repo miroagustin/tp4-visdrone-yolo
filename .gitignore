@@ -1,0 +1,11 @@
+.venv/
+data/
+runs/
+weights/
+.ipynb_checkpoints/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.zip
+*.pt
+notebooks/01_visdrone_yolo.executed.ipynb

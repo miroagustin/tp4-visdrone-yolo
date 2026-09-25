@@ -1,0 +1,9 @@
+seed: 42
+model: yolo11n.pt
+device: auto
+data_dir: data
+runs_dir: runs
+profiles:
+  smoke: {epochs: 2, imgsz: 640, batch: 4, workers: 0, train_images: 128, val_images: 32}
+  full: {epochs: 50, imgsz: 640, batch: 4, workers: 0, train_images: null, val_images: null}
+  presentation: {train: false}
