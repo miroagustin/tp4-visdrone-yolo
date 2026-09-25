@@ -74,9 +74,12 @@ def dataset_table(ctx):
     if not audit:
         space()
         return
+    settings = (ctx.get("protocol_info") or {}).get("settings", {})
+    test_use = ("Evaluación y seguimiento cualitativo" if settings.get("epoch_preview", {}).get("enabled")
+                else "Evaluación final reservada")
     table(["Partición", "Imágenes auditadas", "Cajas válidas", "Score 0 excluido", "Uso"],
           [(name, audit[name]["images"], sum(audit[name]["class_counts"].values()), audit[name]["rows"].get("ignored_score", 0), use)
-           for name, use in (("train", "Ajustar pesos"), ("val", "Seleccionar / diagnosticar"), ("test-dev", "Evaluación final reservada"))])
+           for name, use in (("train", "Ajustar pesos"), ("val", "Seleccionar / diagnosticar"), ("test-dev", test_use))])
     invalid = sum(v["rows"].get("invalid_box", 0) for v in audit.values())
     display(Markdown(f"**Control de calidad:** se excluyeron {invalid} cajas con tamaño inválido. Se conservaron las imágenes y anotaciones originales."))
 

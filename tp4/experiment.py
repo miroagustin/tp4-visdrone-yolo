@@ -123,6 +123,8 @@ def train(root: Path, profile="smoke", *, batch=None, imgsz=None, use_yolo26=Non
     model = YOLO(str(resume) if resume else settings["model"])
     began = time.perf_counter()
     try:
+        from .epoch_preview import attach_epoch_preview
+        attach_epoch_preview(model, settings, path)
         model.train(data=settings["data_yaml"], epochs=settings["epochs"], imgsz=settings["imgsz"], batch=settings["batch"], workers=settings["workers"], seed=settings["seed"], device=device, project=str(path), name="train", exist_ok=True, plots=True, resume=bool(resume))
         best = path / "train" / "weights" / "best.pt"
         if not best.exists():

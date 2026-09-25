@@ -54,6 +54,16 @@ Las métricas de Ultralytics son Precision, Recall, mAP@0.5 y mAP@0.5:0.95, con 
 
 ## Notebook y presentación
 
+### Imágenes por época
+
+`epoch_preview: {enabled: true, confidence: 0.25}` activa una predicción al finalizar cada época en los nuevos entrenamientos. Se elige una imagen aleatoria reproducible de **test-dev**, exclusivamente, mediante semilla y número de época. Usa una copia de los pesos EMA en CPU para evitar una segunda inferencia en GPU; agrega tiempo a cada época. Guarda imagen y metadatos en `runs/PROFILE/ID/epoch_previews/`. No lee etiquetas de test ni modifica el modelo entrenado. Los errores de visualización se registran sin interrumpir el entrenamiento.
+
+Si el entrenamiento se llama desde Python en una celda, el callback agrega cada imagen al output automáticamente. Si se ejecuta desde terminal o con `!python`, abrí la sección «Predicciones a lo largo del entrenamiento», asigná `RUN_EVOLUTION = 'runs/full/ID'` y `WATCH_EPOCHS = True`, y ejecutá esa celda para observar las imágenes conforme se guardan. La celda espera hasta que el run termina; puede interrumpirse sin detener el proceso externo. Con `False` carga el historial disponible y termina. Guardá el notebook para conservar sus salidas; volvé a dejar `False` para la entrega. Con `RUN_EVOLUTION = None` se toma el último full que tiene vistas guardadas. La secuencia completa queda en el notebook, fuera del HTML breve.
+
+Un proceso ya iniciado no incorpora callbacks nuevos. Tampoco se pueden reconstruir épocas pasadas sin los pesos correspondientes. Los runs antiguos reanudados conservan su configuración original y no habilitan esta opción si no la tenían registrada. No se ha reiniciado el entrenamiento actual.
+
+Al observar test-dev durante el entrenamiento deja de ser un conjunto completamente reservado. No elijas hiperparámetros ni checkpoints según estas imágenes; la selección sigue usando val. La secuencia cambia de imagen y sirve como ilustración cualitativa, no como comparación controlada entre épocas. El notebook explicita esta limitación.
+
 `notebooks/01_visdrone_yolo.ipynb` es la única fuente del informe académico: introducción, objetivos, datos, método, resultados, discusión y referencias. Se edita directamente en Jupyter, VS Code o Colab y se guarda en Git. Se ejecuta de arriba abajo para leer artefactos. La función que ilustra entrenamiento y evaluación no se invoca al ejecutarlo.
 
 El informe selecciona sólo ejecuciones **full terminadas**, sin recurrir a métricas smoke. Si falta una métrica, figura o conclusión, conserva un espacio vacío. `RUN_ID` fija un full terminado; con `None` selecciona el último. La configuración de un full registrado puede describir el método mientras se entrena, pero sus métricas parciales no se incorporan al informe. Las antiguas variables `TP4_TRAIN`, `TP4_PREPARE` y `TP4_LATENCY` no activan cómputo en el notebook.
@@ -70,9 +80,9 @@ Guion orientativo de nueve minutos: problema y objetivos (1:00), datos (1:30), m
 
 ## Google Colab
 
-Para colaborar en el informe, abrí `notebooks/01_visdrone_yolo.ipynb` desde GitHub en Colab, editá las celdas y guardá la copia en GitHub en la misma ruta, preferentemente en una rama propia. Coordiná cambios por secciones para reducir conflictos. El notebook ya contiene salidas guardadas que pueden leerse sin ejecutar ni descargar el dataset. Las instrucciones de instalación y operación permanecen en este README.
+Una vez que `tp4-yolo` esté publicado en GitHub, el flujo directo es abrir en Colab el archivo del repositorio: [TP4 en Google Colab](https://colab.research.google.com/github/miroagustin/VISION-ARTIFICIAL/blob/master/tp4-yolo/notebooks/01_visdrone_yolo.ipynb). El repositorio remoto actual todavía no contiene esta carpeta, así que el enlace estará disponible después de publicar esos commits. El enlace carga el notebook de `master`; no clona automáticamente el código auxiliar ni convierte el archivo en un documento compartido de Drive. Al ejecutar la primera celda, el notebook detecta Colab y clona el repositorio en `/content` para importar `tp4`. Para guardar cambios en GitHub, usar **Archivo → Guardar una copia en GitHub**, elegir repositorio, rama y ruta `tp4-yolo/notebooks/01_visdrone_yolo.ipynb`. Si no tienen permiso de escritura, guarden en su fork y creen un pull request. Coordinen secciones para reducir conflictos.
 
-El documento abierto en Colab y el archivo de un clon en `/content` son copias independientes. Para exportar los cambios, guardá primero el notebook en GitHub y actualizá el clon de esa rama, o descargá el `.ipynb` y reemplazá `notebooks/01_visdrone_yolo.ipynb` en el clon. Luego ejecutá `python -m tp4.cli present` desde `tp4-yolo`. También podés generar el HTML localmente después de recibir los commits de tus compañeros. La edición en Colab no requiere entrenamiento; para volver a ejecutar las celdas que leen resultados, deben estar disponibles los módulos y artefactos correspondientes.
+El notebook abierto y el clon de `/content` son copias distintas: guardar la copia en GitHub no actualiza ese clon. Para generar `presentacion.html` con las últimas ediciones, integren primero el commit en la rama del proyecto y actualicen el clon local; luego ejecuten `python -m tp4.cli present`. También pueden descargar desde Colab el `.ipynb` y reemplazar el del clon. La edición del texto no requiere ejecutar el notebook. Para ejecutar celdas de resultados se necesitan el código auxiliar y los artefactos de la ejecución; la VM y archivos de Colab no quedan guardados en GitHub.
 
 Activá GPU si está disponible (no se garantiza cuota gratuita). Una vez que estos archivos estén publicados en el repositorio, en celdas de Colab:
 

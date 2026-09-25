@@ -3,6 +3,7 @@ use_yolo26: true  # false selecciona YOLO11n; ambos preentrenados en COCO
 device: auto
 data_dir: data
 runs_dir: runs
+epoch_preview: {enabled: true, confidence: 0.25}
 profiles:
   smoke: {epochs: 2, imgsz: 640, batch: 4, workers: 0, train_images: 128, val_images: 32}
   full: {epochs: 50, imgsz: 640, batch: 4, workers: 0, train_images: null, val_images: null}
