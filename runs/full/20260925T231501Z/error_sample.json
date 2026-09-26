@@ -1,0 +1,9 @@
+{
+  "images": 8,
+  "tp": 251,
+  "fp": 151,
+  "fn": 620,
+  "iou": 0.5,
+  "confidence": 0.25,
+  "note": "Auditor\u00eda de muestra, no m\u00e9trica oficial ni de todo val. Rojo=FN; cian=FP."
+}

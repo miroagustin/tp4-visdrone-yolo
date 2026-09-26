@@ -35,7 +35,7 @@ Tabla: Palancas para recuperar objetos pequeños.
 
 La [evaluación de resolución](../experimentos/evaluacion-resolucion.md) confirma la hipótesis en DET[^resolucion]:
 
-- Con **1280 px**, el recall de personas por cuadro pasa de 27 % a 43 % y el mAP50 de la misión, de 44,6 % a 56,9 %, con una sola inferencia.
+- Con **1280 px**, el recall de personas por cuadro pasa de 27 % a 43 % y el mAP50 de la misión, de 48,4 % a 61,4 %, con una sola inferencia.
 - Con **mosaicos**, el recall de personas llega a 45 % y el de todos los objetos a 61 %, pero con menos precisión y varias inferencias por imagen.
 - La estimación previa de alrededor de 50 % de recall de personas por cuadro fue optimista.
 - Combinando mosaicos con más resolución, en DET el recall de personas por cuadro llega a 48 % (mosaicos nativos + 1280 px).
@@ -45,7 +45,7 @@ En video, frente al objetivo del 85 % por pasada a 5 FPS, las personas llegan a 
 # Próximos pasos
 
 1. **Medir el costo en las placas.** Agregar 1280 px y mosaicos reducidos a 1920 px (y mosaicos nativos + 1280 px en la Jetson) al [benchmark](../obc/benchmark.md): en una placa el costo crece cerca de la cantidad de píxeles, no como en la GPU de la laptop.
-2. **Reentrenar una sola vez** con las tres clases de la misión y entrada de 1280 px, y comparar contra estas evaluaciones con las mismas clases. Debería recuperar las personas grandes que se pierden al inferir a más resolución que la de entrenamiento.
+2. **Reentrenar una sola vez** con las dos clases de la misión y entrada de 1280 px, y comparar contra estas evaluaciones con las mismas clases. Debería recuperar las personas grandes que se pierden al inferir a más resolución que la de entrenamiento.
 3. **Considerar un modelo híbrido** si la placa no alcanza: 1280 px solo en zonas de interés o mosaicos a menor frecuencia que la pasada completa.
 
 [^mision]: `mission_eval/val.json`, recall por tamaño.

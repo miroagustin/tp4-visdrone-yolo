@@ -13,7 +13,7 @@ title: Historial del TP4
 - **Descarga** de VisDrone-VID val completada y extraída en `data/raw/`; se asumen 30 FPS nominales.
 
 - **Creación** de la wiki como bundle Open Knowledge Format v0.2, generada por `claude-code/claude-opus-5-5` a partir del informe v1, `BENCHMARK_OBC.md`, `analysis/`, `ESTADO.md` y la evaluación por misión. Pasa a ser la única fuente del informe: `python -m tp4.cli informe` genera `informe/informe_tp4.pdf` (versión 2). Ningún concepto tiene `verified` todavía: falta la revisión del equipo.
-- **Decisión**: la misión usa tres clases (persona, vehículo, dos ruedas) y el objetivo es detectar al menos una vez durante la pasada el 85 % de los objetos. Ver [decisiones](plan/decisiones.md).
+- **Decisión**: la misión usa dos clases (persona y vehículo; primero se probó separar dos ruedas) y el objetivo es detectar al menos una vez durante la pasada el 85 % de las personas, a 5 FPS o más en la placa, con entrada de 1280 px por defecto. Ver [decisiones](plan/decisiones.md).
 - **Evaluación** agrupada por misión del `best.pt` de YOLO26n sin reentrenar (`python -m tp4.cli mission`). Ver [resultados](experimentos/evaluacion-mision.md).
 - **Informe v1** en PDF (`informe/informe_tp4_obc.pdf`), escrito a mano en LaTeX. Se conserva como versión histórica; su fuente `.tex` se reemplazó por esta wiki.
 - **Paquete de benchmark OBC** `package_20260926T172031125947Z` generado y verificado en la laptop. Ver [benchmark](obc/benchmark.md).

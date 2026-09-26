@@ -1,0 +1,18 @@
+{
+  "video": "demo_uav0000117_02622_v.mp4",
+  "sequence": "uav0000117_02622_v",
+  "variant": "full1280",
+  "conf": 0.25,
+  "fps": 10.0,
+  "frames": 117,
+  "detected_once": {
+    "persona": {
+      "found": 84,
+      "seen": 105
+    },
+    "vehiculo": {
+      "found": 37,
+      "seen": 40
+    }
+  }
+}

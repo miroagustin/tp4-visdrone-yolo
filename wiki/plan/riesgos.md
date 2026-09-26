@@ -15,6 +15,6 @@ generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T18:30:00Z }
 - **Sin medición de energía** en el protocolo base.
 - **Compatibilidad de software en Jetson.** La combinación de JetPack, PyTorch, TensorRT y Ultralytics 8.4.162 puede bloquear la exportación. Es el principal riesgo de calendario.
 - **Discrepancias sin aislar.** Las validaciones internas por época no coinciden exactamente con la evaluación independiente de `best.pt`, y evaluar con `predict` dio unos 3 puntos menos de mAP50 que con el validador.
-- **Fuga entre DET y VID.** Cuatro de las siete secuencias de validación de VID vienen de videos que aportan imágenes al entrenamiento de DET. Sus resultados son optimistas; las conclusiones se apoyan en las tres secuencias limpias, que son pocas (190 personas, 78 vehículos y 11 objetos de dos ruedas).
+- **Fuga entre DET y VID.** Cuatro de las siete secuencias de validación de VID vienen de videos que aportan imágenes al entrenamiento de DET. Sus resultados son optimistas; las conclusiones se apoyan en las tres secuencias limpias, que son pocas (190 personas y 89 vehículos).
 - **FPS de los videos asumidos.** Los archivos no traen cuadros por segundo; se asumen 30 FPS nominales para convertir cuadros en segundos y simular los FPS de cada placa.
 - **Inferencia a más resolución sin reentrenar.** Las mejoras medidas usan el modelo entrenado a 640 px; su costo en las placas todavía no se midió.

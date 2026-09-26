@@ -1,6 +1,4 @@
 .venv/
-data/
-runs/
 weights/
 benchmark_artifacts/
 .ipynb_checkpoints/
@@ -11,3 +9,25 @@ __pycache__/
 *.pt
 notebooks/01_visdrone_yolo.executed.ipynb
 informe/build/
+
+# data/ y runs/ no se versionan por tamaño, salvo lo que lee el notebook
+# (así funciona abierto desde GitHub en Colab, sin dataset ni entrenamiento).
+data/**
+!data/**/
+!data/audit.json
+!data/audit.png
+!data/box_review.png
+runs/**
+!runs/**/
+runs/full/*/mission_eval/video_cache/
+!runs/full/20260925T231501Z/run.json
+!runs/full/20260925T231501Z/latency.json
+!runs/full/20260925T231501Z/error_sample.json
+!runs/full/20260925T231501Z/error_gallery.jpg
+!runs/full/20260925T231501Z/train/results.png
+!runs/full/20260925T231501Z/validation/confusion_matrix.png
+!runs/full/20260925T231501Z/validation/val_batch0_labels.jpg
+!runs/full/20260925T231501Z/validation/val_batch0_pred.jpg
+!runs/full/20260925T231501Z/mission_eval/*.json
+!runs/full/20260925T231501Z/mission_eval/*.md
+!runs/full/20260925T231501Z/mission_eval/demo_*.mp4

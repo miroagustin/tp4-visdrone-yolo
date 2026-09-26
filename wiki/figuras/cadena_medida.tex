@@ -18,7 +18,7 @@
   node distance=0.5cm]
   \node[ext]  (cam) {\textbf{Cámara}\\[1pt]{\scriptsize en el banco: imagen desde disco}};
   \node[caja,right=0.65cm of cam] (dec) {\textbf{Lectura y decodificación}};
-  \node[caja,right=of dec] (pre) {\textbf{Letterbox}\\640\,$\times$\,640};
+  \node[caja,right=of dec] (pre) {\textbf{Letterbox}\\1280\,$\times$\,1280};
   \node[caja,right=of pre] (inf) {\textbf{Inferencia}\\YOLO26n\\{\scriptsize PyTorch, TensorRT o NCNN}};
   \node[caja,right=of inf] (post) {\textbf{Cajas en CPU}\\{\scriptsize conf.\ 0,25; sin NMS}};
   \node[ext,right=0.65cm of post] (fc) {\textbf{Consumidores}\\{\scriptsize control de vuelo, seguimiento, enlace}};

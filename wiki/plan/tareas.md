@@ -21,7 +21,7 @@ Ya se completaron la evaluación por clases de la misión, la de resolución y m
 | 5 | Ejecutar el benchmark oficial | Cada equipo | Seis mediciones completas, 300 paneles por modelo, telemetría presente, fuente y refrigeración registradas. |
 | 6 | Comparación conjunta | Coordinación | `informe.html` se abre en otra computadora sin red; diagnósticos e intentos incompletos excluidos. |
 | 7 | Agregar 1280 px y mosaicos al benchmark de placas | Coordinación y cada equipo | FPS, latencia p95 y memoria de cada variante en Jetson y Raspberry Pi 5, con el mismo protocolo. |
-| 8 | Reentrenar con las tres clases de la misión y entrada de 1280 px | Coordinación | Comparado con la evaluación a 1280 px sin reentrenar, en DET val y en las secuencias limpias de VID. |
+| 8 | Reentrenar con las dos clases de la misión y entrada de 1280 px | Coordinación | Comparado con la evaluación a 1280 px sin reentrenar, en DET val y en las secuencias limpias de VID. |
 | 9 | Ampliar la evaluación en video sin fuga | Coordinación | Secuencias de VID de test-dev cuyo video no esté en el entrenamiento de DET, para tener más objetos limpios. |
 | 10 | Evaluar test-dev completo con el modelo fijado | Coordinación | Evaluación única, sin ajustar hiperparámetros después de verla. |
 | 11 | Análisis e informe final | Todo el equipo | Discusión frente al objetivo de detección por pasada y al requisito operativo. |
@@ -34,4 +34,4 @@ Tabla: Plan de trabajo. Cada ejecución oficial del benchmark requiere al menos 
 - No instalar ruedas de PyTorch para x86/Windows en la Jetson ni actualizar drivers o JetPack automáticamente. Si no existe una combinación compatible con Ultralytics 8.4.162, informar el bloqueo en lugar de cambiar de motor.
 - No reemplazar CUDA por CPU de forma silenciosa. Ante un error, corregir el entorno y lanzar una ejecución nueva, sin mezclar repeticiones de intentos distintos.
 - Una diferencia de mAP respecto del `.pt` debe investigarse como posible efecto de la exportación o de la precisión numérica, no ocultarse.
-- Las pruebas de resolución y de video se comparan siempre con las mismas tres clases de la misión.
+- Las pruebas de resolución y de video se comparan siempre con las mismas dos clases de la misión.

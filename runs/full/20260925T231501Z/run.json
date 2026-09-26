@@ -1,0 +1,104 @@
+{
+  "settings": {
+    "seed": 42,
+    "use_yolo26": true,
+    "device": "auto",
+    "data_dir": "C:\\Users\\miroa\\OneDrive\\Documentos\\Repos\\VISION-ARTIFICIAL\\tp4-yolo\\data",
+    "runs_dir": "C:\\Users\\miroa\\OneDrive\\Documentos\\Repos\\VISION-ARTIFICIAL\\tp4-yolo\\runs",
+    "epoch_preview": {
+      "enabled": true,
+      "confidence": 0.25
+    },
+    "epochs": 50,
+    "imgsz": 640,
+    "batch": 4,
+    "workers": 0,
+    "train_images": null,
+    "val_images": null,
+    "profile": "full",
+    "model": "yolo26n.pt",
+    "data_yaml": "C:\\Users\\miroa\\OneDrive\\Documentos\\Repos\\VISION-ARTIFICIAL\\tp4-yolo\\data\\visdrone.yaml"
+  },
+  "versions": {
+    "python": "3.14.4",
+    "system": "Windows-11-10.0.26200-SP0",
+    "torch": "2.13.0+cu130",
+    "torchvision": "0.28.0+cu130",
+    "torch_cuda": "13.0",
+    "ultralytics": "8.4.162",
+    "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU"
+  },
+  "started_utc": "20260925T231501Z",
+  "status": "finished",
+  "elapsed_seconds": 15867.680808799923,
+  "error": null,
+  "metrics": {
+    "precision": 0.4041152560701251,
+    "recall": 0.317697153245627,
+    "map50": 0.28453582435103475,
+    "map50_95": 0.15854154439945548,
+    "per_class": {
+      "pedestrian": {
+        "precision": 0.40175156904959464,
+        "recall": 0.3639755766621438,
+        "map50": 0.3147098494328229,
+        "map50_95": 0.12932899598897823
+      },
+      "people": {
+        "precision": 0.40676360814910456,
+        "recall": 0.2602926829268293,
+        "map50": 0.22700089033281373,
+        "map50_95": 0.07315621993805757
+      },
+      "bicycle": {
+        "precision": 0.194138582665267,
+        "recall": 0.11655011655011654,
+        "map50": 0.06266734765774386,
+        "map50_95": 0.02198729486823333
+      },
+      "car": {
+        "precision": 0.5726149733724951,
+        "recall": 0.7396188850967008,
+        "map50": 0.7062031672935021,
+        "map50_95": 0.46225073180137394
+      },
+      "van": {
+        "precision": 0.43095166408182217,
+        "recall": 0.3265822784810127,
+        "map50": 0.3155601100253116,
+        "map50_95": 0.21531988986847028
+      },
+      "truck": {
+        "precision": 0.442786979309507,
+        "recall": 0.2853333333333333,
+        "map50": 0.2722691386172481,
+        "map50_95": 0.17206830206965468
+      },
+      "tricycle": {
+        "precision": 0.37678604196920107,
+        "recall": 0.20861244019138755,
+        "map50": 0.1809908889725506,
+        "map50_95": 0.09590550967932529
+      },
+      "awning-tricycle": {
+        "precision": 0.2680418096986065,
+        "recall": 0.14097744360902256,
+        "map50": 0.08805471923506657,
+        "map50_95": 0.052296468159634346
+      },
+      "bus": {
+        "precision": 0.5104980539551849,
+        "recall": 0.3705179282868526,
+        "map50": 0.3605276053182041,
+        "map50_95": 0.24090618473793107
+      },
+      "motor": {
+        "precision": 0.43681927845046864,
+        "recall": 0.36451084731887023,
+        "map50": 0.3173745266250836,
+        "map50_95": 0.12219584688289609
+      }
+    },
+    "evaluator": "Ultralytics; no es el evaluador oficial de VisDrone"
+  }
+}

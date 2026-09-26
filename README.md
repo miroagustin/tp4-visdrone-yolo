@@ -82,20 +82,20 @@ Guion orientativo de nueve minutos: problema y objetivos (1:00), datos (1:30), m
 
 ## Google Colab
 
-Una vez que `tp4-yolo` esté publicado en GitHub, el flujo directo es abrir en Colab el archivo del repositorio: [TP4 en Google Colab](https://colab.research.google.com/github/miroagustin/VISION-ARTIFICIAL/blob/master/tp4-yolo/notebooks/01_visdrone_yolo.ipynb). El repositorio remoto actual todavía no contiene esta carpeta, así que el enlace estará disponible después de publicar esos commits. El enlace carga el notebook de `master`; no clona automáticamente el código auxiliar ni convierte el archivo en un documento compartido de Drive. Al ejecutar la primera celda, el notebook detecta Colab y clona el repositorio en `/content` para importar `tp4`. Para guardar cambios en GitHub, usar **Archivo → Guardar una copia en GitHub**, elegir repositorio, rama y ruta `tp4-yolo/notebooks/01_visdrone_yolo.ipynb`. Si no tienen permiso de escritura, guarden en su fork y creen un pull request. Coordinen secciones para reducir conflictos.
+El TP4 vive en su propio repositorio, [miroagustin/tp4-visdrone-yolo](https://github.com/miroagustin/tp4-visdrone-yolo). Para presentarlo, abrir el notebook en Colab: [TP4 en Google Colab](https://colab.research.google.com/github/miroagustin/tp4-visdrone-yolo/blob/main/notebooks/01_visdrone_yolo.ipynb). Colab carga solo el `.ipynb`; al ejecutar la primera celda, el notebook clona el repositorio en `/content/tp4-visdrone-yolo` e importa `tp4`. El repositorio versiona los resultados que leen las celdas de presentación (JSON de métricas, figuras y el video de la demo en `runs/full/20260925T231501Z/`), así que el recorrido completo funciona sin dataset, sin GPU y sin entrenar. Para guardar cambios en GitHub, usar **Archivo → Guardar una copia en GitHub**, elegir repositorio, rama y ruta `notebooks/01_visdrone_yolo.ipynb`. Si no tienen permiso de escritura, guarden en su fork y creen un pull request. Coordinen secciones para reducir conflictos.
 
 El notebook abierto y el clon de `/content` son copias distintas: guardar la copia en GitHub no actualiza ese clon. Para generar `presentacion.html` con las últimas ediciones, integren primero el commit en la rama del proyecto y actualicen el clon local; luego ejecuten `python -m tp4.cli present`. También pueden descargar desde Colab el `.ipynb` y reemplazar el del clon. La edición del texto no requiere ejecutar el notebook. Para ejecutar celdas de resultados se necesitan el código auxiliar y los artefactos de la ejecución; la VM y archivos de Colab no quedan guardados en GitHub.
 
-Activá GPU si está disponible (no se garantiza cuota gratuita). Una vez que estos archivos estén publicados en el repositorio, en celdas de Colab:
+Activá GPU si está disponible (no se garantiza cuota gratuita). Para entrenar en Colab, en celdas:
 
 ```python
 %cd /content
-!git clone https://github.com/miroagustin/VISION-ARTIFICIAL.git
-%cd /content/VISION-ARTIFICIAL/tp4-yolo
+!git clone https://github.com/miroagustin/tp4-visdrone-yolo.git
+%cd /content/tp4-visdrone-yolo
 import torch, os
 print(torch.__version__, torch.cuda.is_available())
 !python -m pip install -r requirements.txt
-os.environ['TP4_ROOT'] = '/content/VISION-ARTIFICIAL/tp4-yolo'
+os.environ['TP4_ROOT'] = '/content/tp4-visdrone-yolo'
 !python -m tp4.cli prepare
 !python -m tp4.cli train smoke
 # Después de revisar smoke y confirmar GPU:

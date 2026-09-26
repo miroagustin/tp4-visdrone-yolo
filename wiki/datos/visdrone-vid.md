@@ -24,16 +24,16 @@ Las tareas de video de VisDrone (VID y MOT) anotan cada cuadro con el formato `f
 
 Se usó la validación de VID (1,6 GB, descarga manual desde la página oficial[^visdrone]), extraída en `data/raw/VisDrone2019-VID-val/` con su SHA-256 registrado[^archivo].
 
-| Secuencia | Cuadros | Resolución | Personas | Vehículos | Dos ruedas | Video de origen en DET |
-|---|---:|---:|---:|---:|---:|---|
-| uav0000086_00000_v | 464 | 1344 × 756 | 79 | 0 | 3 | validación |
-| uav0000117_02622_v | 349 | 2720 × 1530 | 105 | 32 | 8 | validación |
-| uav0000137_00458_v | 233 | 2688 × 1512 | 81 | 44 | 55 | **entrenamiento** |
-| uav0000182_00000_v | 363 | 1344 × 756 | 24 | 75 | 56 | **entrenamiento** |
-| uav0000268_05773_v | 978 | 3840 × 2160 | 6 | 46 | 0 | ninguno |
-| uav0000305_00000_v | 184 | 1904 × 1071 | 6 | 50 | 13 | **entrenamiento** |
-| uav0000339_00001_v | 275 | 1904 × 1071 | 34 | 29 | 12 | **entrenamiento** |
-| **Total** | **2846** | | **335** | **276** | **147** | |
+| Secuencia | Cuadros | Resolución | Personas | Vehículos | Video de origen en DET |
+|---|---:|---:|---:|---:|---|
+| uav0000086_00000_v | 464 | 1344 × 756 | 79 | 3 | validación |
+| uav0000117_02622_v | 349 | 2720 × 1530 | 105 | 40 | validación |
+| uav0000137_00458_v | 233 | 2688 × 1512 | 81 | 99 | **entrenamiento** |
+| uav0000182_00000_v | 363 | 1344 × 756 | 24 | 131 | **entrenamiento** |
+| uav0000268_05773_v | 978 | 3840 × 2160 | 6 | 46 | ninguno |
+| uav0000305_00000_v | 184 | 1904 × 1071 | 6 | 63 | **entrenamiento** |
+| uav0000339_00001_v | 275 | 1904 × 1071 | 34 | 41 | **entrenamiento** |
+| **Total** | **2846** | | **335** | **423** | |
 
 Tabla: Secuencias de validación de VisDrone-VID, objetos únicos por clase de la misión y relación con DET.
 

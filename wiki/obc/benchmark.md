@@ -29,7 +29,7 @@ Ambos equipos reciben **el mismo ZIP** (unos 61 MiB) con su archivo `.sha256`[^g
 - 300 imágenes únicas de test-dev, elegidas sin reemplazo con semilla 42, junto con sus etiquetas y un orden fijo;
 - el `best.pt` de YOLO26n de la ejecución `20260925T231501Z`, con su manifiesto de entrenamiento (**no** debe reemplazarse por pesos descargados de Internet);
 - doce imágenes de galería, la configuración y el SHA-256 de cada archivo;
-- la evaluación de referencia en la laptop sobre esa misma muestra: **mAP50 = 26,90 %** y **mAP50–95 = 15,19 %**.
+- la evaluación de referencia en la laptop sobre esa misma muestra, a 1280 px: **mAP50 = 34,91 %** y **mAP50–95 = 19,97 %** (a 640 px era 26,90 % y 15,19 %).
 
 # Cadena medida
 
@@ -39,7 +39,7 @@ Ambos equipos reciben **el mismo ZIP** (unos 61 MiB) con su archivo `.sha256`[^g
 
 - **Repeticiones:** tres corridas de cinco minutos por modelo, cada una con 50 imágenes de calentamiento. El orden alterna entre PyTorch/optimizado, optimizado/PyTorch y PyTorch/optimizado, con pausas de 60 s entre procesos para limitar el sesgo térmico.
 - **Aislamiento:** cada medición corre en un proceso nuevo que carga solo su variante. Nunca se exporta dentro del proceso medido.
-- **Entrada:** una imagen por vez desde disco, lote 1, *letterbox* de 640, confianza 0,25 y un máximo de 300 detecciones. No se impone NMS a la salida *end-to-end* de YOLO26.
+- **Entrada:** una imagen por vez desde disco, lote 1, *letterbox* de 1280 px (la configuración por defecto de la misión), confianza 0,25 y un máximo de 300 detecciones. No se impone NMS a la salida *end-to-end* de YOLO26.
 - **Memoria y telemetría:** RSS antes y después de cargar el modelo, y pico muestreado cada 200 ms, junto con temperaturas, frecuencias y estado de *throttling*. En Jetson la memoria es compartida, por lo que no deben sumarse contadores de CPU y GPU.
 - **Condiciones:** misma fuente, refrigeración y modo de potencia para ambos modelos, registrados en cada ejecución. No se modifican `nvpmodel` ni los relojes entre mediciones.
 - **Precisión:** tras las seis mediciones, procesos separados calculan mAP50, mAP50–95 y el desglose por clase (confianza 0,001) sobre las 300 imágenes, y generan los paneles anotados.
@@ -54,9 +54,9 @@ Los indicadores resultantes y su lectura están en [rendimiento en placa](../met
 
 | Tarea | Estado |
 |---|---:|
-| Paquete solo YOLO26 generado (`package_20260926T172031125947Z`) y verificado por CRC, extracción y hashes | Hecho |
+| Paquete solo YOLO26 a 1280 px generado (`package_20260926T215439979200Z`) y verificado por CRC, extracción y hashes | Hecho |
 | Selección de las 300 imágenes reproducible con semilla 42 | Hecho |
-| Referencia `.pt` en la laptop (mAP50 26,90 %; mAP50–95 15,19 %) | Hecho |
+| Referencia `.pt` en la laptop a 1280 px (mAP50 34,91 %; mAP50–95 19,97 %) | Hecho |
 | Siete pruebas automatizadas (integridad, rutas, percentiles, rechazos, exclusión de diagnósticos, reporte) | Aprobadas |
 | Inferencia real en CPU y anotación en Windows, marcadas como diagnóstico local | Hecho |
 | Reporte HTML sin resultados abierto sin conexión de red | Hecho |

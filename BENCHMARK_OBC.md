@@ -22,7 +22,7 @@ En la computadora que contiene los entrenamientos y el dataset preparado, desde 
 
 El comando crea un directorio nuevo en `benchmark_artifacts`, imprime la ruta del ZIP y conserva también una carpeta `bundle`. `--device cpu` permite preparar referencias sin CUDA. La creación del paquete evalúa los `.pt`; no los entrena ni los modifica.
 
-Contenido: 300 imágenes únicas de test-dev elegidas sin reemplazo con semilla 42, sus etiquetas, el `best.pt` de YOLO26n, clases, dimensiones, conteo de objetos, orden fijo, doce imágenes de galería, configuración y SHA-256 por archivo. Las rutas son relativas. `reference.json` contiene la evaluación de los `.pt` sobre esta misma muestra, con batch 1, entrada cuadrada 640 y confianza 0,001.
+Contenido: 300 imágenes únicas de test-dev elegidas sin reemplazo con semilla 42, sus etiquetas, el `best.pt` de YOLO26n, clases, dimensiones, conteo de objetos, orden fijo, doce imágenes de galería, configuración y SHA-256 por archivo. Las rutas son relativas. `reference.json` contiene la evaluación de los `.pt` sobre esta misma muestra, con batch 1, entrada cuadrada 1280 y confianza 0,001. La resolución sale de `PROTOCOL['imgsz']` en `tp4/bench_common.py` (1280 px, la configuración por defecto de la misión); `verify` rechaza un paquete generado con otra resolución.
 
 El checkpoint proviene de `20260925T231501Z` (YOLO26n). Su hash y manifiesto de entrenamiento acompañan el paquete. **No reemplazar estos pesos por yolo26n.pt descargado de Internet.**
 
@@ -33,8 +33,8 @@ Compartir el ZIP y su archivo `.sha256` por el medio acordado. El paquete origin
 Se supone Python instalado, acceso al repositorio y al ZIP. La herramienta requiere Python 3.10 o superior; verificar que la combinación elegida sea compatible con JetPack. Instalar paquetes del sistema solo cuando el diagnóstico identifique que faltan.
 
 ```bash
-git clone https://github.com/miroagustin/VISION-ARTIFICIAL.git
-cd VISION-ARTIFICIAL/tp4-yolo
+git clone https://github.com/miroagustin/tp4-visdrone-yolo.git
+cd tp4-visdrone-yolo
 git rev-parse HEAD
 python3 --version
 uname -m
@@ -101,7 +101,7 @@ ONNX es un paso intermedio para TensorRT; ONNX Runtime CPU puede utilizarse dura
 python -m tp4.benchmark export --platform jetson --bundle benchmark_input/bundle
 ```
 
-La salida es una carpeta `exports_jetson_FECHA`. Contiene el motor y una copia del .pt original, hashes, parámetros, prueba de carga/inferencia y `requirements.lock.txt`. Los motores se construyen en esta Jetson para su entorno; no copiar un `.engine` de la laptop. Se usa FP16, entrada fija 640 × 640 y batch 1. Si CUDA, TensorRT o FP16 fallan, corregir el entorno según el log; no sustituir CPU silenciosamente.
+La salida es una carpeta `exports_jetson_FECHA`. Contiene el motor y una copia del .pt original, hashes, parámetros, prueba de carga/inferencia y `requirements.lock.txt`. Los motores se construyen en esta Jetson para su entorno; no copiar un `.engine` de la laptop. Se usa FP16, entrada fija 1280 × 1280 y batch 1. Si CUDA, TensorRT o FP16 fallan, corregir el entorno según el log; no sustituir CPU silenciosamente.
 
 ## 4. Raspberry Pi 5: entorno y NCNN
 
@@ -140,7 +140,7 @@ python -m tp4.benchmark run --platform PLATAFORMA --bundle benchmark_input/bundl
 Protocolo fijo:
 
 - Tres repeticiones de cinco minutos por modelo, 50 imágenes de calentamiento por repetición. Orden PyTorch/optimizado, optimizado/PyTorch, PyTorch/optimizado y 60 segundos entre procesos. Reservar al menos 35 minutos más exportación, calentamientos y evaluación.
-- Una imagen a la vez desde disco, batch 1, letterbox cuadrado 640, confianza 0,25 y máximo de 300 detecciones. NMS IoU 0,7 cuando la arquitectura lo utiliza; no imponer NMS a la salida end-to-end de YOLO26.
+- Una imagen a la vez desde disco, batch 1, letterbox cuadrado 1280, confianza 0,25 y máximo de 300 detecciones. NMS IoU 0,7 cuando la arquitectura lo utiliza; no imponer NMS a la salida end-to-end de YOLO26.
 - Los FPS incluyen lectura, decodificación y detección completa. La latencia empieza después de decodificar y termina con las cajas materializadas en CPU. CUDA se sincroniza. No hay dibujo ni guardado de imágenes en este intervalo. La referencia PyTorch usa FP32; TensorRT usa FP16. Su diferencia combina efectos del motor y la precisión numérica.
 - El mismo orden de 300 imágenes se repite cíclicamente. No hay caché Python del dataset completo; puede existir caché de archivos del sistema operativo. No se modifican sus políticas entre modelos.
 - RSS antes/después de cargar el modelo y pico muestreado cada 200 ms durante medición; incluye bibliotecas y harness Python. El orquestador no mantiene otro modelo ni PyTorch cargados. Se registran RAM disponible y swap del sistema.
@@ -198,8 +198,8 @@ La comparación principal es **YOLO26 original frente a YOLO26 optimizado en cad
 
 ### Validación local realizada — 26 de septiembre de 2026
 
-- Paquete de esta entrega: `benchmark_artifacts/package_20260926T172031125947Z/tp4_obc_bundle.zip` (aproximadamente 61 MiB). Compartir también el `.sha256` de esa carpeta. Es el paquete **solo YOLO26**, no el paquete preliminar de dos arquitecturas.
-- Referencia real del checkpoint YOLO26 sobre la muestra: mAP50 **26,9011 %**, mAP50–95 **15,1925 %**, calculada con CUDA en la laptop. Son métricas de estas 300 imágenes, no del conjunto completo de validación.
+- Paquete de esta entrega: `benchmark_artifacts/package_20260926T215439979200Z/tp4_obc_bundle.zip` (aproximadamente 61 MiB), a 1280 px. Reemplaza al paquete anterior de 640 px (`package_20260926T172031125947Z`), que el código actual ya no acepta. Compartir también el `.sha256` de esa carpeta. Es el paquete **solo YOLO26**, no el paquete preliminar de dos arquitecturas.
+- Referencia real del checkpoint YOLO26 sobre la muestra a 1280 px: mAP50 **34,91 %**, mAP50–95 **19,97 %** (a 640 px era 26,90 % y 15,19 %), calculada con CUDA en la laptop. Son métricas de estas 300 imágenes, no del conjunto completo de validación.
 - ZIP comprobado mediante CRC, extracción a otro directorio temporal y verificación de todos los hashes; se comprobó que la selección de imágenes se reproduce.
 - Siete pruebas automatizadas pasaron: alteraciones/ausencias/duplicados, rutas, percentiles, rechazo de plataformas y formatos, exclusión de diagnósticos y comparación agrupada con datos sintéticos de prueba.
 - Se ejecutaron procesos reales de inferencia en CPU y anotación de dos imágenes en Windows, marcados como diagnóstico local. No se presentaron como cifras de Raspberry o Jetson.

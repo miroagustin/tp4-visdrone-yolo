@@ -12,7 +12,7 @@ generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T21:30:00Z }
 - **Calidad:** 85 % de personas detectadas al menos una vez, con confianza 0,25, en las secuencias limpias de VisDrone-VID.
 - **Velocidad:** 5 FPS sostenidos en la placa. A 10 m/s, el dron avanza 2 m entre detecciones (ver [requisitos operativos](requisitos-operativos.md)).
 - **Configuración por defecto:** imagen completa a 1280 px, una inferencia por cuadro. Es la que mejor equilibra calidad y costo; los mosaicos quedan como resultado de laboratorio.
-- **Alcance:** el objetivo se fija sobre personas. Vehículos y dos ruedas se informan, pero no se exigen: los vehículos pequeños en 4K no alcanzan el 85 % con ninguna variante sin reentrenar, y dos ruedas tiene muy pocos objetos limpios.
+- **Alcance:** el objetivo se fija sobre personas. Vehículo se informa, pero no se exige: los vehículos pequeños en 4K no alcanzan el 85 % con ninguna variante sin reentrenar (64 % a 1280 px, 72 % con mosaicos nativos).
 
 La calidad se mide en el laboratorio y la velocidad en la placa. El [benchmark](../obc/benchmark.md) da los FPS que sostiene cada placa, y la [evaluación en video](../experimentos/evaluacion-video.md) da la detección por pasada a esos FPS.
 

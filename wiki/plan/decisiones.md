@@ -12,11 +12,11 @@ generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T18:30:00Z }
 | Decisión | Motivo |
 |---|---|
 | YOLO26n como modelo de referencia en placa | Precisión equivalente a YOLO11n; salida sin NMS y orientación a dispositivos de borde. |
-| Tres clases de la misión: persona, vehículo, dos ruedas | Es lo que la misión necesita distinguir; agrupar elimina la confusión *car*/*van*. |
-| Objetivo: 85 % de las personas detectadas al menos una vez por pasada, a 5 FPS o más en la placa | El 85 % por cuadro no es alcanzable con objetos de pocos píxeles; la pasada da varias oportunidades. 5 FPS equivale a 2 m entre detecciones a 10 m/s. El objetivo se fija sobre personas porque vehículos y dos ruedas no tienen datos suficientes o no alcanzan sin reentrenar. |
+| Dos clases de la misión: persona y vehículo | Es lo que la misión necesita distinguir; agrupar elimina la confusión *car*/*van*. Dos ruedas se suma a vehículo: el conductor ya está anotado como persona y hay muy pocos casos limpios. |
+| Objetivo: 85 % de las personas detectadas al menos una vez por pasada, a 5 FPS o más en la placa | El 85 % por cuadro no es alcanzable con objetos de pocos píxeles; la pasada da varias oportunidades. 5 FPS equivale a 2 m entre detecciones a 10 m/s. El objetivo se fija sobre personas porque los vehículos pequeños en 4K no alcanzan sin reentrenar. |
 | No reentrenar solo para agrupar | La evaluación agrupada ya elimina la confusión; el límite es el tamaño aparente. |
 | Probar la resolución antes de reentrenar | El 46 % de las personas mide menos de 8 px en la entrada de 640 px; la prueba sin reentrenar confirmó la mejora. |
-| Entrada de 1280 px por defecto | Mejor mAP (56,9 %) y personas detectadas por pasada en 84–85 % a 5–10 FPS, con una sola inferencia por cuadro. |
+| Entrada de 1280 px por defecto | Mejor mAP (61,4 %) y personas detectadas por pasada en 84–85 % a 5–10 FPS, con una sola inferencia por cuadro. |
 | Mosaicos solo como resultado de laboratorio | Reducidos a 1920 px llegan a 88 % de personas a 5 FPS, y nativos + 1280 px a 89 %, pero con 9 a 24 inferencias por cuadro; no se llevan a la placa. |
 | Demo: `.pt` frente a optimizado en una placa por SSH | El benchmark ya compara ambas variantes; sus FPS se cruzan con la evaluación en video para ver si se cumple el objetivo. |
 | Informar el video solo con secuencias limpias | Cuatro de las siete secuencias de VID comparten video de origen con el entrenamiento de DET. |
