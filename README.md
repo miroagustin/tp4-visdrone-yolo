@@ -1,5 +1,7 @@
 # TP4 · YOLO en VisDrone2019-DET
 
+Bonus de despliegue: [guía de benchmark OBC para Jetson y Raspberry Pi 5](BENCHMARK_OBC.md). Incluye paquete común, TensorRT/NCNN, medición de memoria/FPS y reporte comparativo autónomo.
+
 Proyecto académico para detectar diez tipos de personas y vehículos en imágenes aéreas. El [notebook](notebooks/01_visdrone_yolo.ipynb) explica el proceso completo. `presentacion.html` es un recorrido autónomo de 8–10 minutos con artefactos guardados. **Un resultado smoke sólo verifica el pipeline; no demuestra calidad final.**
 
 ## Instalación local (Windows 11, GPU NVIDIA)
@@ -105,3 +107,25 @@ Si el PyTorch preinstalado funciona, no lo reinstales. Si `torch.cuda.is_availab
 ## Archivos y reproducibilidad
 
 `config.yaml` fija parámetros y `visdrone.template.yaml` documenta el dataset. `tp4/data.py` prepara y audita; `tp4/experiment.py` guarda runs y métricas; `tp4/report.py` crea figuras; `tp4/notebook_view.py` muestra los artefactos y `tp4/notebook_export.py` genera HTML desde el notebook. `tests/` cubre conversión, errores y reutilización. `data/visdrone.yaml` se genera con rutas absolutas al preparar los datos. Los resultados viven en `runs/{smoke,full}/ID`, separados por fecha UTC. Consultá `ESTADO.md` para ver qué se ejecutó realmente en esta máquina.
+
+## Wiki y informe
+
+`wiki/` documenta el TP4 como un bundle [Open Knowledge Format v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format): planteo de la plataforma de dron, datos, experimentos, clases de la misión, benchmark en placas, mejoras de inferencia, plan y decisiones. Es la única fuente del informe; las convenciones de edición están en [wiki/guia-edicion.md](wiki/guia-edicion.md).
+
+```powershell
+.venv/Scripts/python.exe -m tp4.cli wiki check      # conformidad OKF y enlaces
+.venv/Scripts/python.exe -m tp4.cli informe         # genera informe/informe_tp4.pdf (requiere pdflatex)
+.venv/Scripts/python.exe -m tp4.cli informe --solo-tex
+```
+
+`informe/informe_tp4_obc.pdf` es la versión 1, escrita a mano, y se conserva como referencia histórica.
+
+Evaluaciones orientadas a la misión (persona, vehículo, dos ruedas), sin reentrenar:
+
+```powershell
+.venv/Scripts/python.exe -m tp4.cli mission runs/full/ID      # clases agrupadas en DET val
+.venv/Scripts/python.exe -m tp4.cli resolution runs/full/ID   # 640/960/1280 px y mosaicos en DET val
+.venv/Scripts/python.exe -m tp4.cli video runs/full/ID        # detección por pasada en VisDrone-VID val
+```
+
+`video` necesita `VisDrone2019-VID-val.zip` (descarga manual desde la página de VisDrone) extraído en `data/raw/`. Guarda un caché de predicciones en `mission_eval/video_cache/`, así que volver a evaluar no repite la inferencia.

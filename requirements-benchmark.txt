@@ -1,0 +1,5 @@
+# PyTorch/TensorRT se instalan antes según JetPack o CPU ARM64. Ver BENCHMARK_OBC.md.
+ultralytics==8.4.162
+psutil==7.2.2
+PyYAML>=6.0,<7
+matplotlib>=3.8,<4

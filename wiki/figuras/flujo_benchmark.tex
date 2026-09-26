@@ -1,0 +1,37 @@
+% Flujo de trabajo del benchmark en placas (fuente de flujo_benchmark.png).
+\documentclass[11pt,tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[spanish,es-noshorthands]{babel}
+\usetikzlibrary{positioning,arrows.meta,decorations.pathreplacing,fit,calc,babel}
+\definecolor{unlam}{RGB}{0,110,60}
+\definecolor{unlamclaro}{RGB}{232,243,236}
+\definecolor{gris}{RGB}{90,90,90}
+\definecolor{ajuste}{RGB}{31,119,180}
+\definecolor{nuevo}{RGB}{255,127,14}
+\begin{document}
+\begin{tikzpicture}[
+  font=\footnotesize,
+  paso/.style={draw=unlam,fill=unlamclaro,rounded corners=2pt,align=center,text width=5.2cm,minimum height=1.0cm,inner sep=3pt},
+  hub/.style={draw=unlam,fill=unlam,text=white,rounded corners=2pt,align=center,text width=8.6cm,minimum height=0.9cm,inner sep=4pt},
+  flecha/.style={-{Stealth[length=2mm]},thick,draw=gris},
+  node distance=0.38cm]
+  \node[hub] (pack) {\textbf{Coordinación} (laptop del proyecto): \texttt{benchmark pack}\\ZIP común + SHA-256 + referencia \texttt{.pt}};
+  \node[font=\footnotesize\bfseries,text=unlam,below left=0.55cm and -2.2cm of pack,text width=5.2cm,align=center] (tj) {Equipo Jetson (con GPU)};
+  \node[font=\footnotesize\bfseries,text=unlam,below right=0.55cm and -2.2cm of pack,text width=5.2cm,align=center] (tr) {Equipo Raspberry Pi 5 (sin GPU)};
+  \node[paso,below=0.1cm of tj] (j1) {\texttt{verify} + \texttt{doctor}\\{\scriptsize integridad, ARM64, JetPack, versiones}};
+  \node[paso,below=of j1] (j2) {\texttt{export -{}-platform jetson}\\{\scriptsize TensorRT FP16, construido en la placa}};
+  \node[paso,below=of j2] (j3) {\texttt{run -{}-quick}\\{\scriptsize diagnóstico breve, 5\,s por modelo, sin mAP}};
+  \node[paso,below=of j3] (j4) {\texttt{run} oficial\\{\scriptsize 3\,$\times$\,5\,min por modelo + mAP + 300 paneles}};
+  \node[paso,below=0.1cm of tr] (r1) {\texttt{verify} + \texttt{doctor}\\{\scriptsize integridad, ARM64, Python 64 bits}};
+  \node[paso,below=of r1] (r2) {\texttt{export -{}-platform rpi5}\\{\scriptsize modelo NCNN, 4 hilos, CPU}};
+  \node[paso,below=of r2] (r3) {\texttt{run -{}-quick}\\{\scriptsize diagnóstico breve, 5\,s por modelo, sin mAP}};
+  \node[paso,below=of r3] (r4) {\texttt{run} oficial\\{\scriptsize 3\,$\times$\,5\,min por modelo + mAP + 300 paneles}};
+  \node[hub,below=1.1cm of pack |- j4.south] (cmp) {\textbf{Comparación conjunta}: \texttt{benchmark compare}\\\texttt{informe.html} + \texttt{comparacion.csv} + gráficos};
+  \foreach \a/\b in {j1/j2,j2/j3,j3/j4,r1/r2,r2/r3,r3/r4} \draw[flecha] (\a) -- (\b);
+  \draw[flecha] (pack.south) -- ++(0,-0.25) -| (tj.north);
+  \draw[flecha] (pack.south) -- ++(0,-0.25) -| (tr.north);
+  \draw[flecha] (j4.south) -- (j4.south |- cmp.north) node[midway,right=2pt,font=\scriptsize,text=gris] {resultados\_jetson.zip};
+  \draw[flecha] (r4.south) -- (r4.south |- cmp.north) node[midway,left=2pt,font=\scriptsize,text=gris] {resultados\_rpi5.zip};
+\end{tikzpicture}
+\end{document}

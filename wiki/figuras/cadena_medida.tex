@@ -1,0 +1,40 @@
+% Diagrama de la cadena medida por el benchmark (fuente de cadena_medida.png).
+\documentclass[11pt,tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[spanish,es-noshorthands]{babel}
+\usetikzlibrary{positioning,arrows.meta,decorations.pathreplacing,fit,calc,babel}
+\definecolor{unlam}{RGB}{0,110,60}
+\definecolor{unlamclaro}{RGB}{232,243,236}
+\definecolor{gris}{RGB}{90,90,90}
+\definecolor{ajuste}{RGB}{31,119,180}
+\definecolor{nuevo}{RGB}{255,127,14}
+\begin{document}
+\begin{tikzpicture}[
+  font=\footnotesize,
+  caja/.style={draw=unlam,fill=unlamclaro,rounded corners=2pt,align=center,minimum height=1.35cm,text width=1.85cm,inner sep=3pt},
+  ext/.style={draw=gris,fill=white,rounded corners=2pt,align=center,minimum height=1.35cm,text width=1.85cm,inner sep=3pt},
+  flecha/.style={-{Stealth[length=2.2mm]},thick,draw=gris},
+  node distance=0.5cm]
+  \node[ext]  (cam) {\textbf{Cámara}\\[1pt]{\scriptsize en el banco: imagen desde disco}};
+  \node[caja,right=0.65cm of cam] (dec) {\textbf{Lectura y decodificación}};
+  \node[caja,right=of dec] (pre) {\textbf{Letterbox}\\640\,$\times$\,640};
+  \node[caja,right=of pre] (inf) {\textbf{Inferencia}\\YOLO26n\\{\scriptsize PyTorch, TensorRT o NCNN}};
+  \node[caja,right=of inf] (post) {\textbf{Cajas en CPU}\\{\scriptsize conf.\ 0,25; sin NMS}};
+  \node[ext,right=0.65cm of post] (fc) {\textbf{Consumidores}\\{\scriptsize control de vuelo, seguimiento, enlace}};
+  \draw[flecha] (cam) -- (dec);
+  \draw[flecha] (dec) -- (pre);
+  \draw[flecha] (pre) -- (inf);
+  \draw[flecha] (inf) -- (post);
+  \node[draw=unlam,dashed,rounded corners=4pt,inner sep=6pt,fit=(dec)(post),
+        label={[text=unlam,font=\footnotesize\bfseries]above:Computadora de a bordo (OBC)}] (obc) {};
+  \draw[flecha,dashed] (post) -- (fc);
+  % Intervalos medidos
+  \draw[decorate,decoration={brace,mirror,amplitude=5pt},thick,draw=nuevo]
+    ([yshift=-0.35cm]pre.south west) -- ([yshift=-0.35cm]post.south east)
+    node[midway,below=6pt,text=nuevo!80!black] {\textbf{Latencia} p50 / p95 (con sincronización CUDA)};
+  \draw[decorate,decoration={brace,mirror,amplitude=5pt},thick,draw=ajuste]
+    ([yshift=-1.25cm]dec.south west) -- ([yshift=-1.25cm]post.south east)
+    node[midway,below=6pt,text=ajuste] {\textbf{FPS sostenidos}: lectura + decodificación + detección completa};
+\end{tikzpicture}
+\end{document}

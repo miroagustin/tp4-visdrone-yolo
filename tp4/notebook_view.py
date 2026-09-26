@@ -171,3 +171,88 @@ def conclusion(ctx):
     test = read_json(ctx["run"] / "test_dev.json")
     if test:
         display(Markdown(f"**Evaluación independiente en test-dev:** mAP@0.5 {test['map50']*100:.4f}%; mAP@0.5:0.95 {test['map50_95']*100:.4f}%."))
+
+
+# ---------------------------------------------------------------- misión embarcada
+VARIANT_NAMES = {"full640": "Imagen completa 640 px", "full960": "Imagen completa 960 px", "full1280": "Imagen completa 1280 px",
+                 "mosaicos": "Mosaicos nativos", "mosaicos1280": "Mosaicos nativos + 1280 px",
+                 "mosaicos1920": "Mosaicos sobre imagen de 1920 px", "mosaicos2560": "Mosaicos sobre imagen de 2560 px"}
+
+
+def pct(value):
+    return "—" if value is None else f"{value * 100:.1f} %".replace(".", ",")
+
+
+def mission_eval(ctx, name):
+    return read_json(ctx["run"] / "mission_eval" / name) if ctx["run"] else None
+
+
+def mission_classes(ctx):
+    result = mission_eval(ctx, "val.json")
+    if not result:
+        space()
+        return
+    fused = result["variants"]["mision_fusion"]
+    point = next(p for p in fused["operating_points"] if p["conf"] == 0.25)
+    table(["Clase de la misión", "Clases VisDrone", "Objetos (val)", "AP50", "Precisión / recall por cuadro"],
+          [(name, ", ".join(result["groups"][name]), fused["per_class"][name]["objects"], pct(fused["per_class"][name].get("ap50")),
+            f"{pct(point['per_class'][name]['precision'])} / {pct(point['per_class'][name]['recall'])}") for name in fused["classes"]])
+    display(Markdown("Mismo modelo de 10 clases, reagrupado después de la inferencia (640 px, confianza 0,25, IoU 0,5). "
+                     "El conductor de una moto o bicicleta está anotado como persona; el vehículo que conduce, como vehículo."))
+
+
+def resolution(ctx):
+    result = mission_eval(ctx, "resolution_val.json")
+    if not result:
+        space()
+        return
+    rows = []
+    for key, r in result["variants"].items():
+        point = next(p for p in r["mision"]["operating_points"] if p["conf"] == 0.25)
+        rows.append((VARIANT_NAMES.get(key, key), f"{r['inferences_per_image']:.1f}".replace(".", ","), f"{r['ms_per_image']:.0f}",
+                     pct(r["mision"]["map50"]), pct(point["per_class"]["persona"]["recall"]), pct(point["per_class"]["vehiculo"]["recall"])))
+    table(["Variante", "Inferencias por imagen", "ms por imagen (laptop)", "mAP50 misión", "Recall persona", "Recall vehículo"], rows)
+    display(Markdown(f"Mismo `best.pt`, sin reentrenar, en las {result['images']} imágenes de validación de DET. Recall por cuadro con confianza 0,25. "
+                     "El tiempo es de la GPU de la laptop: en una placa el costo crece cerca de la cantidad de píxeles."))
+
+
+def pass_detection(ctx, variants=("full640", "full1280", "mosaicos1920", "mosaicos1280")):
+    result = mission_eval(ctx, "video_val.json")
+    if not result:
+        space()
+        return
+    def get(variant, stride):
+        return next(e for e in result["variants"][variant]["evaluations"] if e["stride"] == stride and e["conf"] == 0.25)["limpias"]
+    from .inference import inferences_per_image
+    clean = {s: v for s, v in result["sequences"].items() if not v["seen_in_det_train"]}
+    frames = sum(v["frames"] for v in clean.values())
+    rows = []
+    for key in (v for v in variants if v in result["variants"]):
+        calls = sum(inferences_per_image(*v["size"], key) * v["frames"] for v in clean.values()) / frames
+        rows.append((VARIANT_NAMES.get(key, key), f"{calls:.1f}".replace(".", ","), *(pct(get(key, k)["persona"]["detected_once"]) for k in (3, 6, 15)),
+                     pct(get(key, 6)["vehiculo"]["detected_once"])))
+    table(["Variante", "Inferencias por cuadro", "Personas a 10 FPS", "Personas a 5 FPS", "Personas a 2 FPS", "Vehículos a 5 FPS"], rows)
+    persons = get("full1280", 6)["persona"]
+    display(Markdown(f"Objetos detectados al menos una vez durante la pasada, en las {len(clean)} secuencias de VisDrone-VID que no comparten video "
+                     f"con el entrenamiento ({persons['objects']} personas). Confianza 0,25 y 30 FPS nominales. "
+                     f"**Objetivo: 85 % de las personas a 5 FPS o más.** Con 1280 px: {pct(persons['detected_once'])} a 5 FPS y "
+                     f"{pct(get('full1280', 3)['persona']['detected_once'])} a 10 FPS."))
+
+
+def video_demo(ctx):
+    import base64
+    demos = sorted((ctx["run"] / "mission_eval").glob("demo_*.json")) if ctx["run"] else []
+    info = read_json(demos[0]) if demos else None
+    video = demos[0].parent / info["video"] if info else None
+    if not info or not video.exists():
+        space(300)
+        return
+    kind = "video/mp4" if video.suffix == ".mp4" else "video/webm"
+    data = base64.b64encode(video.read_bytes()).decode("ascii")
+    display(HTML(f'<video controls autoplay muted loop playsinline style="width:100%;max-height:62vh;background:#000">'
+                 f'<source src="data:{kind};base64,{data}" type="{kind}"></video>'))
+    found = info["detected_once"]
+    display(Markdown(f"*Secuencia `{info['sequence']}` (no vista en entrenamiento), {VARIANT_NAMES.get(info['variant'], info['variant']).lower()}, "
+                     f"{info['fps']:.0f} FPS simulados. Al final de la pasada: {found['persona']['found']} de {found['persona']['seen']} personas y "
+                     f"{found['vehiculo']['found']} de {found['vehiculo']['seen']} vehículos detectados al menos una vez. "
+                     "Naranja: persona; celeste: vehículo; rojo: persona que todavía no se detectó en ningún cuadro.*"))

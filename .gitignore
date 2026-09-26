@@ -2,6 +2,7 @@
 data/
 runs/
 weights/
+benchmark_artifacts/
 .ipynb_checkpoints/
 __pycache__/
 .pytest_cache/
@@ -9,3 +10,4 @@ __pycache__/
 *.zip
 *.pt
 notebooks/01_visdrone_yolo.executed.ipynb
+informe/build/

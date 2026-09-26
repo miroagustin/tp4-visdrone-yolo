@@ -1,0 +1,137 @@
+% Generado automáticamente desde wiki/ por `python -m tp4.cli informe`. No editar a mano.
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla,es-noshorthands,es-nodecimaldot]{babel}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm,headheight=23pt,headsep=0.8cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.12}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{booktabs,tabularx,array,multirow}
+\usepackage{float}
+\usepackage{needspace}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{fancyhdr,lastpage}
+\usepackage{titlesec}
+\usepackage[font=small,labelfont={bf},labelsep=period]{caption}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\newcommand{\pendiente}[1]{\textcolor{black!45}{#1}}
+\definecolor{unlam}{RGB}{0,110,60}
+\definecolor{unlamclaro}{RGB}{232,243,236}
+\definecolor{gris}{RGB}{90,90,90}
+
+\hypersetup{colorlinks=true,linkcolor=unlam,citecolor=unlam,urlcolor=unlam,
+  pdftitle={((( p.title )))},pdfsubject={((( p.materia ))) - ((( p.trabajo )))}}
+\captionsetup{labelfont={bf,color=unlam}}
+\setlist{itemsep=2pt,topsep=4pt}
+
+\titleformat{\section}{\large\bfseries\color{unlam}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{unlam}}{\thesubsection.}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\itshape}{\thesubsubsection.}{0.6em}{}
+\titleformat{\paragraph}[runin]{\normalsize\bfseries}{}{0pt}{}[.]
+\titlespacing*{\section}{0pt}{16pt}{6pt}
+\titlespacing*{\subsection}{0pt}{11pt}{4pt}
+\titlespacing*{\paragraph}{0pt}{6pt}{0.6em}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gris}((( p.universidad ))) \textperiodcentered{} DIIT}
+\fancyhead[R]{\small\color{gris}((( p.materia ))) \textperiodcentered{} ((( p.trabajo )))}
+\fancyfoot[C]{\small\color{gris}Página \thepage{} de \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{unlam}\leaders\hrule height \headrulewidth\hfill}}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newtcolorbox{recuadro}[1]{enhanced,colback=unlamclaro,colframe=unlam,boxrule=0.6pt,breakable,
+  arc=2pt,left=8pt,right=8pt,top=6pt,bottom=6pt,fonttitle=\bfseries\small,title={#1}}
+
+\begin{document}
+
+% ------------------------------------------------------------------ carátula
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[unlam] (current page.north west) rectangle ([yshift=-0.9cm]current page.north east);
+  \fill[unlam] (current page.south west) rectangle ([yshift=0.5cm]current page.south east);
+\end{tikzpicture}
+\centering
+\vspace*{0.6cm}
+\IfFileExists{figuras/logo_unlam.png}{\includegraphics[height=2.6cm]{figuras/logo_unlam.png}\par\vspace{0.6cm}}{}
+{\Large\bfseries\scshape ((( p.universidad )))\par}
+\vspace{0.25cm}
+{\large ((( p.departamento )))\par}
+\vspace{0.5cm}
+{\color{unlam}\rule{0.8\textwidth}{1pt}\par}
+\vspace{0.5cm}
+{\large\bfseries ((( p.materia )))\par}
+\vspace{0.15cm}
+{\large ((( p.trabajo ))) \textperiodcentered{} ((( p.tipo_informe )))\par}
+\vspace{1.4cm}
+{\LARGE\bfseries\color{unlam} ((( p.title )))\par}
+\vspace{0.6cm}
+{\large ((( p.subtitulo )))\par}
+\vspace{1.4cm}
+
+\begin{tabular}{@{}p{0.52\textwidth}p{0.26\textwidth}@{}}
+\toprule
+\textbf{Integrantes} & \textbf{DNI} \\
+\midrule
+((* for m in p.integrantes *))((( m.nombre ))) & ((( m.dni ))) \\
+((* endfor *))\bottomrule
+\end{tabular}
+
+\vspace{0.8cm}
+\begin{tabular}{@{}r@{\hspace{0.8em}}p{0.62\textwidth}@{}}
+\textbf{Docentes:} & ((( p.docentes ))) \\[2pt]
+\textbf{Destinatarios:} & ((( p.destinatarios ))) \\
+\end{tabular}
+
+\vfill
+{((( p.ciclo )))\par}
+\vspace{0.1cm}
+{((( p.lugar ))) \textperiodcentered{} ((( p.fecha ))) \textperiodcentered{} versión ((( p.version )))\par}
+\vspace{0.4cm}
+\end{titlepage}
+
+% ------------------------------------------------------------------ resumen
+\setcounter{page}{2}
+\section*{Resumen}
+\addcontentsline{toc}{section}{Resumen}
+((( resumen )))
+\medskip
+\noindent\textbf{Palabras clave:} ((( p.palabras_clave ))).
+
+\vspace{0.4cm}
+((( sintesis )))
+
+\newpage
+{\setstretch{0.98}\small\tableofcontents}
+\newpage
+
+% ------------------------------------------------------------------ cuerpo
+((( cuerpo )))
+
+% ------------------------------------------------------------------ referencias
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{Referencias}
+\small
+((( bibliografia )))
+\end{thebibliography}
+
+((* if anexos *))
+\appendix
+((( anexos )))
+((* endif *))
+
+\end{document}
