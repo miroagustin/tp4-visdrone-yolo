@@ -46,7 +46,6 @@ def audit_plot(data_dir: Path, output: Path | None = None) -> Path:
     areas = info["train"]["relative_box_areas"]
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
     axes[0].barh(MISSION_CLASSES, counts)
-    axes[0].set_xscale("log")
     axes[0].set_title("Cajas por clase · train")
     axes[1].hist(areas, bins=50, range=(0, min(.05, max(areas) if areas else .05)))
     axes[1].set_xlabel("Área de caja / área de imagen")

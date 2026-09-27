@@ -2,7 +2,7 @@
 
 Bonus de despliegue: [guía de benchmark OBC para Jetson y Raspberry Pi 5](BENCHMARK_OBC.md). Incluye paquete común, TensorRT/NCNN, medición de memoria/FPS y reporte comparativo autónomo.
 
-Proyecto académico para detectar diez tipos de personas y vehículos en imágenes aéreas. El [notebook](notebooks/01_visdrone_yolo.ipynb) explica el proceso completo. `presentacion.html` es un recorrido autónomo de 8–10 minutos con artefactos guardados. **Un resultado smoke sólo verifica el pipeline; no demuestra calidad final.**
+Proyecto académico para detectar personas y vehículos en imágenes aéreas. Todo el TP (entrenamiento, evaluación local y placas) usa las mismas dos clases: **persona** y **vehiculo**. El [notebook](notebooks/01_visdrone_yolo.ipynb) explica el proceso completo. `presentacion.html` es un recorrido autónomo de 8–10 minutos con artefactos guardados. **Un resultado smoke sólo verifica el pipeline; no demuestra calidad final.**
 
 ## Instalación local (Windows 11, GPU NVIDIA)
 
@@ -35,7 +35,13 @@ Para el entrenamiento académico completo, después de revisar smoke:
 .venv/Scripts/python.exe -m tp4.cli train full
 ```
 
-El perfil full usa 50 épocas, resolución 640, batch 4, seed 42 y workers 0. Ajustá parámetros en `config.yaml` o usá `--batch 2`/`--imgsz 960` para una variante explícita; cada ejecución guarda su configuración resuelta en `run.json`. Si CUDA informa memoria insuficiente, bajá batch, iniciá un nuevo run y registrá el cambio. El entrenamiento se bloquea si PyTorch no detecta GPU. Para reanudar, usá `train full --resume runs/full/ID/train/weights/last.pt`; el código comprueba el archivo. `best.pt` se evalúa en val automáticamente. Reservá test-dev para el final:
+El perfil full usa 50 épocas, resolución 1280, batch 4, seed 42 y 8 workers (a 1280 px, 8 workers casi duplican la velocidad; smoke sigue con 0). En la RTX 5070 Laptop cada época tarda unos 4,5 min, unas 4 h por modelo, y la GPU reserva hasta ~7,7 GB: cerrá juegos y otras apps que usen la GPU antes de entrenar. Para entrenar YOLO11n y después YOLO26n en una sola tanda (el `;` lanza el segundo aunque falle el primero):
+
+```powershell
+.venv/Scripts/python.exe -m tp4.cli train full --no-yolo26; .venv/Scripts/python.exe -m tp4.cli train full --yolo26
+```
+
+El run `20260925T231501Z` (YOLO26n, 640 px, 10 clases VisDrone reagrupadas después de la inferencia) queda como línea base. Ajustá parámetros en `config.yaml` o usá `--batch 2`/`--imgsz 960` para una variante explícita; cada ejecución guarda su configuración resuelta en `run.json`. Si CUDA informa memoria insuficiente, bajá batch, iniciá un nuevo run y registrá el cambio. El entrenamiento se bloquea si PyTorch no detecta GPU. Para reanudar, usá `train full --resume runs/full/ID/train/weights/last.pt`; el código comprueba el archivo. `best.pt` se evalúa en val automáticamente. Reservá test-dev para el final:
 
 ```powershell
 .venv/Scripts/python.exe -m tp4.cli test runs/full/ID
@@ -52,7 +58,7 @@ El perfil full usa 50 épocas, resolución 640, batch 4, seed 42 y workers 0. Aj
 
 Sin flag se utiliza el valor de `config.yaml`. El flag resuelto y el nombre del modelo quedan registrados en `run.json`. Cambiar la configuración no altera un proceso que ya cargó el modelo. Al reanudar con `--resume`, se conserva el checkpoint y la configuración original del run, incluso si era YOLO11 y el nuevo predeterminado es YOLO26. Por eso `--resume` no se combina con flags de modelo, batch o resolución. El informe identifica el modelo de la ejecución evaluada, independientemente del predeterminado actual.
 
-Las métricas de Ultralytics son Precision, Recall, mAP@0.5 y mAP@0.5:0.95, con desglose por clase. **No son métricas del evaluador oficial VisDrone.** Las regiones con score 0 se excluyen de las etiquetas, pero el evaluador oficial puede tratarlas de otro modo. `pedestrian` significa persona de pie o caminando; `people` incluye otras posturas. Las categorías originales 1–10 se convierten a índices YOLO 0–9; las demás se excluyen. No se comparan las etiquetas COCO preentrenadas como si fueran las mismas clases.
+Las métricas de Ultralytics son Precision, Recall, mAP@0.5 y mAP@0.5:0.95, con desglose por clase. **No son métricas del evaluador oficial VisDrone.** Las regiones con score 0 se excluyen de las etiquetas, pero el evaluador oficial puede tratarlas de otro modo. `pedestrian` significa persona de pie o caminando; `people` incluye otras posturas. Al preparar los datos, las categorías originales 1–10 se agrupan en persona (0: *pedestrian*, *people*) y vehiculo (1: el resto) según `MISSION_GROUPS` en `tp4/data.py`; las demás se excluyen. No se comparan las etiquetas COCO preentrenadas como si fueran las mismas clases.
 
 ## Notebook y presentación
 
@@ -66,7 +72,7 @@ Un proceso ya iniciado no incorpora callbacks nuevos. Tampoco se pueden reconstr
 
 Al observar test-dev durante el entrenamiento deja de ser un conjunto completamente reservado. No elijas hiperparámetros ni checkpoints según estas imágenes; la selección sigue usando val. La secuencia cambia de imagen y sirve como ilustración cualitativa, no como comparación controlada entre épocas. El notebook explicita esta limitación.
 
-`notebooks/01_visdrone_yolo.ipynb` es la única fuente del informe académico: introducción, objetivos, datos, método, resultados, discusión y referencias. Se edita directamente en Jupyter, VS Code o Colab y se guarda en Git. Se ejecuta de arriba abajo para leer artefactos. La función que ilustra entrenamiento y evaluación no se invoca al ejecutarlo.
+`notebooks/01_visdrone_yolo.ipynb` es la única fuente del informe académico: introducción, objetivos, datos, método, resultados, discusión y referencias. Se edita directamente en Jupyter, VS Code o Colab y se guarda en Git. Se ejecuta de arriba abajo para leer artefactos. La celda de «Ajuste y selección del modelo» trae `ENTRENAR = False`; con `True` reentrena con el perfil full (elegí el modelo con `USAR_YOLO26`), muestra la predicción de cada época en su salida y las secciones siguientes pasan a esa ejecución. No la actives mientras otro entrenamiento usa la GPU.
 
 El informe selecciona sólo ejecuciones **full terminadas**, sin recurrir a métricas smoke. Si falta una métrica, figura o conclusión, conserva un espacio vacío. `RUN_ID` fija un full terminado; con `None` selecciona el último. La configuración de un full registrado puede describir el método mientras se entrena, pero sus métricas parciales no se incorporan al informe. Las antiguas variables `TP4_TRAIN`, `TP4_PREPARE` y `TP4_LATENCY` no activan cómputo en el notebook.
 

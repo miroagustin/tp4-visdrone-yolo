@@ -98,6 +98,35 @@ def protocol(ctx):
           ("PyTorch / Ultralytics", f"{info['versions']['torch']} / {info['versions']['ultralytics']}")])
 
 
+def runs_table(ctx):
+    """Ejecuciones full registradas; de las que no terminaron solo se informa el avance."""
+    import yaml
+    rows = []
+    for path in sorted((ctx["root"] / "runs" / "full").glob("*/run.json")):
+        info = read_json(path)
+        if not info:
+            continue
+        s, m = info["settings"], info.get("metrics") or {}
+        try:
+            classes = len(m["per_class"]) if m else len(yaml.safe_load(Path(s["data_yaml"]).read_text(encoding="utf-8"))["names"])
+        except (OSError, KeyError, TypeError):
+            classes = "—"
+        if info.get("status") == "finished":
+            state = "terminada"
+        elif info.get("status") == "running":
+            csv = path.parent / "train" / "results.csv"
+            done = len(csv.read_text(encoding="utf-8").splitlines()) - 1 if csv.exists() else 0
+            state = f"en curso · época {done} de {s['epochs']}"
+        else:
+            state = "fallida"
+        rows.append((path.parent.name, s["model"].removesuffix(".pt"), f"{s['imgsz']} px", classes, state, pct(m.get("map50"))))
+    if not rows:
+        space()
+        return
+    table(["Ejecución", "Modelo", "Entrada", "Clases", "Estado", "mAP@0.5 (val)"], rows)
+    display(Markdown("El mAP con 10 clases y con 2 clases no se compara entre sí. De las ejecuciones en curso no se informan métricas parciales."))
+
+
 def metrics(ctx, per_class=False):
     info = ctx["info"]
     if not info or not info.get("metrics"):
@@ -166,7 +195,7 @@ def conclusion(ctx):
             f"Con {s['epochs']} épocas y {s['train_images']} imágenes train, mAP@0.5 fue **{m['map50']*100:.4f}%** sobre {s['val_images']} imágenes val. "
             "Este resultado es insuficiente para concluir utilidad en percepción robótica."))
     else:
-        display(Markdown(f"**Resultado de validación:** mAP@0.5 **{m['map50']*100:.4f}%** y mAP@0.5:0.95 **{m['map50_95']*100:.4f}%**. "
+        display(Markdown(f"**Resultado de validación ({s['model'].removesuffix('.pt')}, {s['imgsz']} px, {len(m['per_class'])} clases):** mAP@0.5 **{m['map50']*100:.4f}%** y mAP@0.5:0.95 **{m['map50_95']*100:.4f}%**. "
                          "Estos valores caracterizan la detección en el conjunto de validación. La diferencia entre ambos criterios refleja el efecto de exigir una localización más precisa."))
     test = read_json(ctx["run"] / "test_dev.json")
     if test:
