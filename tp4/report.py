@@ -9,7 +9,7 @@ from pathlib import Path
 
 def review_boxes(data_dir: Path, split="val", count=3, output: Path | None = None) -> Path:
     from PIL import Image, ImageDraw
-    from .data import CLASSES
+    from .data import MISSION_CLASSES
     import matplotlib.pyplot as plt
     images = sorted((data_dir / "yolo" / "images" / split).glob("*.jpg"))[:count]
     if not images:
@@ -26,7 +26,7 @@ def review_boxes(data_dir: Path, split="val", count=3, output: Path | None = Non
             c, xc, yc, bw, bh = map(float, row.split())
             x1, y1, x2, y2 = (xc-bw/2)*w, (yc-bh/2)*h, (xc+bw/2)*w, (yc+bh/2)*h
             draw.rectangle((x1, y1, x2, y2), outline="yellow", width=2)
-            draw.text((x1, max(0, y1-10)), CLASSES[int(c)], fill="yellow")
+            draw.text((x1, max(0, y1-10)), MISSION_CLASSES[int(c)], fill="yellow")
         ax.imshow(picture)
         ax.set_title(image.name)
         ax.axis("off")
@@ -40,12 +40,12 @@ def review_boxes(data_dir: Path, split="val", count=3, output: Path | None = Non
 
 def audit_plot(data_dir: Path, output: Path | None = None) -> Path:
     import matplotlib.pyplot as plt
-    from .data import CLASSES
+    from .data import MISSION_CLASSES
     info = json.loads((data_dir / "audit.json").read_text(encoding="utf-8"))
-    counts = [info["train"]["class_counts"].get(name, 0) for name in CLASSES]
+    counts = [info["train"]["class_counts"].get(name, 0) for name in MISSION_CLASSES]
     areas = info["train"]["relative_box_areas"]
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-    axes[0].barh(CLASSES, counts)
+    axes[0].barh(MISSION_CLASSES, counts)
     axes[0].set_xscale("log")
     axes[0].set_title("Cajas por clase · train")
     axes[1].hist(areas, bins=50, range=(0, min(.05, max(areas) if areas else .05)))

@@ -12,15 +12,10 @@ from pathlib import Path
 
 import numpy as np
 
-from .data import CLASSES
+from .data import CLASSES, MISSION_CLASSES, MISSION_GROUPS
+from .data import TO_MISSION as _TO_MISSION
 
-MISSION_GROUPS = {
-    "persona": ("pedestrian", "people"),
-    # Bicicletas y motos son vehículos; quien las conduce está anotado aparte como "people".
-    "vehiculo": ("car", "van", "truck", "bus", "tricycle", "awning-tricycle", "bicycle", "motor"),
-}
-MISSION_CLASSES = tuple(MISSION_GROUPS)
-TO_MISSION = np.array([next(i for i, members in enumerate(MISSION_GROUPS.values()) if name in members) for name in CLASSES])
+TO_MISSION = np.array(_TO_MISSION)
 IOUV = np.linspace(0.5, 0.95, 10)
 CONF_GRID = (0.05, 0.1, 0.15, 0.25, 0.4, 0.5)
 # Lado equivalente sqrt(w*h) de cada objeto medido en la entrada de la red, en píxeles.

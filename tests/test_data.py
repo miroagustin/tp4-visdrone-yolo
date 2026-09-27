@@ -7,7 +7,7 @@ from tp4.data import convert_row, prepare_split
 
 def test_conversion_rules():
     row, reason = convert_row("100,50,200,100,1,4,0,0", 1000, 500)
-    assert row == "3 0.20000000 0.20000000 0.20000000 0.20000000"
+    assert row == "1 0.20000000 0.20000000 0.20000000 0.20000000"
     assert reason == "included"
     assert convert_row("0,0,10,10,0,4", 100, 100)[1] == "ignored_score"
     assert convert_row("0,0,10,10,1,11", 100, 100)[1] == "excluded_category"
@@ -42,8 +42,8 @@ def test_valid_split_is_reused(tmp_path: Path, monkeypatch):
     timestamp = label.stat().st_mtime_ns
     second = prepare_split(tmp_path, "val")
     assert first == second and label.stat().st_mtime_ns == timestamp
-    assert first["class_counts"]["car"] == 1
+    assert first["class_counts"]["vehiculo"] == 1
     label.write_text("corrupted", encoding="utf-8")
     third = prepare_split(tmp_path, "val")
     assert third == first
-    assert label.read_text(encoding="utf-8").startswith("3 ")
+    assert label.read_text(encoding="utf-8").startswith("1 ")

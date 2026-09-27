@@ -13,6 +13,14 @@ import requests
 from PIL import Image
 
 CLASSES = ("pedestrian", "people", "bicycle", "car", "van", "truck", "tricycle", "awning-tricycle", "bus", "motor")
+# Clases del TP (entrenamiento, evaluación local y placas): cada categoría VisDrone se convierte a su grupo.
+MISSION_GROUPS = {
+    "persona": ("pedestrian", "people"),
+    # Bicicletas y motos son vehículos; quien las conduce está anotado aparte como "people".
+    "vehiculo": ("car", "van", "truck", "bus", "tricycle", "awning-tricycle", "bicycle", "motor"),
+}
+MISSION_CLASSES = tuple(MISSION_GROUPS)
+TO_MISSION = tuple(next(i for i, members in enumerate(MISSION_GROUPS.values()) if name in members) for name in CLASSES)
 SPLITS = {"train": 6471, "val": 548, "test-dev": 1610}
 BASE = "https://github.com/ultralytics/assets/releases/download/v0.0.0/VisDrone2019-DET-"
 
@@ -118,7 +126,7 @@ def convert_row(line: str, width: int, height: int):
     values = ((x1 + x2) / (2 * width), (y1 + y2) / (2 * height), (x2 - x1) / width, (y2 - y1) / height)
     if not all(0 <= n <= 1 for n in values):
         raise ValueError(f"Caja normalizada inválida: {values}")
-    return f"{category - 1} " + " ".join(f"{v:.8f}" for v in values), "clipped" if clipped else "included"
+    return f"{TO_MISSION[category - 1]} " + " ".join(f"{v:.8f}" for v in values), "clipped" if clipped else "included"
 
 
 def prepare_split(root: Path, split: str) -> dict:
@@ -136,7 +144,7 @@ def prepare_split(root: Path, split: str) -> dict:
     raw_sha = (raw / ".archive_sha256").read_text(encoding="ascii")
     if marker.exists():
         saved = json.loads(marker.read_text(encoding="utf-8"))
-        if saved.get("archive_sha256") == raw_sha and len(list(lab_out.glob("*.txt"))) == len(images) and len(list(img_out.glob("*.jpg"))) == len(images) and saved.get("labels_sha256") == labels_digest(lab_out):
+        if saved.get("archive_sha256") == raw_sha and len(list(lab_out.glob("*.txt"))) == len(images) and len(list(img_out.glob("*.jpg"))) == len(images) and saved.get("labels_sha256") == labels_digest(lab_out) and saved.get("classes") == list(MISSION_CLASSES):
             return saved
     counts = Counter()
     class_counts = Counter()
@@ -172,14 +180,14 @@ def prepare_split(root: Path, split: str) -> dict:
                 os.link(image, linked)
             except OSError:
                 shutil.copy2(image, linked)
-    summary = {"split": split, "images": len(images), "expected_images": SPLITS[split], "annotations": len(annotations), "rows": dict(counts), "class_counts": {CLASSES[int(k)]: v for k, v in class_counts.items()}, "mean_objects_per_image": sum(densities) / len(densities), "relative_box_areas": areas, "archive_sha256": raw_sha, "labels_sha256": labels_digest(lab_out)}
+    summary = {"split": split, "images": len(images), "expected_images": SPLITS[split], "annotations": len(annotations), "rows": dict(counts), "classes": list(MISSION_CLASSES), "class_counts": {MISSION_CLASSES[int(k)]: v for k, v in class_counts.items()}, "mean_objects_per_image": sum(densities) / len(densities), "relative_box_areas": areas, "archive_sha256": raw_sha, "labels_sha256": labels_digest(lab_out)}
     marker.write_text(json.dumps(summary, ensure_ascii=False), encoding="utf-8")
     return summary
 
 
 def write_yaml(root: Path, path: Path, train="images/train", val="images/val") -> None:
     import yaml
-    path.write_text(yaml.safe_dump({"path": str((root / "yolo").resolve()), "train": train, "val": val, "test": "images/test", "names": dict(enumerate(CLASSES))}, sort_keys=False), encoding="utf-8")
+    path.write_text(yaml.safe_dump({"path": str((root / "yolo").resolve()), "train": train, "val": val, "test": "images/test", "names": dict(enumerate(MISSION_CLASSES))}, sort_keys=False), encoding="utf-8")
 
 
 def prepare_all(root: Path) -> dict:
@@ -205,5 +213,5 @@ def smoke_yaml(root: Path, seed: int, train_n=128, val_n=32) -> Path:
         lists[split] = str(listing)
     import yaml
     path = root / "smoke.yaml"
-    path.write_text(yaml.safe_dump({"path": str((root / "yolo").resolve()), "train": lists["train"], "val": lists["val"], "names": dict(enumerate(CLASSES))}, sort_keys=False), encoding="utf-8")
+    path.write_text(yaml.safe_dump({"path": str((root / "yolo").resolve()), "train": lists["train"], "val": lists["val"], "names": dict(enumerate(MISSION_CLASSES))}, sort_keys=False), encoding="utf-8")
     return path

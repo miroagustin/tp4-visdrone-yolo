@@ -34,7 +34,7 @@ def child(job, folder):
 
 def pack(args):
     from PIL import Image
-    from .data import CLASSES
+    from .data import MISSION_CLASSES
     dest = new_folder(args.output, 'package')
     bundle = dest / 'bundle'
     for rel in ('models', 'images/test', 'labels/test'):
@@ -51,7 +51,7 @@ def pack(args):
         rows = label.read_text().splitlines()
         for row in rows:
             values = row.split()
-            if len(values) != 5 or not 0 <= int(values[0]) < 10:
+            if len(values) != 5 or not 0 <= int(values[0]) < len(MISSION_CLASSES):
                 raise ValueError(f'Etiqueta inválida: {label}')
             if any(not 0 <= float(v) <= 1 for v in values[1:]) or min(map(float, values[3:])) <= 0:
                 raise ValueError(f'Caja inválida: {label}')
@@ -71,7 +71,7 @@ def pack(args):
             raise ValueError(f'Checkpoint no aceptado: {run}')
         shutil.copy2(run / 'train/weights/best.pt', bundle / f'models/{name}.pt')
         provenance[name] = info
-    manifest = dict(schema=1, study='yolo26_deployment_v1', split='test-dev', seed=42, classes=CLASSES, images=images,
+    manifest = dict(schema=1, study='yolo26_deployment_v1', split='test-dev', seed=42, classes=MISSION_CLASSES, images=images,
                     gallery=[x['image'] for x in images[:12]], protocol=PROTOCOL,
                     models=provenance, source_audit=sha(ROOT / 'data/yolo/labels/test/manifest.json'),
                     caveat='YOLO26 observó imágenes de test-dev durante el seguimiento del entrenamiento.')

@@ -6,5 +6,6 @@ runs_dir: runs
 epoch_preview: {enabled: true, confidence: 0.25}
 profiles:
   smoke: {epochs: 2, imgsz: 640, batch: 4, workers: 0, train_images: 128, val_images: 32}
-  full: {epochs: 50, imgsz: 640, batch: 4, workers: 0, train_images: null, val_images: null}
+  # 1280 px y persona/vehículo: la configuración de la misión. 8 workers casi duplican la velocidad a 1280.
+  full: {epochs: 50, imgsz: 1280, batch: 4, workers: 8, train_images: null, val_images: null}
   presentation: {train: false}
