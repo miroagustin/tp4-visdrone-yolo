@@ -5,7 +5,7 @@ description: Sin reentrenar, procesar la imagen completa a 1280 px sube el recal
 resource: ../../runs/full/20260925T231501Z/mission_eval/resolution_val.json
 tags: [resultados, resolucion, sahi, mosaicos, objetos-pequenos]
 status: stable
-generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T23:00:00Z }
+generated: { by: claude-code/claude-opus-5-5, at: 2026-09-28T02:30:00Z }
 sources:
   - id: resolucion
     resource: ../../runs/full/20260925T231501Z/mission_eval/resolution_val.json
@@ -16,6 +16,8 @@ sources:
   - id: sahi
     resource: /referencias/bibliografia.md
 ---
+
+Esta evaluación corresponde al modelo de **línea base**: YOLO26n entrenado a 640 px con las diez clases de VisDrone. Los resultados del modelo reentrenado con persona y vehículo a 1280 px están en el [reentrenamiento](reentrenamiento-1280.md).
 
 # Método
 

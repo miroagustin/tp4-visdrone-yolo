@@ -5,7 +5,7 @@ description: En las secuencias limpias de VisDrone-VID, a 5 FPS y con confianza 
 resource: ../../runs/full/20260925T231501Z/mission_eval/video_val.json
 tags: [resultados, video, recall-por-objeto, mision]
 status: stable
-generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T23:00:00Z }
+generated: { by: claude-code/claude-opus-5-5, at: 2026-09-28T02:30:00Z }
 sources:
   - id: video
     resource: ../../runs/full/20260925T231501Z/mission_eval/video_val.json
@@ -14,6 +14,8 @@ sources:
     resource: ../../tp4/video.py
     title: Evaluador de detección por objeto
 ---
+
+Esta evaluación corresponde al modelo de **línea base**: YOLO26n entrenado a 640 px con las diez clases de VisDrone. Los resultados del modelo reentrenado con persona y vehículo a 1280 px están en el [reentrenamiento](reentrenamiento-1280.md).
 
 # Método
 

@@ -4,9 +4,9 @@ title: Detección de personas y vehículos en imágenes aéreas para plataformas
 description: Estructura y carátula del informe de avance del TP4 que genera `python -m tp4.cli informe`.
 tags: [informe, unlam]
 status: stable
-generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T18:30:00Z }
-version: 2
-subtitulo: "Comparación YOLO11n / YOLO26n sobre VisDrone, clases de la misión y plan de benchmark en computadoras de a bordo (OBC) con y sin GPU"
+generated: { by: claude-code/claude-opus-5-5, at: 2026-09-28T02:30:00Z }
+version: 3
+subtitulo: "Comparación YOLO11n / YOLO26n sobre VisDrone, reentrenamiento con las clases de la misión y plan de benchmark en computadoras de a bordo (OBC) con y sin GPU"
 universidad: Universidad Nacional de La Matanza
 departamento: Departamento de Ingeniería e Investigaciones Tecnológicas
 materia: Visión Artificial
@@ -21,7 +21,7 @@ docentes: "[completar]"
 destinatarios: "equipo del proyecto (coordinación, equipo Jetson, equipo Raspberry Pi 5)"
 ciclo: "Ciclo lectivo 2026 · 2.º cuatrimestre"
 lugar: San Justo, Buenos Aires
-fecha: 26 de septiembre de 2026
+fecha: 28 de septiembre de 2026
 palabras_clave: [detección de objetos, vehículos aéreos no tripulados, YOLO, VisDrone, computación embarcada, TensorRT, NCNN]
 resumen: /informe/resumen.md
 sintesis: /informe/sintesis.md
@@ -43,6 +43,8 @@ secciones:
     conceptos: [/mejoras/resolucion-y-mosaicos.md, /experimentos/evaluacion-resolucion.md]
   - titulo: Detección por pasada en video
     conceptos: [/experimentos/evaluacion-video.md]
+  - titulo: Reentrenamiento con las clases de la misión
+    conceptos: [/experimentos/reentrenamiento-1280.md]
   - titulo: Benchmark en computadoras de a bordo
     conceptos: [/obc/plataformas.md, /obc/benchmark.md, /metricas/rendimiento-obc.md]
   - titulo: Plan de trabajo

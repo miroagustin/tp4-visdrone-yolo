@@ -5,6 +5,18 @@ title: Historial del TP4
 
 # Historial
 
+## 2026-09-28
+
+- **Reentrenamiento** de YOLO11n (`20260927T215941Z`) y YOLO26n (`20260928T003017Z`) con persona y vehículo a 1280 px: mAP50 de la misión de 69,3 % y 69,9 %, y 89 % de las personas detectadas por pasada a 5 FPS con YOLO26n, por encima del objetivo. Ver [reentrenamiento](experimentos/reentrenamiento-1280.md).
+- **Evaluación** de misión, resolución, video y demo con los modelos reentrenados. Los evaluadores distinguen modelos de 2 y de 10 clases, así la línea base sigue siendo comparable.
+- **Paquete de benchmark OBC** `package_20260928T020732595419Z` con YOLO26n reentrenado; el código rechaza paquetes con otro checkpoint u otras clases. Ver [benchmark](obc/benchmark.md).
+- **Incidente**: el reloj de Windows retrocedió unas 3 horas durante el entrenamiento de YOLO26n. La duración registrada usa un reloj monotónico y es correcta; las horas de archivos e identificadores posteriores quedaron desplazadas.
+
+## 2026-09-27
+
+- **Decisión**: todo el TP usa las mismas clases que las placas, persona y vehículo. Las etiquetas se agrupan al preparar los datos y los modelos se reentrenan con entrada de 1280 px. Ver [decisiones](plan/decisiones.md).
+- **Migración** de datos, entorno de Python, ejecuciones y paquetes al repositorio propio del TP4.
+
 ## 2026-09-26
 
 - **Evaluación** de resolución sin reentrenar en DET val (`python -m tp4.cli resolution`): 1280 px es el mejor compromiso y los mosaicos dan el mayor recall. Ver [resultados](experimentos/evaluacion-resolucion.md).

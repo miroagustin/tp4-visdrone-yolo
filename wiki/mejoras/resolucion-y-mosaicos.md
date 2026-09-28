@@ -4,7 +4,7 @@ title: Resolución de entrada y mosaicos
 description: Aumentar la resolución efectiva recupera personas pequeñas; medido sin reentrenar, 1280 px es el mejor compromiso y los mosaicos dan el mayor recall. Falta medir el costo en las placas.
 tags: [mejoras, resolucion, sahi, objetos-pequenos]
 status: stable
-generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T21:00:00Z }
+generated: { by: claude-code/claude-opus-5-5, at: 2026-09-28T02:30:00Z }
 sources:
   - id: sahi
     resource: /referencias/bibliografia.md
@@ -45,7 +45,7 @@ En video, frente al objetivo del 85 % por pasada a 5 FPS, las personas llegan a 
 # Próximos pasos
 
 1. **Medir el costo en las placas.** Agregar 1280 px y mosaicos reducidos a 1920 px (y mosaicos nativos + 1280 px en la Jetson) al [benchmark](../obc/benchmark.md): en una placa el costo crece cerca de la cantidad de píxeles, no como en la GPU de la laptop.
-2. **Reentrenar una sola vez** con las dos clases de la misión y entrada de 1280 px, y comparar contra estas evaluaciones con las mismas clases. Debería recuperar las personas grandes que se pierden al inferir a más resolución que la de entrenamiento.
+2. **Reentrenar una sola vez** con las dos clases de la misión y entrada de 1280 px. **Hecho:** recuperó las personas grandes (de 65 % a 86 % de recall) y llevó la detección por pasada a 89 % a 5 FPS; ver [reentrenamiento](../experimentos/reentrenamiento-1280.md).
 3. **Considerar un modelo híbrido** si la placa no alcanza: 1280 px solo en zonas de interés o mosaicos a menor frecuencia que la pasada completa.
 
 [^mision]: `mission_eval/val.json`, recall por tamaño.

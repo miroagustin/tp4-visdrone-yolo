@@ -5,7 +5,7 @@ description: Medición de YOLO26n original y optimizado en Jetson y Raspberry Pi
 resource: ../../BENCHMARK_OBC.md
 tags: [obc, benchmark, protocolo]
 status: stable
-generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T18:30:00Z }
+generated: { by: claude-code/claude-opus-5-5, at: 2026-09-28T02:30:00Z }
 sources:
   - id: guia
     resource: ../../BENCHMARK_OBC.md
@@ -27,9 +27,9 @@ sources:
 Ambos equipos reciben **el mismo ZIP** (unos 61 MiB) con su archivo `.sha256`[^guia]. Contiene:
 
 - 300 imágenes únicas de test-dev, elegidas sin reemplazo con semilla 42, junto con sus etiquetas y un orden fijo;
-- el `best.pt` de YOLO26n de la ejecución `20260925T231501Z`, con su manifiesto de entrenamiento (**no** debe reemplazarse por pesos descargados de Internet);
+- el `best.pt` de YOLO26n [reentrenado](../experimentos/reentrenamiento-1280.md) con persona y vehículo a 1280 px (ejecución `20260928T003017Z`), con su manifiesto de entrenamiento (**no** debe reemplazarse por pesos descargados de Internet);
 - doce imágenes de galería, la configuración y el SHA-256 de cada archivo;
-- la evaluación de referencia en la laptop sobre esa misma muestra, a 1280 px: **mAP50 = 34,91 %** y **mAP50–95 = 19,97 %** (a 640 px era 26,90 % y 15,19 %).
+- la evaluación de referencia en la laptop sobre esa misma muestra, a 1280 px y con las dos clases: **mAP50 = 57,52 %** y **mAP50–95 = 32,02 %** (persona 35,0 % y vehículo 80,0 % de AP50).
 
 # Cadena medida
 
@@ -54,14 +54,14 @@ Los indicadores resultantes y su lectura están en [rendimiento en placa](../met
 
 | Tarea | Estado |
 |---|---:|
-| Paquete solo YOLO26 a 1280 px generado (`package_20260926T215439979200Z`) y verificado por CRC, extracción y hashes | Hecho |
+| Paquete de YOLO26n reentrenado a 1280 px generado (`package_20260928T020732595419Z`) y verificado por CRC y hashes; el código rechaza paquetes con otro checkpoint u otras clases | Hecho |
 | Selección de las 300 imágenes reproducible con semilla 42 | Hecho |
-| Referencia `.pt` en la laptop a 1280 px (mAP50 34,91 %; mAP50–95 19,97 %) | Hecho |
-| Siete pruebas automatizadas (integridad, rutas, percentiles, rechazos, exclusión de diagnósticos, reporte) | Aprobadas |
+| Referencia `.pt` en la laptop a 1280 px (mAP50 57,52 %; mAP50–95 32,02 %) | Hecho |
+| Nueve pruebas automatizadas (integridad, checkpoint y clases, rutas, percentiles, rechazos, exclusión de diagnósticos, reporte) | Aprobadas |
 | Inferencia real en CPU y anotación en Windows, marcadas como diagnóstico local | Hecho |
 | Reporte HTML sin resultados abierto sin conexión de red | Hecho |
 | Exportación TensorRT / NCNN y mediciones físicas en las placas | **Pendiente** |
 
-Tabla: Validación local realizada el 26 de septiembre de 2026. Ninguna cifra de la laptop se atribuye a las placas.
+Tabla: Validación local realizada el 26 de septiembre de 2026; paquete regenerado el 28. Ninguna cifra de la laptop se atribuye a las placas.
 
 [^guia]: `BENCHMARK_OBC.md`, secciones 1 y 8.

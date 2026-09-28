@@ -11,7 +11,7 @@ from pathlib import Path
 
 import numpy as np
 
-from .mission import MISSION_CLASSES, TO_MISSION, box_iou, match_pairs, merge_duplicates
+from .mission import MISSION_CLASSES, box_iou, match_pairs, merge_duplicates, to_mission
 from .video import NOMINAL_FPS, load_annotations, vid_root
 
 COLORS = {"persona": (255, 150, 0), "vehiculo": (0, 200, 255)}  # RGB
@@ -52,6 +52,9 @@ def render_demo(root: Path, run: Path, *, sequence="uav0000117_02622_v", variant
     """Escribe mission_eval/demo_<secuencia>.mp4 y un JSON con las cuentas finales."""
     import cv2
     from PIL import Image, ImageDraw
+    from ultralytics import YOLO
+    nc = len(YOLO(str(run / "train" / "weights" / "best.pt")).names)
+    model_name = json.loads((run / "run.json").read_text(encoding="utf-8"))["settings"]["model"].removesuffix(".pt").replace("yolo", "YOLO")
     base = vid_root(root)
     files = sorted((base / "sequences" / sequence).glob("*.jpg"))
     height0, width0 = cv2.imread(str(files[0])).shape[:2]
@@ -72,7 +75,7 @@ def render_demo(root: Path, run: Path, *, sequence="uav0000117_02622_v", variant
         g_boxes, g_ids, g_groups, _ = gt.get(frame, empty)
         boxes, scores, classes = preds.get(frame, (np.zeros((0, 4)), np.zeros(0), np.zeros(0, int)))
         keep = scores >= conf
-        boxes, scores, groups = boxes[keep], scores[keep], TO_MISSION[classes[keep]]
+        boxes, scores, groups = boxes[keep], scores[keep], to_mission(classes[keep], nc)
         keep = merge_duplicates(boxes, scores, groups, 0.7)
         boxes, scores, groups = boxes[keep], scores[keep], groups[keep]
         pairs = match_pairs(box_iou(g_boxes, boxes), groups, g_groups, 0.5)
@@ -89,7 +92,7 @@ def render_demo(root: Path, run: Path, *, sequence="uav0000117_02622_v", variant
         for box, score, grp in zip(boxes, scores, groups):
             name = MISSION_CLASSES[grp]
             draw.rectangle(list(box * scale), outline=COLORS[name], width=2)
-        lines = [f"YOLO26n · entrada {variant.replace('full', '')} px · {fps:.0f} FPS simulados · confianza {conf}".replace(".", ","),
+        lines = [f"{model_name} · entrada {variant.replace('full', '')} px · {fps:.0f} FPS simulados · confianza {conf}".replace(".", ","),
                  *(f"{HUD[n]} al menos una vez: {len(found[g])} de {len(seen[g])}"
                    f" ({100 * len(found[g]) / max(1, len(seen[g])):.0f} %)" for g, n in enumerate(MISSION_CLASSES))]
         band = 12 + len(lines) * (font.size + 8)

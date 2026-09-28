@@ -4,13 +4,13 @@ title: Tareas y criterios de aceptación
 description: Trabajo pendiente del TP4, con responsable, entregable verificable y reglas para que los resultados sean comparables.
 tags: [plan, tareas]
 status: stable
-generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T18:30:00Z }
+generated: { by: claude-code/claude-opus-5-5, at: 2026-09-28T02:00:00Z }
 sources:
   - id: guia
     resource: ../../BENCHMARK_OBC.md
 ---
 
-Ya se completaron la evaluación por clases de la misión, la de resolución y mosaicos, y la de detección por pasada en VisDrone-VID. La tabla ordena el trabajo pendiente. Cada tarea tiene un entregable verificable, de modo que cualquier integrante pueda comprobar si está terminada sin depender de quien la ejecutó.
+Ya se completaron la evaluación por clases de la misión, la de resolución y mosaicos, la de detección por pasada en VisDrone-VID y el reentrenamiento con las dos clases a 1280 px (tarea 8), que cambia el modelo del benchmark. La tabla ordena el trabajo pendiente. Cada tarea tiene un entregable verificable, de modo que cualquier integrante pueda comprobar si está terminada sin depender de quien la ejecutó.
 
 | # | Tarea | Responsable | Criterio de aceptación |
 |---|---|---|---|
@@ -21,7 +21,7 @@ Ya se completaron la evaluación por clases de la misión, la de resolución y m
 | 5 | Ejecutar el benchmark oficial | Cada equipo | Seis mediciones completas, 300 paneles por modelo, telemetría presente, fuente y refrigeración registradas. |
 | 6 | Comparación conjunta | Coordinación | `informe.html` se abre en otra computadora sin red; diagnósticos e intentos incompletos excluidos. |
 | 7 | Agregar 1280 px y mosaicos al benchmark de placas | Coordinación y cada equipo | FPS, latencia p95 y memoria de cada variante en Jetson y Raspberry Pi 5, con el mismo protocolo. |
-| 8 | Reentrenar con las dos clases de la misión y entrada de 1280 px | Coordinación | Comparado con la evaluación a 1280 px sin reentrenar, en DET val y en las secuencias limpias de VID. |
+| 8 | Reentrenar con las dos clases de la misión y entrada de 1280 px | Coordinación | **Hecho.** Comparado con la evaluación a 1280 px sin reentrenar, en DET val y en las secuencias limpias de VID: ver [reentrenamiento](../experimentos/reentrenamiento-1280.md). |
 | 9 | Ampliar la evaluación en video sin fuga | Coordinación | Secuencias de VID de test-dev cuyo video no esté en el entrenamiento de DET, para tener más objetos limpios. |
 | 10 | Evaluar test-dev completo con el modelo fijado | Coordinación | Evaluación única, sin ajustar hiperparámetros después de verla. |
 | 11 | Análisis e informe final | Todo el equipo | Discusión frente al objetivo de detección por pasada y al requisito operativo. |

@@ -1,0 +1,56 @@
+{
+  "settings": {
+    "seed": 42,
+    "use_yolo26": false,
+    "device": "auto",
+    "data_dir": "C:\\Users\\miroa\\OneDrive\\Documentos\\Repos\\tp4-visdrone-yolo\\data",
+    "runs_dir": "C:\\Users\\miroa\\OneDrive\\Documentos\\Repos\\tp4-visdrone-yolo\\runs",
+    "epoch_preview": {
+      "enabled": true,
+      "confidence": 0.25
+    },
+    "epochs": 50,
+    "imgsz": 1280,
+    "batch": 4,
+    "workers": 8,
+    "train_images": null,
+    "val_images": null,
+    "profile": "full",
+    "model": "yolo11n.pt",
+    "data_yaml": "C:\\Users\\miroa\\OneDrive\\Documentos\\Repos\\tp4-visdrone-yolo\\data\\visdrone.yaml"
+  },
+  "versions": {
+    "python": "3.14.4",
+    "system": "Windows-11-10.0.26200-SP0",
+    "torch": "2.13.0+cu130",
+    "torchvision": "0.28.0+cu130",
+    "torch_cuda": "13.0",
+    "ultralytics": "8.4.162",
+    "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU"
+  },
+  "started_utc": "20260927T215941Z",
+  "status": "finished",
+  "elapsed_seconds": 9032.158167500049,
+  "error": null,
+  "metrics": {
+    "precision": 0.776179028263798,
+    "recall": 0.621286182275038,
+    "map50": 0.6973633525535319,
+    "map50_95": 0.39740847906600724,
+    "per_class": {
+      "persona": {
+        "precision": 0.7169472233874086,
+        "recall": 0.5218494632632148,
+        "map50": 0.5917239192526486,
+        "map50_95": 0.26627915965429405
+      },
+      "vehiculo": {
+        "precision": 0.8354108331401875,
+        "recall": 0.7207229012868611,
+        "map50": 0.8030027858544151,
+        "map50_95": 0.5285377984777204
+      }
+    },
+    "evaluator": "Ultralytics; no es el evaluador oficial de VisDrone"
+  }
+}

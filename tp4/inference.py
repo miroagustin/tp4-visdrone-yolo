@@ -1,6 +1,6 @@
 """Inferencia con imagen completa a distintas resoluciones o por mosaicos (estilo SAHI).
 
-Devuelve cajas en píxeles de la imagen original con las 10 clases VisDrone, para evaluarlas
+Devuelve cajas en píxeles de la imagen original con las clases del modelo, para evaluarlas
 con tp4.mission (clases de la misión) o tp4.video (detección por objeto).
 """
 from __future__ import annotations
@@ -89,6 +89,7 @@ def evaluate_resolution(root, run, *, variants=tuple(VARIANTS), split="val", dev
     import cv2
     import torch
     from ultralytics import YOLO
+    from .data import MISSION_CLASSES
     from .mission import evaluate_samples
     device = device or ("0" if torch.cuda.is_available() else "cpu")
     model = YOLO(str(run / "train" / "weights" / "best.pt"))
@@ -110,10 +111,10 @@ def evaluate_resolution(root, run, *, variants=tuple(VARIANTS), split="val", dev
             samples.append((boxes, scores, classes, gt, rows[:, 0].astype(int), sides))
             times.append(ms)
             calls.append(inferences_per_image(width, height, variant))
-        summary = evaluate_samples(samples)
+        # data/yolo ya está en clases de la misión; el modelo puede ser el de 10 clases (línea base).
+        summary = evaluate_samples(samples, pred_nc=len(model.names), gt_nc=len(MISSION_CLASSES))
         results[variant] = {"ms_per_image": float(np.mean(times)), "ms_p95": float(np.percentile(times, 95)),
-                            "inferences_per_image": float(np.mean(calls)), "mision": summary["mision_fusion"],
-                            "visdrone10": {k: summary["visdrone10"][k] for k in ("map50", "map50_95")}}
+                            "inferences_per_image": float(np.mean(calls)), "mision": summary["mision_fusion"]}
         print(variant, f"{results[variant]['ms_per_image']:.1f} ms", f"mAP50 misión {summary['mision_fusion']['map50']:.3f}")
     out = {"run": run.name, "split": split, "images": len(images), "device": torch.cuda.get_device_name(0) if device != "cpu" else "cpu",
            "protocol": {"conf": 0.01, "max_det": 300, "tile": TILE, "overlap": OVERLAP, "merge_iou": 0.5,

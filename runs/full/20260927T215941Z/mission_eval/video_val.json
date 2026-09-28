@@ -1,0 +1,2594 @@
+{
+  "run": "20260927T215941Z",
+  "dataset": "VisDrone2019-VID val",
+  "nominal_fps": 30.0,
+  "sequences": {
+    "uav0000086_00000_v": {
+      "frames": 464,
+      "size": [
+        1344,
+        756
+      ],
+      "seen_in_det_train": false
+    },
+    "uav0000117_02622_v": {
+      "frames": 349,
+      "size": [
+        2720,
+        1530
+      ],
+      "seen_in_det_train": false
+    },
+    "uav0000137_00458_v": {
+      "frames": 233,
+      "size": [
+        2688,
+        1512
+      ],
+      "seen_in_det_train": true
+    },
+    "uav0000182_00000_v": {
+      "frames": 363,
+      "size": [
+        1344,
+        756
+      ],
+      "seen_in_det_train": true
+    },
+    "uav0000268_05773_v": {
+      "frames": 978,
+      "size": [
+        3840,
+        2160
+      ],
+      "seen_in_det_train": false
+    },
+    "uav0000305_00000_v": {
+      "frames": 184,
+      "size": [
+        1904,
+        1071
+      ],
+      "seen_in_det_train": true
+    },
+    "uav0000339_00001_v": {
+      "frames": 275,
+      "size": [
+        1904,
+        1071
+      ],
+      "seen_in_det_train": true
+    }
+  },
+  "protocol": {
+    "iou": 0.5,
+    "merge_iou": 0.7,
+    "ignored_ioa": 0.5,
+    "store_conf": 0.05,
+    "detected_once": "al menos un cuadro evaluado con detección de su clase de la misión",
+    "size": "lado máximo sqrt(w*h) del objeto, referido a la entrada de 640 px"
+  },
+  "variants": {
+    "full1280": {
+      "ms_per_frame": {
+        "uav0000086_00000_v": 21.516947625184848,
+        "uav0000117_02622_v": 20.81245128872583,
+        "uav0000137_00458_v": 19.85374034598246,
+        "uav0000182_00000_v": 20.977422037962363,
+        "uav0000268_05773_v": 20.089069631446822,
+        "uav0000305_00000_v": 20.83706413142626,
+        "uav0000339_00001_v": 21.776824728162453
+      },
+      "evaluations": [
+        {
+          "stride": 1,
+          "fps": 30.0,
+          "conf": 0.1,
+          "todas": {
+            "persona": {
+              "objects": 335,
+              "detected_once": 0.9671641791044776,
+              "detected_3": 0.9343283582089552,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.06666666666666667,
+              "frame_recall": 0.7510136746700589,
+              "frame_precision": 0.2817568323328735,
+              "false_alarms_per_frame": 33.843991567111736,
+              "false_alarms_per_min": 60919.18482080113,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 23,
+                  "detected_once": 0.782608695652174
+                },
+                "8-16": {
+                  "objects": 130,
+                  "detected_once": 0.9846153846153847
+                },
+                "16-32": {
+                  "objects": 162,
+                  "detected_once": 0.9938271604938271
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 423,
+              "detected_once": 0.9267139479905437,
+              "detected_3": 0.9101654846335697,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.1,
+              "frame_recall": 0.7497336258226261,
+              "frame_precision": 0.34298412243288773,
+              "false_alarms_per_frame": 32.205551651440615,
+              "false_alarms_per_min": 57969.99297259312,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 95,
+                  "detected_once": 0.7157894736842105
+                },
+                "16-32": {
+                  "objects": 187,
+                  "detected_once": 0.9946524064171123
+                },
+                ">=32": {
+                  "objects": 131,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 190,
+              "detected_once": 0.9473684210526315,
+              "detected_3": 0.9157894736842105,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.23333333333333334,
+              "frame_recall": 0.731304811566722,
+              "frame_precision": 0.3947764058601497,
+              "false_alarms_per_frame": 21.128419877163594,
+              "false_alarms_per_min": 38031.15577889447,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 20,
+                  "detected_once": 0.75
+                },
+                "8-16": {
+                  "objects": 72,
+                  "detected_once": 0.9861111111111112
+                },
+                "16-32": {
+                  "objects": 78,
+                  "detected_once": 0.9871794871794872
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6853932584269663,
+              "detected_3": 0.6853932584269663,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.8333333333333334,
+              "frame_recall": 0.5807345807345807,
+              "frame_precision": 0.3037332366799565,
+              "false_alarms_per_frame": 15.016192071468453,
+              "false_alarms_per_min": 27029.145728643216,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 32,
+                  "detected_once": 0.25
+                },
+                "16-32": {
+                  "objects": 15,
+                  "detected_once": 0.9333333333333333
+                },
+                ">=32": {
+                  "objects": 32,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 145,
+              "detected_once": 0.993103448275862,
+              "detected_3": 0.9586206896551724,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.06666666666666667,
+              "frame_recall": 0.7911835748792271,
+              "frame_precision": 0.18303739819225773,
+              "false_alarms_per_frame": 55.430331753554505,
+              "false_alarms_per_min": 99774.59715639811,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 58,
+                  "detected_once": 0.9827586206896551
+                },
+                "16-32": {
+                  "objects": 84,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 334,
+              "detected_once": 0.9910179640718563,
+              "detected_3": 0.9700598802395209,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.03333333333333333,
+              "frame_recall": 0.828006786189188,
+              "frame_precision": 0.3580130651572676,
+              "false_alarms_per_frame": 61.38672985781991,
+              "false_alarms_per_min": 110496.11374407585,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 63,
+                  "detected_once": 0.9523809523809523
+                },
+                "16-32": {
+                  "objects": 172,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 99,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 1,
+          "fps": 30.0,
+          "conf": 0.25,
+          "todas": {
+            "persona": {
+              "objects": 335,
+              "detected_once": 0.9343283582089552,
+              "detected_3": 0.8955223880597015,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.12666666666666704,
+              "frame_recall": 0.6887024964223247,
+              "frame_precision": 0.4721480351011064,
+              "false_alarms_per_frame": 13.61138439915671,
+              "false_alarms_per_min": 24500.491918482083,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 23,
+                  "detected_once": 0.5217391304347826
+                },
+                "8-16": {
+                  "objects": 130,
+                  "detected_once": 0.9538461538461539
+                },
+                "16-32": {
+                  "objects": 162,
+                  "detected_once": 0.9876543209876543
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 423,
+              "detected_once": 0.9101654846335697,
+              "detected_3": 0.8959810874704491,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.13333333333333333,
+              "frame_recall": 0.7010811657787528,
+              "frame_precision": 0.5666540020263424,
+              "false_alarms_per_frame": 12.022839072382292,
+              "false_alarms_per_min": 21641.110330288127,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 95,
+                  "detected_once": 0.6631578947368421
+                },
+                "16-32": {
+                  "objects": 187,
+                  "detected_once": 0.983957219251337
+                },
+                ">=32": {
+                  "objects": 131,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 190,
+              "detected_once": 0.9,
+              "detected_3": 0.8631578947368421,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.23333333333333334,
+              "frame_recall": 0.6650272576439915,
+              "frame_precision": 0.6100119578215023,
+              "false_alarms_per_frame": 8.012283640424345,
+              "false_alarms_per_min": 14422.11055276382,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 20,
+                  "detected_once": 0.45
+                },
+                "8-16": {
+                  "objects": 72,
+                  "detected_once": 0.9444444444444444
+                },
+                "16-32": {
+                  "objects": 78,
+                  "detected_once": 0.9871794871794872
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6629213483146067,
+              "detected_3": 0.651685393258427,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.6200000000000008,
+              "frame_recall": 0.5078705078705079,
+              "frame_precision": 0.6160312218552987,
+              "false_alarms_per_frame": 3.5706309324399776,
+              "false_alarms_per_min": 6427.13567839196,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 32,
+                  "detected_once": 0.21875
+                },
+                "16-32": {
+                  "objects": 15,
+                  "detected_once": 0.8666666666666667
+                },
+                ">=32": {
+                  "objects": 32,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 145,
+              "detected_once": 0.9793103448275862,
+              "detected_3": 0.9379310344827586,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.1,
+              "frame_recall": 0.7369565217391304,
+              "frame_precision": 0.3335155225185833,
+              "false_alarms_per_frame": 23.116587677725118,
+              "false_alarms_per_min": 41609.85781990522,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 58,
+                  "detected_once": 0.9655172413793104
+                },
+                "16-32": {
+                  "objects": 84,
+                  "detected_once": 0.9880952380952381
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 334,
+              "detected_once": 0.9760479041916168,
+              "detected_3": 0.9610778443113772,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.1,
+              "frame_recall": 0.7905681140813425,
+              "frame_precision": 0.5534547789101998,
+              "false_alarms_per_frame": 26.371563981042655,
+              "false_alarms_per_min": 47468.81516587678,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 63,
+                  "detected_once": 0.8888888888888888
+                },
+                "16-32": {
+                  "objects": 172,
+                  "detected_once": 0.9941860465116279
+                },
+                ">=32": {
+                  "objects": 99,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 1,
+          "fps": 30.0,
+          "conf": 0.4,
+          "todas": {
+            "persona": {
+              "objects": 335,
+              "detected_once": 0.8865671641791045,
+              "detected_3": 0.8567164179104477,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.28000000000000114,
+              "frame_recall": 0.6212235649546828,
+              "frame_precision": 0.6261017628205128,
+              "false_alarms_per_frame": 6.558327477160928,
+              "false_alarms_per_min": 11804.989458889671,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 23,
+                  "detected_once": 0.391304347826087
+                },
+                "8-16": {
+                  "objects": 130,
+                  "detected_once": 0.8615384615384616
+                },
+                "16-32": {
+                  "objects": 162,
+                  "detected_once": 0.9876543209876543
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 423,
+              "detected_once": 0.900709219858156,
+              "detected_3": 0.8747044917257684,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.43333333333333335,
+              "frame_recall": 0.6565340018802883,
+              "frame_precision": 0.6967771975920445,
+              "false_alarms_per_frame": 6.406886858749122,
+              "false_alarms_per_min": 11532.39634574842,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.5555555555555556
+                },
+                "8-16": {
+                  "objects": 95,
+                  "detected_once": 0.6526315789473685
+                },
+                "16-32": {
+                  "objects": 187,
+                  "detected_once": 0.9786096256684492
+                },
+                ">=32": {
+                  "objects": 131,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 190,
+              "detected_once": 0.8473684210526315,
+              "detected_3": 0.8105263157894737,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.43333333333333335,
+              "frame_recall": 0.600912538516236,
+              "frame_precision": 0.7449223197561244,
+              "false_alarms_per_frame": 3.8777219430485763,
+              "false_alarms_per_min": 6979.899497487438,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 20,
+                  "detected_once": 0.3
+                },
+                "8-16": {
+                  "objects": 72,
+                  "detected_once": 0.8611111111111112
+                },
+                "16-32": {
+                  "objects": 78,
+                  "detected_once": 0.9871794871794872
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6292134831460674,
+              "detected_3": 0.5955056179775281,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.3333333333333333,
+              "frame_recall": 0.46054846054846055,
+              "frame_precision": 0.7588907014681893,
+              "false_alarms_per_frame": 1.6504745951982134,
+              "false_alarms_per_min": 2970.854271356784,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.5555555555555556
+                },
+                "8-16": {
+                  "objects": 32,
+                  "detected_once": 0.1875
+                },
+                "16-32": {
+                  "objects": 15,
+                  "detected_once": 0.8666666666666667
+                },
+                ">=32": {
+                  "objects": 32,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 145,
+              "detected_once": 0.9379310344827586,
+              "detected_3": 0.9172413793103448,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.15,
+              "frame_recall": 0.66262077294686,
+              "frame_precision": 0.4835411800995902,
+              "false_alarms_per_frame": 11.109004739336493,
+              "false_alarms_per_min": 19996.20853080569,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 58,
+                  "detected_once": 0.8620689655172413
+                },
+                "16-32": {
+                  "objects": 84,
+                  "detected_once": 0.9880952380952381
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 334,
+              "detected_once": 0.9730538922155688,
+              "detected_3": 0.9491017964071856,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.3,
+              "frame_recall": 0.7473061580081618,
+              "frame_precision": 0.6808706187074404,
+              "false_alarms_per_frame": 14.481516587677724,
+              "false_alarms_per_min": 26066.729857819908,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 63,
+                  "detected_once": 0.8888888888888888
+                },
+                "16-32": {
+                  "objects": 172,
+                  "detected_once": 0.9883720930232558
+                },
+                ">=32": {
+                  "objects": 99,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 3,
+          "fps": 10.0,
+          "conf": 0.1,
+          "todas": {
+            "persona": {
+              "objects": 328,
+              "detected_once": 0.9664634146341463,
+              "detected_3": 0.9207317073170732,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.2400000000000034,
+              "frame_recall": 0.7528490028490028,
+              "frame_precision": 0.28274632189032545,
+              "false_alarms_per_frame": 33.83385909568875,
+              "false_alarms_per_min": 20350.24595924104,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 23,
+                  "detected_once": 0.7391304347826086
+                },
+                "8-16": {
+                  "objects": 130,
+                  "detected_once": 0.9846153846153847
+                },
+                "16-32": {
+                  "objects": 155,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 422,
+              "detected_once": 0.9218009478672986,
+              "detected_3": 0.8767772511848341,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.2,
+              "frame_recall": 0.7495083809345444,
+              "frame_precision": 0.3418321588725176,
+              "false_alarms_per_frame": 32.41009463722398,
+              "false_alarms_per_min": 19493.886156008437,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 95,
+                  "detected_once": 0.7052631578947368
+                },
+                "16-32": {
+                  "objects": 187,
+                  "detected_once": 0.9893048128342246
+                },
+                ">=32": {
+                  "objects": 130,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 187,
+              "detected_once": 0.9411764705882353,
+              "detected_3": 0.8983957219251337,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.4,
+              "frame_recall": 0.7328379334748761,
+              "frame_precision": 0.39458893017052493,
+              "false_alarms_per_frame": 21.254180602006688,
+              "false_alarms_per_min": 12773.869346733669,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 20,
+                  "detected_once": 0.7
+                },
+                "8-16": {
+                  "objects": 74,
+                  "detected_once": 0.972972972972973
+                },
+                "16-32": {
+                  "objects": 73,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6853932584269663,
+              "detected_3": 0.6853932584269663,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.3,
+              "frame_recall": 0.5804061064176671,
+              "frame_precision": 0.3021604938271605,
+              "false_alarms_per_frame": 15.123745819397993,
+              "false_alarms_per_min": 9089.447236180904,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 32,
+                  "detected_once": 0.25
+                },
+                "16-32": {
+                  "objects": 15,
+                  "detected_once": 0.9333333333333333
+                },
+                ">=32": {
+                  "objects": 32,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 141,
+              "detected_once": 1.0,
+              "detected_3": 0.950354609929078,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.1,
+              "frame_recall": 0.7936507936507936,
+              "frame_precision": 0.18436269169529876,
+              "false_alarms_per_frame": 55.14447592067989,
+              "false_alarms_per_min": 33212.132701421804,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 56,
+                  "detected_once": 1.0
+                },
+                "16-32": {
+                  "objects": 82,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 333,
+              "detected_once": 0.984984984984985,
+              "detected_3": 0.9279279279279279,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.1,
+              "frame_recall": 0.8275956471151872,
+              "frame_precision": 0.357012105107765,
+              "false_alarms_per_frame": 61.69405099150141,
+              "false_alarms_per_min": 37156.77725118484,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 63,
+                  "detected_once": 0.9365079365079365
+                },
+                "16-32": {
+                  "objects": 172,
+                  "detected_once": 0.9941860465116279
+                },
+                ">=32": {
+                  "objects": 98,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 3,
+          "fps": 10.0,
+          "conf": 0.25,
+          "todas": {
+            "persona": {
+              "objects": 328,
+              "detected_once": 0.9298780487804879,
+              "detected_3": 0.8871951219512195,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.3,
+              "frame_recall": 0.689696106362773,
+              "frame_precision": 0.4735319287664534,
+              "false_alarms_per_frame": 13.584647739221872,
+              "false_alarms_per_min": 8170.836261419538,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 23,
+                  "detected_once": 0.5217391304347826
+                },
+                "8-16": {
+                  "objects": 130,
+                  "detected_once": 0.9307692307692308
+                },
+                "16-32": {
+                  "objects": 155,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 422,
+              "detected_once": 0.9052132701421801,
+              "detected_3": 0.8601895734597157,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.3,
+              "frame_recall": 0.7009551456128851,
+              "frame_precision": 0.56569053466843,
+              "false_alarms_per_frame": 12.086225026288117,
+              "false_alarms_per_min": 7269.571328179903,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 95,
+                  "detected_once": 0.6736842105263158
+                },
+                "16-32": {
+                  "objects": 187,
+                  "detected_once": 0.9679144385026738
+                },
+                ">=32": {
+                  "objects": 130,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 187,
+              "detected_once": 0.9037433155080213,
+              "detected_3": 0.8502673796791443,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.4,
+              "frame_recall": 0.6656935598018401,
+              "frame_precision": 0.6116891562347586,
+              "false_alarms_per_frame": 7.988294314381271,
+              "false_alarms_per_min": 4801.005025125628,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 20,
+                  "detected_once": 0.45
+                },
+                "8-16": {
+                  "objects": 74,
+                  "detected_once": 0.9459459459459459
+                },
+                "16-32": {
+                  "objects": 73,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6629213483146067,
+              "detected_3": 0.651685393258427,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.8200000000000016,
+              "frame_recall": 0.5060026678523788,
+              "frame_precision": 0.61248654467169,
+              "false_alarms_per_frame": 3.612040133779264,
+              "false_alarms_per_min": 2170.854271356784,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 32,
+                  "detected_once": 0.21875
+                },
+                "16-32": {
+                  "objects": 15,
+                  "detected_once": 0.8666666666666667
+                },
+                ">=32": {
+                  "objects": 32,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 141,
+              "detected_once": 0.9645390070921985,
+              "detected_3": 0.9361702127659575,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.1,
+              "frame_recall": 0.7386363636363636,
+              "frame_precision": 0.33464084334395683,
+              "false_alarms_per_frame": 23.06515580736544,
+              "false_alarms_per_min": 13891.563981042656,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 56,
+                  "detected_once": 0.9107142857142857
+                },
+                "16-32": {
+                  "objects": 82,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 333,
+              "detected_once": 0.96996996996997,
+              "detected_3": 0.9159159159159159,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.1,
+              "frame_recall": 0.7909793990828827,
+              "frame_precision": 0.5532047293092719,
+              "false_alarms_per_frame": 26.441926345609065,
+              "false_alarms_per_min": 15925.30805687204,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 63,
+                  "detected_once": 0.9047619047619048
+                },
+                "16-32": {
+                  "objects": 172,
+                  "detected_once": 0.9767441860465116
+                },
+                ">=32": {
+                  "objects": 98,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 3,
+          "fps": 10.0,
+          "conf": 0.4,
+          "todas": {
+            "persona": {
+              "objects": 328,
+              "detected_once": 0.8871951219512195,
+              "detected_3": 0.8445121951219512,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.622269705603039,
+              "frame_precision": 0.6275589608523884,
+              "false_alarms_per_frame": 6.542586750788644,
+              "false_alarms_per_min": 3935.207308503163,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 23,
+                  "detected_once": 0.34782608695652173
+                },
+                "8-16": {
+                  "objects": 130,
+                  "detected_once": 0.8615384615384616
+                },
+                "16-32": {
+                  "objects": 155,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 422,
+              "detected_once": 0.8862559241706162,
+              "detected_3": 0.8246445497630331,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.65605393763461,
+              "frame_precision": 0.6969410594379507,
+              "false_alarms_per_frame": 6.406940063091483,
+              "false_alarms_per_min": 3853.619114546733,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.4444444444444444
+                },
+                "8-16": {
+                  "objects": 95,
+                  "detected_once": 0.6526315789473685
+                },
+                "16-32": {
+                  "objects": 187,
+                  "detected_once": 0.9518716577540107
+                },
+                ">=32": {
+                  "objects": 130,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 187,
+              "detected_once": 0.8449197860962567,
+              "detected_3": 0.7914438502673797,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.6600000000000023,
+              "frame_recall": 0.6015569709837226,
+              "frame_precision": 0.7461048935703314,
+              "false_alarms_per_frame": 3.869565217391304,
+              "false_alarms_per_min": 2325.6281407035176,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 20,
+                  "detected_once": 0.25
+                },
+                "8-16": {
+                  "objects": 74,
+                  "detected_once": 0.8648648648648649
+                },
+                "16-32": {
+                  "objects": 73,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6067415730337079,
+              "detected_3": 0.5842696629213483,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.4100000000000008,
+              "frame_recall": 0.4590188231806729,
+              "frame_precision": 0.7577685343772939,
+              "false_alarms_per_frame": 1.6555183946488294,
+              "false_alarms_per_min": 994.9748743718593,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.4444444444444444
+                },
+                "8-16": {
+                  "objects": 32,
+                  "detected_once": 0.1875
+                },
+                "16-32": {
+                  "objects": 15,
+                  "detected_once": 0.8
+                },
+                ">=32": {
+                  "objects": 32,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 141,
+              "detected_once": 0.9432624113475178,
+              "detected_3": 0.9148936170212766,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.3799999999999997,
+              "frame_recall": 0.6645021645021645,
+              "frame_precision": 0.48524762908324554,
+              "false_alarms_per_frame": 11.070821529745043,
+              "false_alarms_per_min": 6667.677725118484,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 56,
+                  "detected_once": 0.8571428571428571
+                },
+                "16-32": {
+                  "objects": 82,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 333,
+              "detected_once": 0.960960960960961,
+              "detected_3": 0.8888888888888888,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.7470399014441175,
+              "frame_precision": 0.6814209014858285,
+              "false_alarms_per_frame": 14.456090651558073,
+              "false_alarms_per_min": 8706.540284360191,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 63,
+                  "detected_once": 0.8888888888888888
+                },
+                "16-32": {
+                  "objects": 172,
+                  "detected_once": 0.9651162790697675
+                },
+                ">=32": {
+                  "objects": 98,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 6,
+          "fps": 5.0,
+          "conf": 0.1,
+          "todas": {
+            "persona": {
+              "objects": 327,
+              "detected_once": 0.9571865443425076,
+              "detected_3": 0.8899082568807339,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.2,
+              "frame_recall": 0.7522395096652522,
+              "frame_precision": 0.28353103203163177,
+              "false_alarms_per_frame": 33.80922431865828,
+              "false_alarms_per_min": 10199.789177793395,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 23,
+                  "detected_once": 0.6956521739130435
+                },
+                "8-16": {
+                  "objects": 132,
+                  "detected_once": 0.9696969696969697
+                },
+                "16-32": {
+                  "objects": 152,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 421,
+              "detected_once": 0.9097387173396675,
+              "detected_3": 0.8479809976247031,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.2,
+              "frame_recall": 0.7490192415467962,
+              "frame_precision": 0.341801287242658,
+              "false_alarms_per_frame": 32.37316561844864,
+              "false_alarms_per_min": 9766.549543218554,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 96,
+                  "detected_once": 0.6979166666666666
+                },
+                "16-32": {
+                  "objects": 189,
+                  "detected_once": 0.9682539682539683
+                },
+                ">=32": {
+                  "objects": 126,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 187,
+              "detected_once": 0.93048128342246,
+              "detected_3": 0.8716577540106952,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.4,
+              "frame_recall": 0.7313014538448065,
+              "frame_precision": 0.3948363911480991,
+              "false_alarms_per_frame": 21.33,
+              "false_alarms_per_min": 6431.155778894472,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 20,
+                  "detected_once": 0.65
+                },
+                "8-16": {
+                  "objects": 74,
+                  "detected_once": 0.9594594594594594
+                },
+                "16-32": {
+                  "objects": 73,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6853932584269663,
+              "detected_3": 0.6629213483146067,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.6,
+              "frame_recall": 0.5811130846654825,
+              "frame_precision": 0.30176787086856266,
+              "false_alarms_per_frame": 15.14,
+              "false_alarms_per_min": 4564.824120603015,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 32,
+                  "detected_once": 0.25
+                },
+                "16-32": {
+                  "objects": 16,
+                  "detected_once": 0.9375
+                },
+                ">=32": {
+                  "objects": 31,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 140,
+              "detected_once": 0.9928571428571429,
+              "detected_3": 0.9142857142857143,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.2,
+              "frame_recall": 0.7953153153153153,
+              "frame_precision": 0.18491830749895266,
+              "false_alarms_per_frame": 54.96045197740113,
+              "false_alarms_per_min": 16597.5355450237,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 58,
+                  "detected_once": 0.9827586206896551
+                },
+                "16-32": {
+                  "objects": 79,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 332,
+              "detected_once": 0.9698795180722891,
+              "detected_3": 0.8975903614457831,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.2,
+              "frame_recall": 0.8264192139737991,
+              "frame_precision": 0.3571597074781788,
+              "false_alarms_per_frame": 61.5819209039548,
+              "false_alarms_per_min": 18597.156398104267,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 64,
+                  "detected_once": 0.921875
+                },
+                "16-32": {
+                  "objects": 173,
+                  "detected_once": 0.9710982658959537
+                },
+                ">=32": {
+                  "objects": 95,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 6,
+          "fps": 5.0,
+          "conf": 0.25,
+          "todas": {
+            "persona": {
+              "objects": 327,
+              "detected_once": 0.9204892966360856,
+              "detected_3": 0.8287461773700305,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.4,
+              "frame_recall": 0.690947666195191,
+              "frame_precision": 0.47255139056831924,
+              "false_alarms_per_frame": 13.716981132075471,
+              "false_alarms_per_min": 4138.2290934645125,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 23,
+                  "detected_once": 0.5217391304347826
+                },
+                "8-16": {
+                  "objects": 132,
+                  "detected_once": 0.9090909090909091
+                },
+                "16-32": {
+                  "objects": 152,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 421,
+              "detected_once": 0.8883610451306413,
+              "detected_3": 0.828978622327791,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.4,
+              "frame_recall": 0.7000747244535774,
+              "frame_precision": 0.5642550628623052,
+              "false_alarms_per_frame": 12.134171907756814,
+              "false_alarms_per_min": 3660.71679550246,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 96,
+                  "detected_once": 0.6458333333333334
+                },
+                "16-32": {
+                  "objects": 189,
+                  "detected_once": 0.9470899470899471
+                },
+                ">=32": {
+                  "objects": 126,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 187,
+              "detected_once": 0.8983957219251337,
+              "detected_3": 0.786096256684492,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.8,
+              "frame_recall": 0.6657908565423016,
+              "frame_precision": 0.6122744845360825,
+              "false_alarms_per_frame": 8.023333333333333,
+              "false_alarms_per_min": 2419.095477386935,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.25
+                },
+                "4-8": {
+                  "objects": 20,
+                  "detected_once": 0.45
+                },
+                "8-16": {
+                  "objects": 74,
+                  "detected_once": 0.9324324324324325
+                },
+                "16-32": {
+                  "objects": 73,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.651685393258427,
+              "detected_3": 0.6179775280898876,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.8,
+              "frame_recall": 0.5047365304914151,
+              "frame_precision": 0.6082768462361755,
+              "false_alarms_per_frame": 3.66,
+              "false_alarms_per_min": 1103.5175879396984,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 32,
+                  "detected_once": 0.1875
+                },
+                "16-32": {
+                  "objects": 16,
+                  "detected_once": 0.875
+                },
+                ">=32": {
+                  "objects": 31,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 140,
+              "detected_once": 0.95,
+              "detected_3": 0.8857142857142857,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.2,
+              "frame_recall": 0.7427027027027027,
+              "frame_precision": 0.3325802807810231,
+              "false_alarms_per_frame": 23.36723163841808,
+              "false_alarms_per_min": 7056.682464454977,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 58,
+                  "detected_once": 0.8793103448275862
+                },
+                "16-32": {
+                  "objects": 79,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 332,
+              "detected_once": 0.9518072289156626,
+              "detected_3": 0.8855421686746988,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.2,
+              "frame_recall": 0.7901200873362445,
+              "frame_precision": 0.5524809160305344,
+              "false_alarms_per_frame": 26.497175141242938,
+              "false_alarms_per_min": 8001.895734597158,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 64,
+                  "detected_once": 0.875
+                },
+                "16-32": {
+                  "objects": 173,
+                  "detected_once": 0.953757225433526
+                },
+                ">=32": {
+                  "objects": 95,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 6,
+          "fps": 5.0,
+          "conf": 0.4,
+          "todas": {
+            "persona": {
+              "objects": 327,
+              "detected_once": 0.8776758409785933,
+              "detected_3": 0.7798165137614679,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.8,
+              "frame_recall": 0.6267090994813768,
+              "frame_precision": 0.6280415780770139,
+              "false_alarms_per_frame": 6.60167714884696,
+              "false_alarms_per_min": 1991.6373858046384,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 23,
+                  "detected_once": 0.34782608695652173
+                },
+                "8-16": {
+                  "objects": 132,
+                  "detected_once": 0.8560606060606061
+                },
+                "16-32": {
+                  "objects": 152,
+                  "detected_once": 0.9868421052631579
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 421,
+              "detected_once": 0.8669833729216152,
+              "detected_3": 0.7933491686460807,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.8,
+              "frame_recall": 0.656827946945638,
+              "frame_precision": 0.6983811699275002,
+              "false_alarms_per_frame": 6.366876310272537,
+              "false_alarms_per_min": 1920.8011243851022,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.4444444444444444
+                },
+                "8-16": {
+                  "objects": 96,
+                  "detected_once": 0.6354166666666666
+                },
+                "16-32": {
+                  "objects": 189,
+                  "detected_once": 0.9206349206349206
+                },
+                ">=32": {
+                  "objects": 126,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 187,
+              "detected_once": 0.8342245989304813,
+              "detected_3": 0.7272727272727273,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.0,
+              "frame_recall": 0.604484147836749,
+              "frame_precision": 0.7474550573965779,
+              "false_alarms_per_frame": 3.8866666666666667,
+              "false_alarms_per_min": 1171.859296482412,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 20,
+                  "detected_once": 0.25
+                },
+                "8-16": {
+                  "objects": 74,
+                  "detected_once": 0.8648648648648649
+                },
+                "16-32": {
+                  "objects": 73,
+                  "detected_once": 0.9726027397260274
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6067415730337079,
+              "detected_3": 0.5730337078651685,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.6200000000000017,
+              "frame_recall": 0.46121965660153935,
+              "frame_precision": 0.7622309197651663,
+              "false_alarms_per_frame": 1.62,
+              "false_alarms_per_min": 488.4422110552764,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.4444444444444444
+                },
+                "8-16": {
+                  "objects": 32,
+                  "detected_once": 0.1875
+                },
+                "16-32": {
+                  "objects": 16,
+                  "detected_once": 0.8125
+                },
+                ">=32": {
+                  "objects": 31,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 140,
+              "detected_once": 0.9357142857142857,
+              "detected_3": 0.85,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.4,
+              "frame_recall": 0.6724324324324324,
+              "frame_precision": 0.4848012470771629,
+              "false_alarms_per_frame": 11.203389830508474,
+              "false_alarms_per_min": 3383.3175355450244,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 58,
+                  "detected_once": 0.8448275862068966
+                },
+                "16-32": {
+                  "objects": 79,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 332,
+              "detected_once": 0.9367469879518072,
+              "detected_3": 0.8524096385542169,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.6,
+              "frame_recall": 0.7469978165938864,
+              "frame_precision": 0.6821183800623053,
+              "false_alarms_per_frame": 14.412429378531073,
+              "false_alarms_per_min": 4352.417061611375,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 64,
+                  "detected_once": 0.859375
+                },
+                "16-32": {
+                  "objects": 173,
+                  "detected_once": 0.930635838150289
+                },
+                ">=32": {
+                  "objects": 95,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 15,
+          "fps": 2.0,
+          "conf": 0.1,
+          "todas": {
+            "persona": {
+              "objects": 324,
+              "detected_once": 0.9382716049382716,
+              "detected_3": 0.7469135802469136,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.758257819351067,
+              "frame_precision": 0.2893474623535973,
+              "false_alarms_per_frame": 32.84020618556701,
+              "false_alarms_per_min": 4029.4448348559386,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 24,
+                  "detected_once": 0.5833333333333334
+                },
+                "8-16": {
+                  "objects": 138,
+                  "detected_once": 0.9565217391304348
+                },
+                "16-32": {
+                  "objects": 142,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 417,
+              "detected_once": 0.8992805755395683,
+              "detected_3": 0.750599520383693,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.7479898920284861,
+              "frame_precision": 0.3407639979068551,
+              "false_alarms_per_frame": 32.46907216494845,
+              "false_alarms_per_min": 3983.9072382290938,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 105,
+                  "detected_once": 0.6857142857142857
+                },
+                "16-32": {
+                  "objects": 183,
+                  "detected_once": 0.9672131147540983
+                },
+                ">=32": {
+                  "objects": 119,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 184,
+              "detected_once": 0.9130434782608695,
+              "detected_3": 0.7391304347826086,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.738293216630197,
+              "frame_precision": 0.405626352488579,
+              "false_alarms_per_frame": 20.429752066115704,
+              "false_alarms_per_min": 2484.422110552764,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 21,
+                  "detected_once": 0.5238095238095238
+                },
+                "8-16": {
+                  "objects": 72,
+                  "detected_once": 0.9722222222222222
+                },
+                "16-32": {
+                  "objects": 71,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6629213483146067,
+              "detected_3": 0.6179775280898876,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.5,
+              "frame_recall": 0.5814977973568282,
+              "frame_precision": 0.30590961761297797,
+              "false_alarms_per_frame": 14.851239669421487,
+              "false_alarms_per_min": 1806.0301507537688,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 33,
+                  "detected_once": 0.24242424242424243
+                },
+                "16-32": {
+                  "objects": 14,
+                  "detected_once": 0.8571428571428571
+                },
+                ">=32": {
+                  "objects": 32,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 140,
+              "detected_once": 0.9714285714285714,
+              "detected_3": 0.7571428571428571,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.7984154929577465,
+              "frame_precision": 0.188722430295464,
+              "false_alarms_per_frame": 53.41095890410959,
+              "false_alarms_per_min": 6652.322274881518,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 66,
+                  "detected_once": 0.9393939393939394
+                },
+                "16-32": {
+                  "objects": 71,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 328,
+              "detected_once": 0.9634146341463414,
+              "detected_3": 0.7865853658536586,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.8238047475760615,
+              "frame_precision": 0.35371805914441573,
+              "false_alarms_per_frame": 61.67123287671233,
+              "false_alarms_per_min": 7681.137440758295,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 72,
+                  "detected_once": 0.8888888888888888
+                },
+                "16-32": {
+                  "objects": 169,
+                  "detected_once": 0.9763313609467456
+                },
+                ">=32": {
+                  "objects": 87,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 15,
+          "fps": 2.0,
+          "conf": 0.25,
+          "todas": {
+            "persona": {
+              "objects": 324,
+              "detected_once": 0.8888888888888888,
+              "detected_3": 0.6851851851851852,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.6951183864367144,
+              "frame_precision": 0.4850091780542525,
+              "false_alarms_per_frame": 13.015463917525773,
+              "false_alarms_per_min": 1596.978215038651,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 24,
+                  "detected_once": 0.4166666666666667
+                },
+                "8-16": {
+                  "objects": 138,
+                  "detected_once": 0.8768115942028986
+                },
+                "16-32": {
+                  "objects": 142,
+                  "detected_once": 0.9929577464788732
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 417,
+              "detected_once": 0.8776978417266187,
+              "detected_3": 0.7218225419664268,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.7015851137146796,
+              "frame_precision": 0.5643015521064302,
+              "false_alarms_per_frame": 12.154639175257731,
+              "false_alarms_per_min": 1491.3562895291639,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 105,
+                  "detected_once": 0.6476190476190476
+                },
+                "16-32": {
+                  "objects": 183,
+                  "detected_once": 0.9453551912568307
+                },
+                ">=32": {
+                  "objects": 119,
+                  "detected_once": 0.9915966386554622
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 184,
+              "detected_once": 0.8586956521739131,
+              "detected_3": 0.6684782608695652,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.0,
+              "frame_recall": 0.6730853391684901,
+              "frame_precision": 0.6272430668841762,
+              "false_alarms_per_frame": 7.553719008264463,
+              "false_alarms_per_min": 918.5929648241206,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 21,
+                  "detected_once": 0.3333333333333333
+                },
+                "8-16": {
+                  "objects": 72,
+                  "detected_once": 0.9027777777777778
+                },
+                "16-32": {
+                  "objects": 71,
+                  "detected_once": 0.9859154929577465
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.6404494382022472,
+              "detected_3": 0.5842696629213483,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 3.5,
+              "frame_recall": 0.5154185022026432,
+              "frame_precision": 0.6234458259325044,
+              "false_alarms_per_frame": 3.5041322314049586,
+              "false_alarms_per_min": 426.13065326633165,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 1.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.6666666666666666
+                },
+                "8-16": {
+                  "objects": 33,
+                  "detected_once": 0.21212121212121213
+                },
+                "16-32": {
+                  "objects": 14,
+                  "detected_once": 0.8571428571428571
+                },
+                ">=32": {
+                  "objects": 32,
+                  "detected_once": 0.96875
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 140,
+              "detected_once": 0.9285714285714286,
+              "detected_3": 0.7071428571428572,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.7394366197183099,
+              "frame_precision": 0.3427172582619339,
+              "false_alarms_per_frame": 22.068493150684933,
+              "false_alarms_per_min": 2748.625592417062,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 66,
+                  "detected_once": 0.8484848484848485
+                },
+                "16-32": {
+                  "objects": 71,
+                  "detected_once": 1.0
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 328,
+              "detected_once": 0.9420731707317073,
+              "detected_3": 0.7591463414634146,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 0.5,
+              "frame_recall": 0.7863590772316951,
+              "frame_precision": 0.5487634157722818,
+              "false_alarms_per_frame": 26.493150684931507,
+              "false_alarms_per_min": 3299.715639810427,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 72,
+                  "detected_once": 0.8472222222222222
+                },
+                "16-32": {
+                  "objects": 169,
+                  "detected_once": 0.9526627218934911
+                },
+                ">=32": {
+                  "objects": 87,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        },
+        {
+          "stride": 15,
+          "fps": 2.0,
+          "conf": 0.4,
+          "todas": {
+            "persona": {
+              "objects": 324,
+              "detected_once": 0.845679012345679,
+              "detected_3": 0.6327160493827161,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.0,
+              "frame_recall": 0.6296404560070155,
+              "frame_precision": 0.6359610274579274,
+              "false_alarms_per_frame": 6.355670103092783,
+              "false_alarms_per_min": 779.8313422347155,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 24,
+                  "detected_once": 0.3333333333333333
+                },
+                "8-16": {
+                  "objects": 138,
+                  "detected_once": 0.8260869565217391
+                },
+                "16-32": {
+                  "objects": 142,
+                  "detected_once": 0.9577464788732394
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 417,
+              "detected_once": 0.8489208633093526,
+              "detected_3": 0.6858513189448441,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.0,
+              "frame_recall": 0.6535722490236618,
+              "frame_precision": 0.6890288205376605,
+              "false_alarms_per_frame": 6.618556701030927,
+              "false_alarms_per_min": 812.0871398453971,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.3333333333333333
+                },
+                "8-16": {
+                  "objects": 105,
+                  "detected_once": 0.6285714285714286
+                },
+                "16-32": {
+                  "objects": 183,
+                  "detected_once": 0.912568306010929
+                },
+                ">=32": {
+                  "objects": 119,
+                  "detected_once": 0.9915966386554622
+                }
+              }
+            }
+          },
+          "limpias": {
+            "persona": {
+              "objects": 184,
+              "detected_once": 0.7880434782608695,
+              "detected_3": 0.6086956521739131,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.0,
+              "frame_recall": 0.6070021881838075,
+              "frame_precision": 0.7587527352297593,
+              "false_alarms_per_frame": 3.644628099173554,
+              "false_alarms_per_min": 443.21608040201005,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 4,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 21,
+                  "detected_once": 0.23809523809523808
+                },
+                "8-16": {
+                  "objects": 72,
+                  "detected_once": 0.8055555555555556
+                },
+                "16-32": {
+                  "objects": 71,
+                  "detected_once": 0.9295774647887324
+                },
+                ">=32": {
+                  "objects": 16,
+                  "detected_once": 1.0
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 89,
+              "detected_once": 0.5842696629213483,
+              "detected_3": 0.5393258426966292,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 2.4499999999999993,
+              "frame_recall": 0.45741556534508077,
+              "frame_precision": 0.7533252720677146,
+              "false_alarms_per_frame": 1.6859504132231404,
+              "false_alarms_per_min": 205.0251256281407,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 1,
+                  "detected_once": 0.0
+                },
+                "4-8": {
+                  "objects": 9,
+                  "detected_once": 0.3333333333333333
+                },
+                "8-16": {
+                  "objects": 33,
+                  "detected_once": 0.21212121212121213
+                },
+                "16-32": {
+                  "objects": 14,
+                  "detected_once": 0.7857142857142857
+                },
+                ">=32": {
+                  "objects": 32,
+                  "detected_once": 0.96875
+                }
+              }
+            }
+          },
+          "vistas_en_entrenamiento": {
+            "persona": {
+              "objects": 140,
+              "detected_once": 0.9214285714285714,
+              "detected_3": 0.6642857142857143,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.0,
+              "frame_recall": 0.6751760563380281,
+              "frame_precision": 0.4919820397690827,
+              "false_alarms_per_frame": 10.849315068493151,
+              "false_alarms_per_min": 1351.2796208530808,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 3,
+                  "detected_once": 1.0
+                },
+                "8-16": {
+                  "objects": 66,
+                  "detected_once": 0.8484848484848485
+                },
+                "16-32": {
+                  "objects": 71,
+                  "detected_once": 0.9859154929577465
+                },
+                ">=32": {
+                  "objects": 0,
+                  "detected_once": null
+                }
+              }
+            },
+            "vehiculo": {
+              "objects": 328,
+              "detected_once": 0.9207317073170732,
+              "detected_3": 0.725609756097561,
+              "first_detection_s_median": 0.0,
+              "first_detection_s_p90": 1.0,
+              "frame_recall": 0.7428953527248412,
+              "frame_precision": 0.6729254996971532,
+              "false_alarms_per_frame": 14.794520547945206,
+              "false_alarms_per_min": 1842.6540284360192,
+              "detected_once_by_max_size": {
+                "<4": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "4-8": {
+                  "objects": 0,
+                  "detected_once": null
+                },
+                "8-16": {
+                  "objects": 72,
+                  "detected_once": 0.8194444444444444
+                },
+                "16-32": {
+                  "objects": 169,
+                  "detected_once": 0.9230769230769231
+                },
+                ">=32": {
+                  "objects": 87,
+                  "detected_once": 1.0
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

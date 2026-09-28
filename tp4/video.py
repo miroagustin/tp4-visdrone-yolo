@@ -12,7 +12,7 @@ from pathlib import Path
 
 import numpy as np
 
-from .mission import MISSION_CLASSES, SIZE_EDGES, SIZE_LABELS, TO_MISSION, box_iou, match_pairs, merge_duplicates, size_bins
+from .mission import MISSION_CLASSES, SIZE_EDGES, SIZE_LABELS, TO_MISSION, box_iou, match_pairs, merge_duplicates, size_bins, to_mission
 
 NOMINAL_FPS = 30.0  # los archivos no traen FPS; se asume el nominal de la cámara
 STRIDES = (1, 3, 6, 15)  # 30, 10, 5 y 2 FPS con el supuesto nominal
@@ -51,7 +51,7 @@ def load_annotations(path: Path, width: int, height: int):
     return gt, ign
 
 
-def evaluate_sequence(frames: list[int], gt: dict, ign: dict, preds: dict, conf: float) -> dict:
+def evaluate_sequence(frames: list[int], gt: dict, ign: dict, preds: dict, conf: float, nc: int) -> dict:
     """Recorre los cuadros evaluados y acumula, por objeto, en qué cuadros fue visto y detectado."""
     seen, detected, group, side = defaultdict(list), defaultdict(list), {}, defaultdict(float)
     fp = np.zeros(len(MISSION_CLASSES), dtype=int)
@@ -62,7 +62,7 @@ def evaluate_sequence(frames: list[int], gt: dict, ign: dict, preds: dict, conf:
         g_boxes, g_ids, g_groups, g_sides = gt.get(frame, empty)
         boxes, scores, classes = preds.get(frame, (np.zeros((0, 4)), np.zeros(0), np.zeros(0, int)))
         keep = scores >= conf
-        boxes, scores, groups = boxes[keep], scores[keep], TO_MISSION[classes[keep]]
+        boxes, scores, groups = boxes[keep], scores[keep], to_mission(classes[keep], nc)
         keep = merge_duplicates(boxes, scores, groups, 0.7)
         boxes, groups = boxes[keep], groups[keep]
         pairs = match_pairs(box_iou(g_boxes, boxes), groups, g_groups, 0.5)
@@ -172,7 +172,7 @@ def evaluate_video(root: Path, run: Path, *, variants=("full640", "full1280", "m
         results[variant] = {"ms_per_frame": {s: preds[s]["ms"] for s in sequences}, "evaluations": []}
         for stride in STRIDES:
             for conf in CONFS:
-                parts = {s: evaluate_sequence(sequences[s]["frames"][::stride], sequences[s]["gt"], sequences[s]["ign"], preds[s]["preds"], conf)
+                parts = {s: evaluate_sequence(sequences[s]["frames"][::stride], sequences[s]["gt"], sequences[s]["ign"], preds[s]["preds"], conf, len(model.names))
                          for s in sequences}
                 entry = {"stride": stride, "fps": NOMINAL_FPS / stride, "conf": conf}
                 for name, members in groups.items():

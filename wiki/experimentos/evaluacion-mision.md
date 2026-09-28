@@ -5,7 +5,7 @@ description: El best.pt de YOLO26n, reagrupado en persona y vehículo sin reentr
 resource: ../../runs/full/20260925T231501Z/mission_eval/val.json
 tags: [resultados, mision, recall, tamano]
 status: stable
-generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T23:00:00Z }
+generated: { by: claude-code/claude-opus-5-5, at: 2026-09-28T02:30:00Z }
 sources:
   - id: mision
     resource: ../../runs/full/20260925T231501Z/mission_eval/val.json
@@ -17,6 +17,8 @@ sources:
     resource: ../../runs/full/20260925T231501Z/validation/confusion_matrix_normalized.png
     title: Matriz de confusión normalizada de YOLO26n
 ---
+
+Esta evaluación corresponde al modelo de **línea base**: YOLO26n entrenado a 640 px con las diez clases de VisDrone. Los resultados del modelo reentrenado con persona y vehículo a 1280 px están en el [reentrenamiento](reentrenamiento-1280.md).
 
 # Método
 

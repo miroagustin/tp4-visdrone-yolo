@@ -31,3 +31,20 @@ runs/full/*/mission_eval/video_cache/
 !runs/full/20260925T231501Z/mission_eval/*.json
 !runs/full/20260925T231501Z/mission_eval/*.md
 !runs/full/20260925T231501Z/mission_eval/demo_*.mp4
+# YOLO26n reentrenado (persona y vehículo, 1280 px): el modelo del informe y de las placas.
+!runs/full/20260928T003017Z/run.json
+!runs/full/20260928T003017Z/latency.json
+!runs/full/20260928T003017Z/error_sample.json
+!runs/full/20260928T003017Z/error_gallery.jpg
+!runs/full/20260928T003017Z/train/results.png
+!runs/full/20260928T003017Z/validation/confusion_matrix.png
+!runs/full/20260928T003017Z/validation/val_batch0_labels.jpg
+!runs/full/20260928T003017Z/validation/val_batch0_pred.jpg
+!runs/full/20260928T003017Z/mission_eval/*.json
+!runs/full/20260928T003017Z/mission_eval/*.md
+!runs/full/20260928T003017Z/mission_eval/demo_*.mp4
+# YOLO11n: reentrenado para la comparación, y el de 640 px de la línea base.
+!runs/full/20260927T215941Z/run.json
+!runs/full/20260927T215941Z/mission_eval/*.json
+!runs/full/20260927T215941Z/mission_eval/*.md
+!runs/full/20260925T015117Z/run.json

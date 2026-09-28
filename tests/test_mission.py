@@ -32,6 +32,18 @@ def test_van_predicted_as_car_counts_only_for_mission():
     assert result["mision"]["per_class"]["vehiculo"]["ap50"] > 0.99
 
 
+def test_two_class_model_is_not_regrouped():
+    # Clase 1 es vehículo en un modelo de 2 clases; como índice VisDrone sería people (persona).
+    result = evaluate_samples([sample([1], [1])], pred_nc=2, gt_nc=2)
+    assert "visdrone10" not in result
+    point = next(p for p in result["mision"]["operating_points"] if p["conf"] == 0.25)
+    assert point["per_class"]["vehiculo"]["recall"] == 1.0
+    assert point["per_class"]["persona"]["fp"] == 0
+    # Línea base de 10 clases contra etiquetas ya agrupadas: car (3) contra vehículo (1).
+    mixed = evaluate_samples([sample([3], [1])], pred_nc=10, gt_nc=2)
+    assert next(p for p in mixed["mision"]["operating_points"] if p["conf"] == 0.25)["per_class"]["vehiculo"]["recall"] == 1.0
+
+
 def test_fusion_removes_duplicate_after_grouping():
     boxes = np.array([[0, 0, 20, 20], [0, 0, 20, 19]], dtype=float)
     gt = np.array([[0, 0, 20, 20]], dtype=float)

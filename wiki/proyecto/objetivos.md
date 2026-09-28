@@ -4,7 +4,7 @@ title: Objetivos
 description: Objetivo general del TP4 y objetivos específicos con su estado.
 tags: [objetivos, estado]
 status: stable
-generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T18:30:00Z }
+generated: { by: claude-code/claude-opus-5-5, at: 2026-09-28T02:30:00Z }
 ---
 
 **Objetivo general.** Evaluar la viabilidad de un detector YOLO de tamaño *nano* para detectar personas y vehículos a bordo de un dron, con una métrica alineada a la misión.
@@ -22,6 +22,7 @@ generated: { by: claude-code/claude-opus-5-5, at: 2026-09-26T18:30:00Z }
 | O7 | Definir las clases de la misión y evaluar el modelo agrupado sin reentrenar. | Cumplido |
 | O8 | Medir la detección por objeto durante la pasada en video (VisDrone-VID). | Cumplido |
 | O9 | Evaluar mejoras de inferencia (960 y 1280 px, mosaicos) sin reentrenar. | Cumplido |
-| O10 | Medir el costo de las mejoras en las placas y reentrenar a mayor resolución. | **Pendiente** |
+| O10 | Reentrenar con las clases de la misión a mayor resolución. | Cumplido |
+| O11 | Medir en las placas el costo de la entrada de 1280 px. | **Pendiente** |
 
-Tabla: Objetivos específicos del TP4 y estado al 26 de septiembre de 2026.
+Tabla: Objetivos específicos del TP4 y estado al 28 de septiembre de 2026.

@@ -4,7 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from tp4.bench_common import (PROTOCOL, check_platform, dataset_yaml, inside,
+from tp4.data import MISSION_CLASSES
+from tp4.bench_common import (MODELS, PROTOCOL, check_platform, dataset_yaml, inside,
                               percentile, sha, verify_bundle, write_json)
 from tp4.benchmark import verify_exports
 from tp4.bench_report import compare
@@ -19,8 +20,8 @@ def tiny_bundle(root):
         images.append(dict(image=image,label=label))
     (root/'models').mkdir();(root/'models/yolo26n.pt').write_bytes(b'checkpoint')
     write_json(root/'reference.json',{})
-    m=dict(schema=1,study='yolo26_deployment_v1',split='test-dev',models={'yolo26n':{}},images=images,
-           classes=['example'],protocol=dict(PROTOCOL),files={p.relative_to(root).as_posix():sha(p) for p in root.rglob('*') if p.is_file()})
+    m=dict(schema=1,study='yolo26_deployment_v1',split='test-dev',models={'yolo26n':{'started_utc':MODELS['yolo26n']}},images=images,
+           classes=list(MISSION_CLASSES),protocol=dict(PROTOCOL),files={p.relative_to(root).as_posix():sha(p) for p in root.rglob('*') if p.is_file()})
     write_json(root/'manifest.json',m)
     return m
 
@@ -41,6 +42,14 @@ def test_bundle_resolution_must_match_code(tmp_path):
     m=tiny_bundle(tmp_path)
     m['protocol']['imgsz']=640;write_json(tmp_path/'manifest.json',m)
     with pytest.raises(ValueError,match='regenerar'):verify_bundle(tmp_path)
+
+
+def test_bundle_checkpoint_and_classes_must_match_code(tmp_path):
+    m=tiny_bundle(tmp_path)
+    m['classes']=['pedestrian','people'];write_json(tmp_path/'manifest.json',m)
+    with pytest.raises(ValueError,match='checkpoint ni las clases'):verify_bundle(tmp_path)
+    m['classes']=list(MISSION_CLASSES);m['models']['yolo26n']['started_utc']='20260925T231501Z';write_json(tmp_path/'manifest.json',m)
+    with pytest.raises(ValueError,match='checkpoint ni las clases'):verify_bundle(tmp_path)
 
 
 def test_paths_and_yaml_relocation(tmp_path):

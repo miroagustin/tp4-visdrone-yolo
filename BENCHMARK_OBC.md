@@ -24,7 +24,7 @@ El comando crea un directorio nuevo en `benchmark_artifacts`, imprime la ruta de
 
 Contenido: 300 imágenes únicas de test-dev elegidas sin reemplazo con semilla 42, sus etiquetas, el `best.pt` de YOLO26n, clases, dimensiones, conteo de objetos, orden fijo, doce imágenes de galería, configuración y SHA-256 por archivo. Las rutas son relativas. `reference.json` contiene la evaluación de los `.pt` sobre esta misma muestra, con batch 1, entrada cuadrada 1280 y confianza 0,001. La resolución sale de `PROTOCOL['imgsz']` en `tp4/bench_common.py` (1280 px, la configuración por defecto de la misión); `verify` rechaza un paquete generado con otra resolución.
 
-El checkpoint proviene de `20260925T231501Z` (YOLO26n). Su hash y manifiesto de entrenamiento acompañan el paquete. **No reemplazar estos pesos por yolo26n.pt descargado de Internet.**
+El checkpoint proviene de `20260928T003017Z`: YOLO26n reentrenado con las clases de la misión (persona y vehículo) a 1280 px. Su hash y manifiesto de entrenamiento acompañan el paquete. **No reemplazar estos pesos por yolo26n.pt descargado de Internet.**
 
 Compartir el ZIP y su archivo `.sha256` por el medio acordado. El paquete original ya se genera localmente; las plataformas no necesitan descargar train, val ni el test completo.
 
@@ -196,12 +196,12 @@ Las pruebas locales cubren selección/integridad, rutas portables, cálculos, re
 
 La comparación principal es **YOLO26 original frente a YOLO26 optimizado en cada placa**. YOLO11 queda fuera de este bonus. La referencia local del ZIP sirve para detectar diferencias entre entornos; la ganancia de rendimiento y la variación de calidad se calculan contra el .pt medido en esa misma placa.
 
-### Validación local realizada — 26 de septiembre de 2026
+### Validación local realizada — 26 de septiembre de 2026; paquete regenerado el 28
 
-- Paquete de esta entrega: `benchmark_artifacts/package_20260926T215439979200Z/tp4_obc_bundle.zip` (aproximadamente 61 MiB), a 1280 px. Reemplaza al paquete anterior de 640 px (`package_20260926T172031125947Z`), que el código actual ya no acepta. Compartir también el `.sha256` de esa carpeta. Es el paquete **solo YOLO26**, no el paquete preliminar de dos arquitecturas.
-- Referencia real del checkpoint YOLO26 sobre la muestra a 1280 px: mAP50 **34,91 %**, mAP50–95 **19,97 %** (a 640 px era 26,90 % y 15,19 %), calculada con CUDA en la laptop. Son métricas de estas 300 imágenes, no del conjunto completo de validación.
+- Paquete de esta entrega: `benchmark_artifacts/package_20260928T020732595419Z/tp4_obc_bundle.zip` (aproximadamente 61 MiB, SHA-256 `52e61d052a9063e0b611605eda1e879a061bc53047ef62f806cc5b1c227a1b2f`), YOLO26n reentrenado con persona y vehículo, a 1280 px. Reemplaza a los paquetes anteriores de 10 clases (`package_20260926T215439979200Z` a 1280 px y `package_20260926T172031125947Z` a 640 px), que el código actual ya no acepta. Compartir también el `.sha256` de esa carpeta. Es el paquete **solo YOLO26**, no el paquete preliminar de dos arquitecturas.
+- Referencia real del checkpoint sobre la muestra a 1280 px, con las dos clases: mAP50 **57,52 %**, mAP50–95 **32,02 %** (AP50 persona 35,0 %, vehículo 80,0 %), calculada con CUDA en la laptop. Son métricas de estas 300 imágenes, no del conjunto completo de validación.
 - ZIP comprobado mediante CRC, extracción a otro directorio temporal y verificación de todos los hashes; se comprobó que la selección de imágenes se reproduce.
-- Siete pruebas automatizadas pasaron: alteraciones/ausencias/duplicados, rutas, percentiles, rechazo de plataformas y formatos, exclusión de diagnósticos y comparación agrupada con datos sintéticos de prueba.
+- Nueve pruebas automatizadas pasaron: alteraciones/ausencias/duplicados, checkpoint y clases del paquete, rutas, percentiles, rechazo de plataformas y formatos, exclusión de diagnósticos y comparación agrupada con datos sintéticos de prueba.
 - Se ejecutaron procesos reales de inferencia en CPU y anotación de dos imágenes en Windows, marcados como diagnóstico local. No se presentaron como cifras de Raspberry o Jetson.
 - El HTML sin resultados de placas se abrió en Edge sin solicitudes de red. La comparación con tablas y gráficos se comprobó con fixtures sintéticas en directorios temporales de tests.
 - La exportación y las mediciones físicas de TensorRT/NCNN corresponden a los equipos de las placas; aún no se han ejecutado aquí.

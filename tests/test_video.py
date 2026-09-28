@@ -17,19 +17,19 @@ def test_object_detected_once_and_first_delay():
     # Una persona (id 7, grupo 0) visible en los cuadros 1-4; se detecta solo en el 3.
     gt = {f: gt_frame([box(10, 10)], [7], [0]) for f in (1, 2, 3, 4)}
     preds = {3: (np.array([box(10, 10)], dtype=float), np.array([0.9]), np.array([1]))}  # clase VisDrone "people"
-    part = evaluate_sequence([1, 2, 3, 4], gt, {}, preds, conf=0.25)
+    part = evaluate_sequence([1, 2, 3, 4], gt, {}, preds, conf=0.25, nc=10)
     result = summarize([part], seconds=4 / 30, fps=30)["persona"]
     assert result["objects"] == 1 and result["detected_once"] == 1.0 and result["detected_3"] == 0.0
     assert abs(result["first_detection_s_median"] - 2 / 30) < 1e-9 and result["frame_recall"] == 0.25
     # Con submuestreo 1 de cada 2 (cuadros 1 y 3) sigue detectada; con los cuadros 2 y 4, no.
-    assert summarize([evaluate_sequence([1, 3], gt, {}, preds, 0.25)], 1, 30)["persona"]["detected_once"] == 1.0
-    assert summarize([evaluate_sequence([2, 4], gt, {}, preds, 0.25)], 1, 30)["persona"]["detected_once"] == 0.0
+    assert summarize([evaluate_sequence([1, 3], gt, {}, preds, 0.25, 10)], 1, 30)["persona"]["detected_once"] == 1.0
+    assert summarize([evaluate_sequence([2, 4], gt, {}, preds, 0.25, 10)], 1, 30)["persona"]["detected_once"] == 0.0
 
 
 def test_false_alarms_skip_ignored_regions_and_low_confidence():
     preds = {1: (np.array([box(0, 0), box(100, 100), box(200, 200)], dtype=float), np.array([0.9, 0.9, 0.1]), np.array([3, 3, 3]))}
     ign = {1: np.array([[95, 95, 120, 120]], dtype=float)}
-    part = evaluate_sequence([1], {}, ign, preds, conf=0.25)
+    part = evaluate_sequence([1], {}, ign, preds, conf=0.25, nc=10)
     assert part["fp"].tolist() == [0, 1]  # solo la primera caja de vehículo es falsa alarma
 
 

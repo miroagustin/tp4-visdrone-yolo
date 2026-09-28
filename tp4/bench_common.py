@@ -16,7 +16,7 @@ PROTOCOL = dict(imgsz=1280, batch=1, rect=False, confidence=0.25, iou=0.7,
                 max_det=300, warmup=50, repetitions=3, seconds=300,
                 pause_seconds=60, window_seconds=10, sampling_seconds=0.2,
                 threads=4, accuracy_confidence=0.001)
-MODELS = {'yolo26n': '20260925T231501Z'}
+MODELS = {'yolo26n': '20260928T003017Z'}  # YOLO26n reentrenado con persona y vehículo a 1280 px
 VARIANTS = ('pytorch', 'optimized')
 
 
@@ -120,6 +120,11 @@ def verify_bundle(root):
         raise ValueError('Hay imágenes o etiquetas duplicadas en el paquete.')
     if m.get('protocol', {}).get('imgsz') != PROTOCOL['imgsz']:
         raise ValueError(f"El paquete usa {m.get('protocol', {}).get('imgsz')} px y este código {PROTOCOL['imgsz']} px: "
+                         'regenerar el paquete con benchmark pack.')
+    from .data import MISSION_CLASSES
+    if (m.get('classes') != list(MISSION_CLASSES) or
+            any(m['models'][name].get('started_utc') != run for name, run in MODELS.items())):
+        raise ValueError('El paquete no trae el checkpoint ni las clases (persona y vehículo) de este código: '
                          'regenerar el paquete con benchmark pack.')
     for rel, checksum in m['files'].items():
         path = inside(root, rel)

@@ -1,8 +1,8 @@
-"""Clases de la misión (persona y vehículo) y evaluación agrupada sin reentrenar.
+"""Evaluación con las clases de la misión (persona y vehículo).
 
-El detector conserva sus 10 clases VisDrone; predicciones y etiquetas se reagrupan después
-de la inferencia. El emparejamiento y el AP replican al validador de Ultralytics para que la
-variante de 10 clases reproduzca las métricas registradas en run.json.
+Los modelos reentrenados ya predicen las 2 clases. El de línea base predice las 10 de VisDrone y
+sus predicciones se reagrupan después de la inferencia. El emparejamiento y el AP replican al
+validador de Ultralytics para que la variante de 10 clases reproduzca las métricas de run.json.
 """
 from __future__ import annotations
 
@@ -16,6 +16,11 @@ from .data import CLASSES, MISSION_CLASSES, MISSION_GROUPS
 from .data import TO_MISSION as _TO_MISSION
 
 TO_MISSION = np.array(_TO_MISSION)
+
+
+def to_mission(cls: np.ndarray, nc: int) -> np.ndarray:
+    """Índices de un espacio de nc clases a clases de la misión (las 10 de VisDrone se agrupan)."""
+    return TO_MISSION[cls] if nc == len(CLASSES) else cls
 IOUV = np.linspace(0.5, 0.95, 10)
 CONF_GRID = (0.05, 0.1, 0.15, 0.25, 0.4, 0.5)
 # Lado equivalente sqrt(w*h) de cada objeto medido en la entrada de la red, en píxeles.
@@ -118,13 +123,16 @@ def _ratio(a, b):
     return float(a / b) if b else None
 
 
-def evaluate_samples(samples, *, merge_iou=0.7, conf_grid=CONF_GRID) -> dict:
-    """samples: (pred_boxes, conf, pred_cls10, gt_boxes, gt_cls10, gt_side_px) por imagen."""
-    variants = {"visdrone10": Stats(CLASSES, conf_grid), "mision": Stats(MISSION_CLASSES, conf_grid), "mision_fusion": Stats(MISSION_CLASSES, conf_grid)}
+def evaluate_samples(samples, *, pred_nc=len(CLASSES), gt_nc=len(CLASSES), merge_iou=0.7, conf_grid=CONF_GRID) -> dict:
+    """samples: (pred_boxes, conf, pred_cls, gt_boxes, gt_cls, gt_side_px) por imagen, con pred_nc y gt_nc clases."""
+    variants = {"mision": Stats(MISSION_CLASSES, conf_grid), "mision_fusion": Stats(MISSION_CLASSES, conf_grid)}
+    if pred_nc == gt_nc == len(CLASSES):
+        variants["visdrone10"] = Stats(CLASSES, conf_grid)
     for boxes, conf, cls, gt_boxes, gt_cls, sides in samples:
         bins = size_bins(sides)
-        variants["visdrone10"].add(boxes, conf, cls, gt_boxes, gt_cls, bins)
-        grouped, gt_grouped = TO_MISSION[cls], TO_MISSION[gt_cls]
+        if "visdrone10" in variants:
+            variants["visdrone10"].add(boxes, conf, cls, gt_boxes, gt_cls, bins)
+        grouped, gt_grouped = to_mission(cls, pred_nc), to_mission(gt_cls, gt_nc)
         variants["mision"].add(boxes, conf, grouped, gt_boxes, gt_grouped, bins)
         keep = merge_duplicates(boxes, conf, grouped, merge_iou)
         variants["mision_fusion"].add(boxes[keep], conf[keep], grouped[keep], gt_boxes, gt_grouped, bins)
@@ -139,6 +147,7 @@ def evaluate_run(root: Path, run: Path, *, split="val", device=None, merge_iou=0
     """
     import torch
     import ultralytics
+    import yaml
     from ultralytics import YOLO
     from ultralytics.models.yolo.detect import DetectionValidator
     if split not in ("val", "test"):
@@ -162,11 +171,14 @@ def evaluate_run(root: Path, run: Path, *, split="val", device=None, merge_iou=0
                 captured.append((pred["bboxes"].cpu().numpy().astype(float), pred["conf"].cpu().numpy().astype(float), pred["cls"].cpu().numpy().astype(int), gt_boxes, gt["cls"].cpu().numpy().astype(int), sides))
 
     began = time.perf_counter()
-    official = YOLO(str(weights)).val(validator=CaptureValidator, data=settings["data_yaml"], split=split, imgsz=settings["imgsz"], batch=settings["batch"], workers=settings["workers"], device=device, plots=False, verbose=False, project=str(out), name="ultralytics_val", exist_ok=True)
+    model = YOLO(str(weights))
+    pred_nc = len(model.names)
+    gt_nc = len(yaml.safe_load(Path(settings["data_yaml"]).read_text(encoding="utf-8"))["names"])
+    official = model.val(validator=CaptureValidator, data=settings["data_yaml"], split=split, imgsz=settings["imgsz"], batch=settings["batch"], workers=settings["workers"], device=device, plots=False, verbose=False, project=str(out), name="ultralytics_val", exist_ok=True)
     scratch = out / "ultralytics_val"
     if scratch.is_dir() and not any(scratch.iterdir()):
         scratch.rmdir()
-    variants = evaluate_samples(captured, merge_iou=merge_iou)
+    variants = evaluate_samples(captured, pred_nc=pred_nc, gt_nc=gt_nc, merge_iou=merge_iou)
     reference = info.get("metrics", {}) if split == "val" else {}
     result = {
         "run": run.name,
@@ -182,7 +194,8 @@ def evaluate_run(root: Path, run: Path, *, split="val", device=None, merge_iou=0
         "reference_run_json": {k: reference.get(k) for k in ("map50", "map50_95")},
         "reference_ultralytics_now": {"map50": float(official.box.map50), "map50_95": float(official.box.map)},
         "variants": variants,
-        "note": "Evaluación agrupada post hoc del modelo de 10 clases; no reemplaza un reentrenamiento. Métricas estilo Ultralytics; no es el evaluador oficial de VisDrone.",
+        "note": ("Evaluación agrupada post hoc del modelo de 10 clases; no reemplaza un reentrenamiento." if pred_nc == len(CLASSES)
+                 else "Modelo entrenado con las clases de la misión.") + " Métricas estilo Ultralytics; no es el evaluador oficial de VisDrone.",
     }
     (out / f"{split}.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
     (out / f"{split}.md").write_text(markdown(result), encoding="utf-8")
@@ -201,7 +214,8 @@ def markdown(result: dict, conf=0.25) -> str:
              "| Variante | mAP50 | mAP50-95 |", "|---|---:|---:|"]
     labels = {"visdrone10": "10 clases VisDrone (control)", "mision": "Misión, agrupado directo", "mision_fusion": f"Misión, agrupado + fusión IoU {result['protocol']['merge_iou']}"}
     for key, label in labels.items():
-        lines.append(f"| {label} | {_pct(v[key]['map50'])} | {_pct(v[key]['map50_95'])} |")
+        if key in v:
+            lines.append(f"| {label} | {_pct(v[key]['map50'])} | {_pct(v[key]['map50_95'])} |")
     now = result["reference_ultralytics_now"]
     lines += ["", f"Control: el validador de Ultralytics en esta misma pasada dio mAP50 {_pct(now['map50'])} y mAP50-95 {_pct(now['map50_95'])}."]
     if ref.get("map50") is not None:

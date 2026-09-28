@@ -126,7 +126,7 @@ Si el PyTorch preinstalado funciona, no lo reinstales. Si `torch.cuda.is_availab
 
 `informe/informe_tp4_obc.pdf` es la versión 1, escrita a mano, y se conserva como referencia histórica.
 
-Evaluaciones orientadas a la misión (persona, vehículo, dos ruedas), sin reentrenar:
+Evaluaciones con las clases de la misión (persona y vehículo). Sirven para los modelos de 2 clases y para la línea base de 10 clases, que se reagrupa después de la inferencia:
 
 ```powershell
 .venv/Scripts/python.exe -m tp4.cli mission runs/full/ID      # clases agrupadas en DET val
