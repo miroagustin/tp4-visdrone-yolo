@@ -10,16 +10,16 @@ sources:
     resource: ../../BENCHMARK_OBC.md
 ---
 
-Ya se completaron la evaluación por clases de la misión, la de resolución y mosaicos, la de detección por pasada en VisDrone-VID y el reentrenamiento con las dos clases a 1280 px (tarea 8), que cambia el modelo del benchmark. La tabla ordena el trabajo pendiente. Cada tarea tiene un entregable verificable, de modo que cualquier integrante pueda comprobar si está terminada sin depender de quien la ejecutó.
+Ya se completaron la evaluación por clases de la misión, la de resolución y mosaicos, la de detección por pasada en VisDrone-VID, el reentrenamiento con las dos clases a 1280 px (tarea 8) y el benchmark oficial en Raspberry Pi 5. La tabla distingue esa ejecución de la aún pendiente en Jetson. Cada tarea tiene un entregable verificable.
 
 | # | Tarea | Responsable | Criterio de aceptación |
 |---|---|---|---|
 | 1 | Publicar el código del benchmark y distribuir el ZIP y su `.sha256` | Coordinación | Ambos equipos trabajan sobre el mismo *commit* y el checksum verifica. |
-| 2 | Preparar el entorno y generar el diagnóstico | Cada equipo | `doctor.json` con ARM64, Python de 64 bits y versiones; en Jetson, versión de L4T/JetPack. |
-| 3 | Exportar el modelo optimizado | Cada equipo | El motor se construye en la propia placa y pasa la prueba de carga e inferencia. |
-| 4 | Ejecutar la prueba corta (`--quick`) | Cada equipo | Termina con `status: finished`. |
-| 5 | Ejecutar el benchmark oficial | Cada equipo | Seis mediciones completas, 300 paneles por modelo, telemetría presente, fuente y refrigeración registradas. |
-| 6 | Comparación conjunta | Coordinación | `informe.html` se abre en otra computadora sin red; diagnósticos e intentos incompletos excluidos. |
+| 2 | Preparar el entorno y generar el diagnóstico | Cada equipo | **Raspberry Pi 5: hecho.** Jetson: pendiente. `doctor.json` con ARM64, Python de 64 bits y versiones; en Jetson, versión de L4T/JetPack. |
+| 3 | Exportar el modelo optimizado | Cada equipo | **Raspberry Pi 5: NCNN exportado y probado.** Jetson/TensorRT: pendiente. |
+| 4 | Ejecutar la prueba corta (`--quick`) | Cada equipo | **Raspberry Pi 5: hecho.** Jetson: pendiente. Termina con `status: finished`. |
+| 5 | Ejecutar el benchmark oficial | Cada equipo | **Raspberry Pi 5: hecho.** Jetson: pendiente. Seis mediciones completas, 300 paneles por modelo, telemetría presente, fuente y refrigeración registradas. |
+| 6 | Comparación conjunta | Coordinación | **Informe parcial de Raspberry Pi 5: hecho; comparación con Jetson: pendiente.** `informe.html` se abre en otra computadora sin red; diagnósticos e intentos incompletos excluidos. |
 | 7 | Agregar 1280 px y mosaicos al benchmark de placas | Coordinación y cada equipo | FPS, latencia p95 y memoria de cada variante en Jetson y Raspberry Pi 5, con el mismo protocolo. |
 | 8 | Reentrenar con las dos clases de la misión y entrada de 1280 px | Coordinación | **Hecho.** Comparado con la evaluación a 1280 px sin reentrenar, en DET val y en las secuencias limpias de VID: ver [reentrenamiento](../experimentos/reentrenamiento-1280.md). |
 | 9 | Ampliar la evaluación en video sin fuga | Coordinación | Secuencias de VID de test-dev cuyo video no esté en el entrenamiento de DET, para tener más objetos limpios. |
