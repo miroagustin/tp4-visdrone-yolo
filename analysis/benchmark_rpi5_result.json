@@ -1,0 +1,1481 @@
+{
+  "schema": 1,
+  "status": "finished",
+  "official": true,
+  "platform": "rpi5",
+  "bundle_sha": "efedaa3c41744d3a62ce140fcdd9707939ed8941f80d0235dbb684b70d82f72f",
+  "protocol": {
+    "imgsz": 1280,
+    "batch": 1,
+    "rect": false,
+    "confidence": 0.25,
+    "iou": 0.7,
+    "max_det": 300,
+    "warmup": 50,
+    "repetitions": 3,
+    "seconds": 300,
+    "pause_seconds": 60,
+    "window_seconds": 10,
+    "sampling_seconds": 0.2,
+    "threads": 4,
+    "accuracy_confidence": 0.001
+  },
+  "environment": {
+    "timestamp": "2026-09-28T18:32:23.802364+00:00",
+    "system": "Linux-6.12.62+rpt-rpi-2712-aarch64-with-glibc2.41",
+    "architecture": "aarch64",
+    "python": "3.13.5 (main, Jun 25 2025, 18:55:22) [GCC 14.2.0]",
+    "bits": 64,
+    "board": "Raspberry Pi 5 Model B Rev 1.0",
+    "l4t": null,
+    "jetpack": null,
+    "power_mode": null,
+    "os_release": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.3\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\"",
+    "ram_bytes": 8454602752,
+    "swap_bytes": 2147467264,
+    "disk_free_bytes": 14292127744,
+    "packages": {
+      "ultralytics": "8.4.162",
+      "torch": "2.14.0+cpu",
+      "torchvision": "0.29.0+cpu",
+      "tensorrt": null,
+      "ncnn": "1.0.20260526",
+      "pnnx": "20260526",
+      "numpy": "2.5.2",
+      "psutil": "7.2.2",
+      "onnx": null,
+      "onnxslim": null,
+      "onnxruntime": null
+    },
+    "git_commit": "c1ed7e722be4dfcc161e013278faed54baa64b92",
+    "git_status": "?? benchmark_input/\n?? tp4_obc_bundle.zip.sha256"
+  },
+  "exports": {
+    "schema": 1,
+    "platform": "rpi5",
+    "bundle_sha": "efedaa3c41744d3a62ce140fcdd9707939ed8941f80d0235dbb684b70d82f72f",
+    "models": {
+      "optimized": {
+        "path": "yolo26n/yolo26n_ncnn_model",
+        "settings": {
+          "format": "ncnn",
+          "imgsz": 1280,
+          "batch": 1,
+          "device": "cpu"
+        },
+        "effective": {
+          "backend": "NCNNBackend",
+          "device": "cpu",
+          "input_fp16": false,
+          "torch_threads": 3,
+          "opencv_threads": 1,
+          "torch_cuda": null,
+          "gpu": null,
+          "torch_matmul_tf32": false,
+          "torch_cudnn_tf32": true,
+          "ncnn_options": {
+            "num_threads": 4,
+            "use_vulkan_compute": false,
+            "use_fp16_packed": true,
+            "use_fp16_storage": true,
+            "use_fp16_arithmetic": true
+          }
+        },
+        "files": {
+          "__pycache__/model_pnnx.cpython-313.pyc": "25baab8d8636ef7590b7ae855aa566116923f766399c3704fdfa9b80aa262cb6",
+          "metadata.yaml": "342365640895ce14d5e83ceff918224df6b70c1dea8e101d756c67e8e05c94e3",
+          "model.ncnn.bin": "b53a96dfcb15b5b47abc5596aa39a819ad211afc11d42b3f1159aaab8f443e9d",
+          "model.ncnn.param": "cf5a506e242b925eb3957c849a16664dfea6bf1d5102a858b4dba0da9c9eacad",
+          "model_ncnn.py": "42639b2f173c55938fdbbf8aa03644d6491b4979123aed32c6746ab5e10f617f"
+        }
+      },
+      "pytorch": {
+        "path": "yolo26n.pt",
+        "files": {
+          "yolo26n.pt": "44c3d32a1056c38298f5248381861f7b9c9be7ba483ad9316b81221704a8c1b2"
+        },
+        "settings": {
+          "format": "pt",
+          "precision": "FP32"
+        }
+      }
+    },
+    "environment": {
+      "timestamp": "2026-09-28T17:22:56.307773+00:00",
+      "system": "Linux-6.12.62+rpt-rpi-2712-aarch64-with-glibc2.41",
+      "architecture": "aarch64",
+      "python": "3.13.5 (main, Jun 25 2025, 18:55:22) [GCC 14.2.0]",
+      "bits": 64,
+      "board": "Raspberry Pi 5 Model B Rev 1.0",
+      "l4t": null,
+      "jetpack": null,
+      "power_mode": null,
+      "os_release": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.3\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\"",
+      "ram_bytes": 8454602752,
+      "swap_bytes": 2147467264,
+      "disk_free_bytes": 14368669696,
+      "packages": {
+        "ultralytics": "8.4.162",
+        "torch": "2.14.0+cpu",
+        "torchvision": "0.29.0+cpu",
+        "tensorrt": null,
+        "ncnn": "1.0.20260526",
+        "pnnx": "20260526",
+        "numpy": "2.5.2",
+        "psutil": "7.2.2",
+        "onnx": null,
+        "onnxslim": null,
+        "onnxruntime": null
+      },
+      "git_commit": "c1ed7e722be4dfcc161e013278faed54baa64b92",
+      "git_status": "?? benchmark_input/\n?? tp4_obc_bundle.zip.sha256"
+    }
+  },
+  "conditions": {
+    "power": "fuente USB-C Power Delivery 33 W",
+    "cooling": "disipador con ventilador"
+  },
+  "models": {
+    "pytorch": {
+      "repetitions": [
+        {
+          "images": 274,
+          "elapsed_seconds": 300.67117446500015,
+          "fps": 0.911294541246072,
+          "latency_median_ms": 1085.4425705001631,
+          "latency_p95_ms": 1113.3446011004708,
+          "rss_before_load_bytes": 264388608,
+          "rss_loaded_bytes": 303939584,
+          "rss_peak_bytes": 660668416,
+          "sensors_initial": {
+            "temperatures": {
+              "cpu-thermal": 50.15
+            },
+            "temperature_c": 50.15,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 6097764352,
+            "swap_used_bytes": 0
+          },
+          "sensors_final": {
+            "temperatures": {
+              "cpu-thermal": 59.5
+            },
+            "temperature_c": 59.5,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 5956239360,
+            "swap_used_bytes": 0
+          },
+          "throttle_before": "throttled=0x0",
+          "throttle_after": "throttled=0x0",
+          "tegrastats_available": false,
+          "effective": {
+            "backend": "PyTorchBackend",
+            "device": "cpu",
+            "input_fp16": false,
+            "torch_threads": 3,
+            "opencv_threads": 1,
+            "torch_cuda": null,
+            "gpu": null,
+            "torch_matmul_tf32": false,
+            "torch_cudnn_tf32": true
+          },
+          "windows": [
+            {
+              "start_seconds": 0,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 10,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 20,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 30,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 40,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 50,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 60,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 70,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 80,
+              "seconds": 10,
+              "fps": 1.0
+            },
+            {
+              "start_seconds": 90,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 100,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 110,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 120,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 130,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 140,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 150,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 160,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 170,
+              "seconds": 10,
+              "fps": 1.0
+            },
+            {
+              "start_seconds": 180,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 190,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 200,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 210,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 220,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 230,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 240,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 250,
+              "seconds": 10,
+              "fps": 1.0
+            },
+            {
+              "start_seconds": 260,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 270,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 280,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 290,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 300,
+              "seconds": 0.6711744650001492,
+              "fps": 1.489925573970961
+            }
+          ],
+          "scope": "FPS: archivos locales + detección; latencia: imagen decodificada a cajas en CPU."
+        },
+        {
+          "images": 273,
+          "elapsed_seconds": 300.6093135360006,
+          "fps": 0.908155495213244,
+          "latency_median_ms": 1085.2270820005288,
+          "latency_p95_ms": 1124.496672600435,
+          "rss_before_load_bytes": 264404992,
+          "rss_loaded_bytes": 303939584,
+          "rss_peak_bytes": 668155904,
+          "sensors_initial": {
+            "temperatures": {
+              "cpu-thermal": 62.8
+            },
+            "temperature_c": 62.8,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 6087393280,
+            "swap_used_bytes": 0
+          },
+          "sensors_final": {
+            "temperatures": {
+              "cpu-thermal": 66.1
+            },
+            "temperature_c": 66.1,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 5917622272,
+            "swap_used_bytes": 0
+          },
+          "throttle_before": "throttled=0x0",
+          "throttle_after": "throttled=0x0",
+          "tegrastats_available": false,
+          "effective": {
+            "backend": "PyTorchBackend",
+            "device": "cpu",
+            "input_fp16": false,
+            "torch_threads": 3,
+            "opencv_threads": 1,
+            "torch_cuda": null,
+            "gpu": null,
+            "torch_matmul_tf32": false,
+            "torch_cudnn_tf32": true
+          },
+          "windows": [
+            {
+              "start_seconds": 0,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 10,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 20,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 30,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 40,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 50,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 60,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 70,
+              "seconds": 10,
+              "fps": 1.0
+            },
+            {
+              "start_seconds": 80,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 90,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 100,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 110,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 120,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 130,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 140,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 150,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 160,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 170,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 180,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 190,
+              "seconds": 10,
+              "fps": 1.0
+            },
+            {
+              "start_seconds": 200,
+              "seconds": 10,
+              "fps": 0.8
+            },
+            {
+              "start_seconds": 210,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 220,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 230,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 240,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 250,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 260,
+              "seconds": 10,
+              "fps": 1.0
+            },
+            {
+              "start_seconds": 270,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 280,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 290,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 300,
+              "seconds": 0.6093135360006272,
+              "fps": 1.6411911781309427
+            }
+          ],
+          "scope": "FPS: archivos locales + detección; latencia: imagen decodificada a cajas en CPU."
+        },
+        {
+          "images": 274,
+          "elapsed_seconds": 300.0002436189998,
+          "fps": 0.9133325916494252,
+          "latency_median_ms": 1083.6495104999813,
+          "latency_p95_ms": 1111.7707784995218,
+          "rss_before_load_bytes": 264421376,
+          "rss_loaded_bytes": 303939584,
+          "rss_peak_bytes": 671186944,
+          "sensors_initial": {
+            "temperatures": {
+              "cpu-thermal": 63.35
+            },
+            "temperature_c": 63.35,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 6005637120,
+            "swap_used_bytes": 0
+          },
+          "sensors_final": {
+            "temperatures": {
+              "cpu-thermal": 65.55
+            },
+            "temperature_c": 65.55,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 5821530112,
+            "swap_used_bytes": 0
+          },
+          "throttle_before": "throttled=0x0",
+          "throttle_after": "throttled=0x0",
+          "tegrastats_available": false,
+          "effective": {
+            "backend": "PyTorchBackend",
+            "device": "cpu",
+            "input_fp16": false,
+            "torch_threads": 3,
+            "opencv_threads": 1,
+            "torch_cuda": null,
+            "gpu": null,
+            "torch_matmul_tf32": false,
+            "torch_cudnn_tf32": true
+          },
+          "windows": [
+            {
+              "start_seconds": 0,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 10,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 20,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 30,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 40,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 50,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 60,
+              "seconds": 10,
+              "fps": 1.0
+            },
+            {
+              "start_seconds": 70,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 80,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 90,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 100,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 110,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 120,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 130,
+              "seconds": 10,
+              "fps": 1.0
+            },
+            {
+              "start_seconds": 140,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 150,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 160,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 170,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 180,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 190,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 200,
+              "seconds": 10,
+              "fps": 1.0
+            },
+            {
+              "start_seconds": 210,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 220,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 230,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 240,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 250,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 260,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 270,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 280,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 290,
+              "seconds": 10,
+              "fps": 0.9
+            },
+            {
+              "start_seconds": 300,
+              "seconds": 0.00024361899977520807,
+              "fps": 4104.770157182811
+            }
+          ],
+          "scope": "FPS: archivos locales + detección; latencia: imagen decodificada a cajas en CPU."
+        }
+      ],
+      "accuracy": {
+        "precision": 0.716485659424144,
+        "recall": 0.5324695848935256,
+        "map50": 0.5750376634623188,
+        "map50_95": 0.31997864214523797,
+        "per_class": {
+          "persona": {
+            "precision": 0.6172338513448109,
+            "recall": 0.3183717972015264,
+            "map50": 0.34987087440714876,
+            "map50_95": 0.13940162148185545
+          },
+          "vehiculo": {
+            "precision": 0.8157374675034772,
+            "recall": 0.7465673725855247,
+            "map50": 0.8002044525174888,
+            "map50_95": 0.5005556628086205
+          }
+        },
+        "evaluator": "Ultralytics; no es el evaluador oficial de VisDrone"
+      }
+    },
+    "optimized": {
+      "repetitions": [
+        {
+          "images": 936,
+          "elapsed_seconds": 300.0542038470003,
+          "fps": 3.1194363818254414,
+          "latency_median_ms": 310.4361274999974,
+          "latency_p95_ms": 323.53008599966415,
+          "rss_before_load_bytes": 264372224,
+          "rss_loaded_bytes": 296189952,
+          "rss_peak_bytes": 621166592,
+          "sensors_initial": {
+            "temperatures": {
+              "cpu-thermal": 58.4
+            },
+            "temperature_c": 58.4,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 6082101248,
+            "swap_used_bytes": 0
+          },
+          "sensors_final": {
+            "temperatures": {
+              "cpu-thermal": 66.65
+            },
+            "temperature_c": 66.65,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 6068748288,
+            "swap_used_bytes": 0
+          },
+          "throttle_before": "throttled=0x0",
+          "throttle_after": "throttled=0x0",
+          "tegrastats_available": false,
+          "effective": {
+            "backend": "NCNNBackend",
+            "device": "cpu",
+            "input_fp16": false,
+            "torch_threads": 3,
+            "opencv_threads": 1,
+            "torch_cuda": null,
+            "gpu": null,
+            "torch_matmul_tf32": false,
+            "torch_cudnn_tf32": true,
+            "ncnn_options": {
+              "num_threads": 4,
+              "use_vulkan_compute": false,
+              "use_fp16_packed": true,
+              "use_fp16_storage": true,
+              "use_fp16_arithmetic": true
+            }
+          },
+          "windows": [
+            {
+              "start_seconds": 0,
+              "seconds": 10,
+              "fps": 3.0
+            },
+            {
+              "start_seconds": 10,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 20,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 30,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 40,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 50,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 60,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 70,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 80,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 90,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 100,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 110,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 120,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 130,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 140,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 150,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 160,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 170,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 180,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 190,
+              "seconds": 10,
+              "fps": 3.0
+            },
+            {
+              "start_seconds": 200,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 210,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 220,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 230,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 240,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 250,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 260,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 270,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 280,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 290,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 300,
+              "seconds": 0.0542038470002808,
+              "fps": 18.44887504008377
+            }
+          ],
+          "scope": "FPS: archivos locales + detección; latencia: imagen decodificada a cajas en CPU."
+        },
+        {
+          "images": 928,
+          "elapsed_seconds": 300.1306953059993,
+          "fps": 3.091986306345155,
+          "latency_median_ms": 310.69256299997505,
+          "latency_p95_ms": 332.36088370008474,
+          "rss_before_load_bytes": 264388608,
+          "rss_loaded_bytes": 296189952,
+          "rss_peak_bytes": 617267200,
+          "sensors_initial": {
+            "temperatures": {
+              "cpu-thermal": 62.8
+            },
+            "temperature_c": 62.8,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 6066847744,
+            "swap_used_bytes": 0
+          },
+          "sensors_final": {
+            "temperatures": {
+              "cpu-thermal": 66.1
+            },
+            "temperature_c": 66.1,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 6042845184,
+            "swap_used_bytes": 0
+          },
+          "throttle_before": "throttled=0x0",
+          "throttle_after": "throttled=0x0",
+          "tegrastats_available": false,
+          "effective": {
+            "backend": "NCNNBackend",
+            "device": "cpu",
+            "input_fp16": false,
+            "torch_threads": 3,
+            "opencv_threads": 1,
+            "torch_cuda": null,
+            "gpu": null,
+            "torch_matmul_tf32": false,
+            "torch_cudnn_tf32": true,
+            "ncnn_options": {
+              "num_threads": 4,
+              "use_vulkan_compute": false,
+              "use_fp16_packed": true,
+              "use_fp16_storage": true,
+              "use_fp16_arithmetic": true
+            }
+          },
+          "windows": [
+            {
+              "start_seconds": 0,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 10,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 20,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 30,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 40,
+              "seconds": 10,
+              "fps": 3.0
+            },
+            {
+              "start_seconds": 50,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 60,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 70,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 80,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 90,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 100,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 110,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 120,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 130,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 140,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 150,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 160,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 170,
+              "seconds": 10,
+              "fps": 3.0
+            },
+            {
+              "start_seconds": 180,
+              "seconds": 10,
+              "fps": 3.0
+            },
+            {
+              "start_seconds": 190,
+              "seconds": 10,
+              "fps": 2.9
+            },
+            {
+              "start_seconds": 200,
+              "seconds": 10,
+              "fps": 2.9
+            },
+            {
+              "start_seconds": 210,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 220,
+              "seconds": 10,
+              "fps": 3.0
+            },
+            {
+              "start_seconds": 230,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 240,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 250,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 260,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 270,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 280,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 290,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 300,
+              "seconds": 0.13069530599932477,
+              "fps": 7.651384205069816
+            }
+          ],
+          "scope": "FPS: archivos locales + detección; latencia: imagen decodificada a cajas en CPU."
+        },
+        {
+          "images": 936,
+          "elapsed_seconds": 300.0946322630007,
+          "fps": 3.119016134816089,
+          "latency_median_ms": 310.4808809998758,
+          "latency_p95_ms": 320.02148899982785,
+          "rss_before_load_bytes": 264421376,
+          "rss_loaded_bytes": 296222720,
+          "rss_peak_bytes": 617807872,
+          "sensors_initial": {
+            "temperatures": {
+              "cpu-thermal": 65.55
+            },
+            "temperature_c": 65.55,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 6048219136,
+            "swap_used_bytes": 0
+          },
+          "sensors_final": {
+            "temperatures": {
+              "cpu-thermal": 67.75
+            },
+            "temperature_c": 67.75,
+            "cpu_mhz": 2400.0,
+            "ram_available_bytes": 6036652032,
+            "swap_used_bytes": 0
+          },
+          "throttle_before": "throttled=0x0",
+          "throttle_after": "throttled=0x0",
+          "tegrastats_available": false,
+          "effective": {
+            "backend": "NCNNBackend",
+            "device": "cpu",
+            "input_fp16": false,
+            "torch_threads": 3,
+            "opencv_threads": 1,
+            "torch_cuda": null,
+            "gpu": null,
+            "torch_matmul_tf32": false,
+            "torch_cudnn_tf32": true,
+            "ncnn_options": {
+              "num_threads": 4,
+              "use_vulkan_compute": false,
+              "use_fp16_packed": true,
+              "use_fp16_storage": true,
+              "use_fp16_arithmetic": true
+            }
+          },
+          "windows": [
+            {
+              "start_seconds": 0,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 10,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 20,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 30,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 40,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 50,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 60,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 70,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 80,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 90,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 100,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 110,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 120,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 130,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 140,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 150,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 160,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 170,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 180,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 190,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 200,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 210,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 220,
+              "seconds": 10,
+              "fps": 3.2
+            },
+            {
+              "start_seconds": 230,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 240,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 250,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 260,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 270,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 280,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 290,
+              "seconds": 10,
+              "fps": 3.1
+            },
+            {
+              "start_seconds": 300,
+              "seconds": 0.09463226300067618,
+              "fps": 10.567220610510548
+            }
+          ],
+          "scope": "FPS: archivos locales + detección; latencia: imagen decodificada a cajas en CPU."
+        }
+      ],
+      "accuracy": {
+        "precision": 0.7105624725366219,
+        "recall": 0.5319642857973549,
+        "map50": 0.5740827183189586,
+        "map50_95": 0.3172195285901684,
+        "per_class": {
+          "persona": {
+            "precision": 0.6038381766139763,
+            "recall": 0.31782664001453753,
+            "map50": 0.3471062464999264,
+            "map50_95": 0.13703281343902846
+          },
+          "vehiculo": {
+            "precision": 0.8172867684592674,
+            "recall": 0.7461019315801722,
+            "map50": 0.8010591901379909,
+            "map50_95": 0.49740624374130843
+          }
+        },
+        "evaluator": "Ultralytics; no es el evaluador oficial de VisDrone"
+      }
+    }
+  },
+  "reference": {
+    "models": {
+      "yolo26n": {
+        "precision": 0.7186243949495214,
+        "recall": 0.5315880212349067,
+        "map50": 0.5752248302396248,
+        "map50_95": 0.32015088913746237,
+        "per_class": {
+          "persona": {
+            "precision": 0.6204566153420333,
+            "recall": 0.3166705713049793,
+            "map50": 0.349991317670159,
+            "map50_95": 0.1393673213987915
+          },
+          "vehiculo": {
+            "precision": 0.8167921745570094,
+            "recall": 0.746505471164834,
+            "map50": 0.8004583428090906,
+            "map50_95": 0.5009344568761332
+          }
+        },
+        "evaluator": "Ultralytics; no es el evaluador oficial de VisDrone"
+      }
+    },
+    "environment": {
+      "timestamp": "2026-09-28T02:08:22.795614+00:00",
+      "system": "Windows-11-10.0.26200-SP0",
+      "architecture": "AMD64",
+      "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+      "bits": 64,
+      "board": null,
+      "l4t": null,
+      "jetpack": null,
+      "power_mode": null,
+      "os_release": null,
+      "ram_bytes": 34070192128,
+      "swap_bytes": 19958394880,
+      "disk_free_bytes": 84345745408,
+      "packages": {
+        "ultralytics": "8.4.162",
+        "torch": "2.13.0+cu130",
+        "torchvision": "0.28.0+cu130",
+        "tensorrt": null,
+        "ncnn": null,
+        "pnnx": null,
+        "numpy": "2.5.2",
+        "psutil": "7.2.2",
+        "onnx": null,
+        "onnxslim": null,
+        "onnxruntime": null
+      },
+      "git_commit": "2441c587c7416d42b8ae3de25e92451a03b60f4e",
+      "git_status": "M .gitignore\n M notebooks/01_visdrone_yolo.ipynb\n M tests/test_benchmark.py\n M tests/test_mission.py\n M tests/test_video.py\n M tp4/bench_common.py\n M tp4/demo_video.py\n M tp4/inference.py\n M tp4/mission.py\n M tp4/notebook_view.py\n M tp4/video.py\n M wiki/experimentos/protocolo-entrenamiento.md\n M wiki/mision/clases.md\n M wiki/plan/riesgos.md\n M wiki/plan/tareas.md\n?? runs/full/20260925T015117Z/\n?? runs/full/20260927T215941Z/\n?? runs/full/20260928T003017Z/"
+    }
+  },
+  "gallery": [
+    "images/test/9999973_00000_d_0000054.jpg",
+    "images/test/0000347_02000_d_0000052.jpg",
+    "images/test/0000074_06746_d_0000013.jpg",
+    "images/test/9999986_00000_d_0000020.jpg",
+    "images/test/9999938_00000_d_0000312.jpg",
+    "images/test/9999938_00000_d_0000250.jpg",
+    "images/test/9999938_00000_d_0000206.jpg",
+    "images/test/9999938_00000_d_0000034.jpg",
+    "images/test/9999986_00000_d_0000010.jpg",
+    "images/test/0000328_00150_d_0000019.jpg",
+    "images/test/9999973_00000_d_0000130.jpg",
+    "images/test/9999986_00000_d_0000018.jpg"
+  ],
+  "caveat": "YOLO26 observó imágenes de test-dev durante el seguimiento del entrenamiento."
+}

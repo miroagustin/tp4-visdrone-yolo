@@ -1,6 +1,8 @@
 .venv/
 weights/
 benchmark_artifacts/
+benchmark_input/
+tp4_obc_bundle.zip.sha256
 .ipynb_checkpoints/
 __pycache__/
 .pytest_cache/

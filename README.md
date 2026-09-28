@@ -1,6 +1,6 @@
 # TP4 · YOLO en VisDrone2019-DET
 
-Bonus de despliegue: [guía de benchmark OBC para Jetson y Raspberry Pi 5](BENCHMARK_OBC.md). Incluye paquete común, TensorRT/NCNN, medición de memoria/FPS y reporte comparativo autónomo.
+Bonus de despliegue: [guía de benchmark OBC para Jetson y Raspberry Pi 5](BENCHMARK_OBC.md). Incluye paquete común, TensorRT/NCNN, medición de memoria/FPS y reporte comparativo autónomo. La [Raspberry Pi 5 ya tiene resultados oficiales](wiki/obc/benchmark.md); Jetson sigue pendiente.
 
 Proyecto académico para detectar personas y vehículos en imágenes aéreas. Todo el TP (entrenamiento, evaluación local y placas) usa las mismas dos clases: **persona** y **vehiculo**. El [notebook](notebooks/01_visdrone_yolo.ipynb) explica el proceso completo. `presentacion.html` es un recorrido autónomo de 8–10 minutos con artefactos guardados. **Un resultado smoke sólo verifica el pipeline; no demuestra calidad final.**
 

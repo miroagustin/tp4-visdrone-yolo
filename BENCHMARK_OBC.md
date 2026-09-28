@@ -28,6 +28,8 @@ El checkpoint proviene de `20260928T003017Z`: YOLO26n reentrenado con las clases
 
 Compartir el ZIP y su archivo `.sha256` por el medio acordado. El paquete original ya se genera localmente; las plataformas no necesitan descargar train, val ni el test completo.
 
+El paquete vigente también está publicado como dos archivos adjuntos en la [release v0.0.1](https://github.com/miroagustin/tp4-visdrone-yolo/releases/tag/v0.0.1): `tp4_obc_bundle.zip` y `tp4_obc_bundle.zip.sha256`. Verificar el checksum antes de extraerlo; no usar los paquetes anteriores de diez clases.
+
 ## 2. Inicio en cada plataforma
 
 Se supone Python instalado, acceso al repositorio y al ZIP. La herramienta requiere Python 3.10 o superior; verificar que la combinación elegida sea compatible con JetPack. Instalar paquetes del sistema solo cuando el diagnóstico identifique que faltan.
@@ -205,3 +207,10 @@ La comparación principal es **YOLO26 original frente a YOLO26 optimizado en cad
 - Se ejecutaron procesos reales de inferencia en CPU y anotación de dos imágenes en Windows, marcados como diagnóstico local. No se presentaron como cifras de Raspberry o Jetson.
 - El HTML sin resultados de placas se abrió en Edge sin solicitudes de red. La comparación con tablas y gráficos se comprobó con fixtures sintéticas en directorios temporales de tests.
 - La exportación y las mediciones físicas de TensorRT/NCNN corresponden a los equipos de las placas; aún no se han ejecutado aquí.
+
+### Resultado real en Raspberry Pi 5 — 28 de septiembre de 2026
+
+- Sobre el commit `c1ed7e7` y el paquete vigente, el benchmark oficial terminó con tres mediciones de cinco minutos por variante y 300 paneles anotados por modelo. La fuente fue USB-C Power Delivery de 33 W y la refrigeración, un disipador con ventilador.
+- PyTorch FP32/CPU: **0,911 FPS**, mAP50 **57,50 %**, mAP50–95 **32,00 %**. NCNN/CPU con cuatro hilos: **3,110 FPS**, mAP50 **57,41 %**, mAP50–95 **31,72 %**. NCNN aceleró **3,41 veces** y perdió **0,276 puntos porcentuales** de mAP50–95 frente al `.pt` en la misma placa.
+- La temperatura máxima muestreada fue **69,4 °C** y `vcgencmd get_throttled` permaneció en `0x0`. El objetivo operativo de **5 FPS** no se alcanzó en esta Raspberry. La evaluación usa `max_det=300`, aunque una imagen contiene 333 objetos; esto puede limitar el recall medido.
+- Evidencia versionada: [resultado JSON](analysis/benchmark_rpi5_result.json), [comparación CSV](analysis/benchmark_rpi5.csv), [entorno Python](analysis/benchmark_rpi5_requirements.txt), [checksum del ZIP](resultados_rpi5.zip.sha256) y [análisis en la wiki](wiki/obc/benchmark.md). El [ZIP completo y el informe HTML](https://github.com/alanblanco3223/tp4-visdrone-yolo/releases/tag/v0.0.2-rpi5) se adjuntan a la release por su tamaño. Jetson sigue pendiente.

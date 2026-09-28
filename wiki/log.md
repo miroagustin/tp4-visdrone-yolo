@@ -10,6 +10,7 @@ title: Historial del TP4
 - **Reentrenamiento** de YOLO11n (`20260927T215941Z`) y YOLO26n (`20260928T003017Z`) con persona y vehículo a 1280 px: mAP50 de la misión de 69,3 % y 69,9 %, y 89 % de las personas detectadas por pasada a 5 FPS con YOLO26n, por encima del objetivo. Ver [reentrenamiento](experimentos/reentrenamiento-1280.md).
 - **Evaluación** de misión, resolución, video y demo con los modelos reentrenados. Los evaluadores distinguen modelos de 2 y de 10 clases, así la línea base sigue siendo comparable.
 - **Paquete de benchmark OBC** `package_20260928T020732595419Z` con YOLO26n reentrenado; el código rechaza paquetes con otro checkpoint u otras clases. Ver [benchmark](obc/benchmark.md).
+- **Benchmark oficial en Raspberry Pi 5** con fuente USB-C PD de 33 W y disipador con ventilador: seis mediciones, 300 paneles por motor, sin *throttling*. PyTorch obtuvo 0,91 FPS y NCNN 3,11 FPS; el requisito de 5 FPS sigue pendiente. Ver [resultado](obc/benchmark.md) y [evidencia](experimentos/trazabilidad.md).
 - **Incidente**: el reloj de Windows retrocedió unas 3 horas durante el entrenamiento de YOLO26n. La duración registrada usa un reloj monotónico y es correcta; las horas de archivos e identificadores posteriores quedaron desplazadas.
 
 ## 2026-09-27
