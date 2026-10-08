@@ -226,6 +226,35 @@ def compare_runs(ctx, runs):
     display(Markdown("YOLO26n, 1280 px, persona y vehículo, semilla 42. Validación de DET (548 imágenes), métricas de Ultralytics."))
 
 
+def epochs_curve(ctx, run, reference):
+    """mAP@0.5 de validación por época (sirve con el run en curso) frente al valor final de un run de referencia."""
+    import csv
+    import matplotlib.pyplot as plt
+    path, ref = ctx["root"] / run / "train" / "results.csv", read_json(ctx["root"] / reference / "run.json")
+    if not path.exists() or not ref:
+        space()
+        return
+    with path.open(encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    epochs, map50 = [int(r["epoch"]) for r in rows], [float(r["metrics/mAP50(B)"]) * 100 for r in rows]
+    fig, ax = plt.subplots(figsize=(10, 3.8))
+    ax.plot(epochs, map50, color="#1f77b4", label="Desde cero (validación por época)")
+    ax.axhline(ref["metrics"]["map50"] * 100, color="#d62728", linestyle="--", label="Preentrenado en COCO, final (50 épocas)")
+    for e in (50, 100, epochs[-1]):
+        if e <= epochs[-1]:
+            ax.annotate(f"{map50[e - 1]:.1f} %".replace(".", ","), (e, map50[e - 1]), textcoords="offset points", xytext=(0, -16), ha="center")
+            ax.plot(e, map50[e - 1], "o", color="#1f77b4")
+    ax.set_xlabel("Época")
+    ax.set_ylabel("mAP@0.5 en val (%)")
+    ax.grid(alpha=0.3)
+    ax.legend(loc="lower right")
+    fig.tight_layout()
+    display(fig)
+    plt.close(fig)
+    display(Markdown(f"*Run desde cero con un plan de {read_json(ctx['root'] / run / 'run.json')['settings']['epochs']} épocas, "
+                     f"{epochs[-1]} completadas. Es la validación durante el entrenamiento, no un modelo final.*"))
+
+
 # ---------------------------------------------------------------- misión embarcada
 VARIANT_NAMES = {"full640": "Imagen completa 640 px", "full960": "Imagen completa 960 px", "full1280": "Imagen completa 1280 px",
                  "mosaicos": "Mosaicos nativos", "mosaicos1280": "Mosaicos nativos + 1280 px",
