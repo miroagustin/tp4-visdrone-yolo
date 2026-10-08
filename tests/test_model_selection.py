@@ -21,6 +21,15 @@ def test_flag_resolution(tmp_path, monkeypatch, configured, override, expected):
     assert settings["use_yolo26"] == (expected == "yolo26n.pt")
 
 
+def test_from_scratch_uses_architecture_yaml(tmp_path, monkeypatch):
+    monkeypatch.setattr("tp4.experiment.load_config", lambda root: {
+        "use_yolo26": True, "pretrained": False, "data_dir": "data", "runs_dir": "runs",
+        "profiles": {"full": {"epochs": 50, "batch": 4, "imgsz": 640}},
+    })
+    settings = resolve(tmp_path, "full")
+    assert settings["model"] == "yolo26n.yaml"
+    assert settings["pretrained"] is False
+
 def test_resume_preserves_original_model_and_configuration(tmp_path, monkeypatch):
     run = tmp_path / "runs" / "full" / "original"
     checkpoint = run / "train" / "weights" / "last.pt"

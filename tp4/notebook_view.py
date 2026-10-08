@@ -91,7 +91,7 @@ def protocol(ctx):
         space()
         return
     s = info["settings"]
-    table(["Variable", "Configuración experimental"], [("Modelo / inicialización", f"{s['model']} · pesos preentrenados COCO"),
+    table(["Variable", "Configuración experimental"], [("Modelo / inicialización", f"{s['model']} · " + ("pesos preentrenados COCO" if s.get('pretrained', True) else "desde cero (pesos aleatorios)")),
           ("Épocas configuradas", s['epochs']),
           ("Train / val", f"{s.get('train_images') or 'split completo'} / {s.get('val_images') or 'split completo'} imágenes"),
           ("Resolución / batch / semilla", f"{s['imgsz']} px / {s['batch']} / {s['seed']}"),
@@ -122,7 +122,7 @@ def runs_table(ctx):
             state = f"en curso · época {done} de {s['epochs']}" if live else f"incompleta · {done} épocas, sin cierre"
         else:
             state = "fallida"
-        rows.append((path.parent.name, s["model"].removesuffix(".pt"), f"{s['imgsz']} px", classes, state, pct(m.get("map50"))))
+        rows.append((path.parent.name, Path(s["model"]).stem, f"{s['imgsz']} px", classes, state, pct(m.get("map50"))))
     if not rows:
         space()
         return
@@ -198,7 +198,7 @@ def conclusion(ctx):
             f"Con {s['epochs']} épocas y {s['train_images']} imágenes train, mAP@0.5 fue **{m['map50']*100:.4f}%** sobre {s['val_images']} imágenes val. "
             "Este resultado es insuficiente para concluir utilidad en percepción robótica."))
     else:
-        display(Markdown(f"**Resultado de validación ({s['model'].removesuffix('.pt')}, {s['imgsz']} px, {len(m['per_class'])} clases):** mAP@0.5 **{m['map50']*100:.4f}%** y mAP@0.5:0.95 **{m['map50_95']*100:.4f}%**. "
+        display(Markdown(f"**Resultado de validación ({Path(s['model']).stem}, {s['imgsz']} px, {len(m['per_class'])} clases):** mAP@0.5 **{m['map50']*100:.4f}%** y mAP@0.5:0.95 **{m['map50_95']*100:.4f}%**. "
                          "Estos valores caracterizan la detección en el conjunto de validación. La diferencia entre ambos criterios refleja el efecto de exigir una localización más precisa."))
     test = read_json(ctx["run"] / "test_dev.json")
     if test:

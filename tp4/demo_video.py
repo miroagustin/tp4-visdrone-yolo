@@ -54,7 +54,7 @@ def render_demo(root: Path, run: Path, *, sequence="uav0000117_02622_v", variant
     from PIL import Image, ImageDraw
     from ultralytics import YOLO
     nc = len(YOLO(str(run / "train" / "weights" / "best.pt")).names)
-    model_name = json.loads((run / "run.json").read_text(encoding="utf-8"))["settings"]["model"].removesuffix(".pt").replace("yolo", "YOLO")
+    model_name = Path(json.loads((run / "run.json").read_text(encoding="utf-8"))["settings"]["model"]).stem.replace("yolo", "YOLO")
     base = vid_root(root)
     files = sorted((base / "sequences" / sequence).glob("*.jpg"))
     height0, width0 = cv2.imread(str(files[0])).shape[:2]

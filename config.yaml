@@ -1,5 +1,6 @@
 seed: 42
-use_yolo26: true  # false selecciona YOLO11n; ambos preentrenados en COCO
+use_yolo26: true  # false selecciona YOLO11n
+pretrained: false  # false: desde cero (arquitectura .yaml, pesos aleatorios); true: fine-tuning desde COCO (.pt)
 device: auto
 data_dir: data
 runs_dir: runs
@@ -7,5 +8,6 @@ epoch_preview: {enabled: true, confidence: 0.25}
 profiles:
   smoke: {epochs: 2, imgsz: 640, batch: 4, workers: 0, train_images: 128, val_images: 32}
   # 1280 px y persona/vehículo: la configuración de la misión. 8 workers casi duplican la velocidad a 1280.
-  full: {epochs: 50, imgsz: 1280, batch: 4, workers: 8, train_images: null, val_images: null}
+  # patience: corta si mAP no mejora en N épocas (Ultralytics usa 100 por defecto).
+  full: {epochs: 200, patience: 30, imgsz: 1280, batch: 4, workers: 8, train_images: null, val_images: null}
   presentation: {train: false}

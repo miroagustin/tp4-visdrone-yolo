@@ -67,7 +67,7 @@ def pack(args):
     for name, run_id in MODELS.items():
         run = ROOT / 'runs/full' / run_id
         info = read_json(run / 'run.json')
-        if info['status'] != 'finished' or info['settings']['model'] != f'{name}.pt':
+        if info['status'] != 'finished' or Path(info['settings']['model']).stem != name:
             raise ValueError(f'Checkpoint no aceptado: {run}')
         shutil.copy2(run / 'train/weights/best.pt', bundle / f'models/{name}.pt')
         provenance[name] = info

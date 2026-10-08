@@ -32,7 +32,8 @@ def resolve(root: Path, profile: str, *, batch: int | None = None, imgsz: int | 
     if not isinstance(selected, bool):
         raise ValueError("use_yolo26 debe ser true o false")
     result["use_yolo26"] = selected
-    result["model"] = "yolo26n.pt" if selected else "yolo11n.pt"
+    result["pretrained"] = config.get("pretrained", True)
+    result["model"] = ("yolo26n" if selected else "yolo11n") + (".pt" if result["pretrained"] else ".yaml")
     if batch is not None:
         result["batch"] = batch
     if imgsz is not None:
@@ -125,7 +126,7 @@ def train(root: Path, profile="smoke", *, batch=None, imgsz=None, use_yolo26=Non
     try:
         from .epoch_preview import attach_epoch_preview
         attach_epoch_preview(model, settings, path)
-        model.train(data=settings["data_yaml"], epochs=settings["epochs"], imgsz=settings["imgsz"], batch=settings["batch"], workers=settings["workers"], seed=settings["seed"], device=device, project=str(path), name="train", exist_ok=True, plots=True, resume=bool(resume))
+        model.train(data=settings["data_yaml"], epochs=settings["epochs"], patience=settings.get("patience", 100), imgsz=settings["imgsz"], batch=settings["batch"], workers=settings["workers"], seed=settings["seed"], device=device, project=str(path), name="train", exist_ok=True, plots=True, pretrained=settings.get("pretrained", True), resume=bool(resume))
         best = path / "train" / "weights" / "best.pt"
         if not best.exists():
             raise RuntimeError(f"No se creó {best}")
