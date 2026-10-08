@@ -6,7 +6,7 @@ tags: [informe, unlam]
 status: stable
 generated: { by: claude-code/claude-opus-5-5, at: 2026-09-28T02:30:00Z }
 version: 3
-subtitulo: "Comparación YOLO11n / YOLO26n sobre VisDrone, reentrenamiento con las clases de la misión y plan de benchmark en computadoras de a bordo (OBC) con y sin GPU"
+subtitulo: "Comparación YOLO11n / YOLO26n sobre VisDrone, reentrenamiento con las clases de la misión y benchmark en Raspberry Pi 5"
 universidad: Universidad Nacional de La Matanza
 departamento: Departamento de Ingeniería e Investigaciones Tecnológicas
 materia: Visión Artificial

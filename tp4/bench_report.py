@@ -61,7 +61,8 @@ def compare(inputs, output):
                     with (folder/name/f'repeat_{j}'/'telemetry.csv').open() as f:
                         telemetry=list(csv.DictReader(f))
                     leg=f'{record["platform"]}/{name} r{j}'
-                    axes[0].plot([v['start_seconds'] for v in rep['windows']], [v['fps'] for v in rep['windows']], label=leg)
+                    measured=[v for v in rep['windows'] if v['start_seconds'] < record['protocol']['seconds']]
+                    axes[0].plot([v['start_seconds'] for v in measured], [v['fps'] for v in measured], label=leg)
                     axes[1].plot([float(v['seconds']) for v in telemetry],[float(v['rss_bytes'])/2**20 for v in telemetry],label=leg)
                     temps=[v for v in telemetry if v['temperature_c']]
                     if temps: axes[2].plot([float(v['seconds']) for v in temps],[float(v['temperature_c']) for v in temps],label=leg)

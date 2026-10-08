@@ -9,6 +9,7 @@ from tp4.bench_common import (MODELS, PROTOCOL, check_platform, dataset_yaml, in
                               percentile, sha, verify_bundle, write_json)
 from tp4.benchmark import verify_exports
 from tp4.bench_report import compare
+from tp4.bench_worker import window_bucket
 
 
 def tiny_bundle(root):
@@ -66,6 +67,13 @@ def test_percentiles():
     assert percentile([40,10,30,20],.5)==25
     assert percentile([40,10,30,20],.95)==pytest.approx(38.5)
     with pytest.raises(ValueError):percentile([],.5)
+
+
+def test_final_inference_uses_last_measurement_window():
+    protocol=dict(seconds=300,window_seconds=10)
+    assert window_bucket(299.9,protocol)==29
+    assert window_bucket(300.001,protocol)==29
+    assert window_bucket(10,protocol)==1
 
 
 def test_no_platform_fallback(monkeypatch):

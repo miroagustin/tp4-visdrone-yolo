@@ -102,6 +102,11 @@ def predictor_for(artifact, platform, folder):
     return predictor, effective
 
 
+def window_bucket(elapsed, protocol):
+    last_measured = max(0, protocol['seconds'] - 1e-9)
+    return int(min(elapsed, last_measured) // protocol['window_seconds'])
+
+
 def performance(job):
     import cv2
     import psutil
@@ -139,7 +144,7 @@ def performance(job):
             del picture
             elapsed = time.perf_counter()-start
             latencies.append(latency)
-            bucket = int(elapsed // cfg['window_seconds'])
+            bucket = window_bucket(elapsed, cfg)
             windows[bucket] = windows.get(bucket, 0) + 1
             writer.writerow([count, path.name, elapsed, latency, detections])
             count += 1
