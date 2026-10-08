@@ -1,0 +1,35 @@
+{
+  "settings": {
+    "seed": 42,
+    "use_yolo26": true,
+    "pretrained": false,
+    "device": "auto",
+    "data_dir": "C:\\Users\\miroa\\OneDrive\\Documentos\\Repos\\tp4-visdrone-yolo\\data",
+    "runs_dir": "C:\\Users\\miroa\\OneDrive\\Documentos\\Repos\\tp4-visdrone-yolo\\runs",
+    "epoch_preview": {
+      "enabled": true,
+      "confidence": 0.25
+    },
+    "epochs": 200,
+    "patience": 30,
+    "imgsz": 1280,
+    "batch": 4,
+    "workers": 8,
+    "train_images": null,
+    "val_images": null,
+    "profile": "full",
+    "model": "yolo26n.yaml",
+    "data_yaml": "C:\\Users\\miroa\\OneDrive\\Documentos\\Repos\\tp4-visdrone-yolo\\data\\visdrone.yaml"
+  },
+  "versions": {
+    "python": "3.14.4",
+    "system": "Windows-11-10.0.26200-SP0",
+    "torch": "2.13.0+cu130",
+    "torchvision": "0.28.0+cu130",
+    "torch_cuda": "13.0",
+    "ultralytics": "8.4.162",
+    "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU"
+  },
+  "started_utc": "20261008T000831Z",
+  "status": "running"
+}

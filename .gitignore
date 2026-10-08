@@ -33,7 +33,7 @@ runs/full/*/mission_eval/video_cache/
 !runs/full/20260925T231501Z/mission_eval/*.json
 !runs/full/20260925T231501Z/mission_eval/*.md
 !runs/full/20260925T231501Z/mission_eval/demo_*.mp4
-# YOLO26n reentrenado (persona y vehículo, 1280 px): el modelo del informe y de las placas.
+# YOLO26n preentrenado en COCO (persona y vehículo, 1280 px): el control y el modelo medido en las placas.
 !runs/full/20260928T003017Z/run.json
 !runs/full/20260928T003017Z/latency.json
 !runs/full/20260928T003017Z/error_sample.json
@@ -50,3 +50,19 @@ runs/full/*/mission_eval/video_cache/
 !runs/full/20260927T215941Z/mission_eval/*.json
 !runs/full/20260927T215941Z/mission_eval/*.md
 !runs/full/20260925T015117Z/run.json
+# YOLO26n desde cero: 200 épocas (modelo del informe) y 50 épocas (base de comparación).
+!runs/full/20261008T000831Z/run.json
+!runs/full/20261008T000831Z/test_dev.json
+!runs/full/20261008T000831Z/latency.json
+!runs/full/20261008T000831Z/error_sample.json
+!runs/full/20261008T000831Z/error_gallery.jpg
+!runs/full/20261008T000831Z/train/results.png
+!runs/full/20261008T000831Z/train/results.csv
+!runs/full/20261008T000831Z/validation/confusion_matrix.png
+!runs/full/20261008T000831Z/validation/val_batch0_labels.jpg
+!runs/full/20261008T000831Z/validation/val_batch0_pred.jpg
+!runs/full/20261008T000831Z/mission_eval/*.json
+!runs/full/20261008T000831Z/mission_eval/*.md
+!runs/full/20261008T000831Z/mission_eval/demo_*.mp4
+!runs/full/20261006T222006Z/run.json
+!runs/full/20261006T222006Z/train/results.csv

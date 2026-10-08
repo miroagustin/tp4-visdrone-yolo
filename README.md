@@ -2,7 +2,7 @@
 
 Bonus de despliegue: [guía de benchmark OBC para Jetson y Raspberry Pi 5](BENCHMARK_OBC.md). Incluye paquete común, TensorRT/NCNN, medición de memoria/FPS y reporte comparativo autónomo. La [Raspberry Pi 5 ya tiene resultados oficiales](wiki/obc/benchmark.md); Jetson sigue pendiente.
 
-Proyecto académico para detectar personas y vehículos en imágenes aéreas. Todo el TP (entrenamiento, evaluación local y placas) usa las mismas dos clases: **persona** y **vehiculo**. El [notebook](notebooks/01_visdrone_yolo.ipynb) explica el proceso completo. `presentacion.html` es un recorrido autónomo de 8–10 minutos con artefactos guardados. **Un resultado smoke sólo verifica el pipeline; no demuestra calidad final.**
+Proyecto académico para detectar personas y vehículos en imágenes aéreas. Todo el TP (entrenamiento, evaluación local y placas) usa las mismas dos clases: **persona** y **vehiculo**. El [notebook](notebooks/01_visdrone_yolo.ipynb) explica el proceso completo. `presentacion.html` es un pitch autónomo de unos 8 minutos con artefactos guardados. **Un resultado smoke sólo verifica el pipeline; no demuestra calidad final.**
 
 ## Instalación local (Windows 11, GPU NVIDIA)
 
@@ -84,7 +84,7 @@ El flujo de edición es **notebook → presentación HTML**. No hay un script qu
 
 Conservá los metadatos de las celdas: `tags: ["presentation"]` incluye una celda en el HTML; `tags: ["detail"]` la reserva al notebook. Al agregar una celda en Colab, copiá una del mismo tipo y conservá sus metadatos, o asigná la etiqueta desde un editor que permita editar tags. Las celdas sin `presentation` no se exportan. Las celdas de instalación o entrenamiento no deben llevar esa etiqueta, porque el exportador ejecuta las celdas seleccionadas.
 
-Guion orientativo de nueve minutos: problema y objetivos (1:00), datos (1:30), metodología (1:00), resultados (2:00), errores y latencia (2:00), conclusiones (1:00), referencias y cierre (0:30). Las curvas, matriz y lotes completos sirven como respaldo para preguntas.
+Guion de 15 minutos como máximo entre presentación y notebook. Presentación, unos 8 minutos en 9 diapositivas: portada (0:45), problema y objetivo (1:00), método (1:00), desde cero frente a preentrenado (1:30), detección durante la pasada (1:00), demo (0:45), placa (0:45), conclusiones (0:45) y referencias (0:15). Notebook, hasta 4 minutos: predicciones por época, curvas y galería de errores. El resto queda para preguntas; las secciones de detalle del notebook sirven de respaldo.
 
 ## Google Colab
 

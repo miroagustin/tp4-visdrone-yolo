@@ -122,7 +122,8 @@ def runs_table(ctx):
             state = f"en curso · época {done} de {s['epochs']}" if live else f"incompleta · {done} épocas, sin cierre"
         else:
             state = "fallida"
-        rows.append((path.parent.name, Path(s["model"]).stem, f"{s['imgsz']} px", classes, state, pct(m.get("map50"))))
+        rows.append((path.parent.name, Path(s["model"]).stem + ("" if s.get("pretrained", True) else " desde cero"),
+                     f"{s['imgsz']} px", classes, state, pct(m.get("map50"))))
     if not rows:
         space()
         return
@@ -198,11 +199,31 @@ def conclusion(ctx):
             f"Con {s['epochs']} épocas y {s['train_images']} imágenes train, mAP@0.5 fue **{m['map50']*100:.4f}%** sobre {s['val_images']} imágenes val. "
             "Este resultado es insuficiente para concluir utilidad en percepción robótica."))
     else:
-        display(Markdown(f"**Resultado de validación ({Path(s['model']).stem}, {s['imgsz']} px, {len(m['per_class'])} clases):** mAP@0.5 **{m['map50']*100:.4f}%** y mAP@0.5:0.95 **{m['map50_95']*100:.4f}%**. "
-                         "Estos valores caracterizan la detección en el conjunto de validación. La diferencia entre ambos criterios refleja el efecto de exigir una localización más precisa."))
+        init = "preentrenado en COCO" if s.get("pretrained", True) else "desde cero"
+        display(Markdown(f"**Modelo final ({Path(s['model']).stem} {init}, {s['imgsz']} px, {len(m['per_class'])} clases):** "
+                         f"en validación, mAP@0.5 **{pct(m['map50'])}** y mAP@0.5:0.95 **{pct(m['map50_95'])}**."))
     test = read_json(ctx["run"] / "test_dev.json")
     if test:
-        display(Markdown(f"**Evaluación independiente en test-dev:** mAP@0.5 {test['map50']*100:.4f}%; mAP@0.5:0.95 {test['map50_95']*100:.4f}%."))
+        display(Markdown(f"**Test-dev, evaluado una sola vez:** mAP@0.5 **{pct(test['map50'])}** y mAP@0.5:0.95 **{pct(test['map50_95'])}**."))
+
+
+def compare_runs(ctx, runs):
+    """Validación de ejecuciones terminadas con el mismo protocolo; las épocas son las realizadas."""
+    rows = []
+    for label, rel in runs.items():
+        run = ctx["root"] / rel
+        info = read_json(run / "run.json")
+        if not info or info.get("status") != "finished":
+            continue
+        m, csv = info["metrics"], run / "train" / "results.csv"
+        epochs = len(csv.read_text(encoding="utf-8").splitlines()) - 1 if csv.exists() else info["settings"]["epochs"]
+        rows.append((label, epochs, pct(m["map50"]), pct(m["map50_95"]),
+                     pct(m["per_class"]["persona"]["map50"]), pct(m["per_class"]["vehiculo"]["map50"])))
+    if not rows:
+        space()
+        return
+    table(["Modelo", "Épocas", "mAP@0.5", "mAP@0.5:0.95", "mAP@0.5 persona", "mAP@0.5 vehículo"], rows)
+    display(Markdown("YOLO26n, 1280 px, persona y vehículo, semilla 42. Validación de DET (548 imágenes), métricas de Ultralytics."))
 
 
 # ---------------------------------------------------------------- misión embarcada
